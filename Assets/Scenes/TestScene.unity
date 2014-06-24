@@ -134,6 +134,7 @@ GameObject:
   - 4: {fileID: 1512276434}
   - 212: {fileID: 1512276433}
   - 114: {fileID: 1512276432}
+  - 61: {fileID: 1512276435}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -173,7 +174,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2fc403d1b66578b4ba2b6571cc500d27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1512276434
@@ -188,6 +189,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!61 &1512276435
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512276431}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 1.12333333, y: 1.33333337}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1720452082
 GameObject:
   m_ObjectHideFlags: 0

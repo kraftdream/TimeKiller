@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour
+{
 
     public float maxSpeed = 3.5f;
     private bool isFacingRight = true;
@@ -22,6 +23,15 @@ public class Controller : MonoBehaviour {
 
     void Update()
     {
+        #if UNITY_EDITOR
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 touchDeltaPosition = Input.mousePosition;
+            rawPosition = cam.ScreenToWorldPoint(touchDeltaPosition);
+            transform.Translate(rawPosition.x * Time.deltaTime, rawPosition.y * Time.deltaTime, 0);
+        }
+
+        #endif
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             Vector3 touchDeltaPosition = Input.GetTouch(0).position;
