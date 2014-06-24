@@ -64,7 +64,11 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
+<<<<<<< HEAD
   iPhoneBundleIdentifier: com.timekiller.den
+=======
+  iPhoneBundleIdentifier: com.game.timekiller
+>>>>>>> 706f38e8be6f8a0ccd98f1d340105c681c653dad
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 77639a3117fa63d4b96a0d8bb38384fc
