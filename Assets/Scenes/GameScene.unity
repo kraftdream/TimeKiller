@@ -316,6 +316,51 @@ Transform:
   - {fileID: 341802881}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1258020223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1258020225}
+  - 114: {fileID: 1258020224}
+  m_Layer: 0
+  m_Name: EnemyCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1258020224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1258020223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502ceeb701060884da81be7309b1593c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 1
+  delay: 1
+  maxEnemyCount: 5
+  enemies:
+  - {fileID: 100000, guid: 3d135e73ec021f6418ed7650d7dd5113, type: 2}
+  mainCamera: {fileID: 996785872}
+--- !u!4 &1258020225
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1258020223}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1262016677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1645,7 @@ GameObject:
   - 95: {fileID: 1837710135}
   m_Layer: 0
   m_Name: Hero
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1663,7 +1708,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1837710130}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Size: {x: 1.01666665, y: 1.33333337}
   m_Center: {x: 0, y: 0}
 --- !u!95 &1837710135
