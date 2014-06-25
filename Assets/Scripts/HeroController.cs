@@ -3,39 +3,57 @@ using System.Collections;
 
 public class HeroController : MonoBehaviour {
 
-    private Joystick joyStickLeft = null;
+    private enum axis { Left, Rigth, Up, Down };
+
+    public Joystick joyStickLeft;
+
+    private int[] moveAxis; //left, right, up, down
+
+    private Vector3 heroParams;
+    private Vector3 bordersParams;
+    private Vector3 textureParams;
 
 	[Range(1, 20)]
 	public float moveForce;
+    [Range(0, 1)]
+    public float borderLeftRightWitdh;
+    [Range(0, 1)]
+    public float borderUpDownWitdh;
 
-    void Start()
-    {
-        if (joyStickLeft == null)
-        {
-            GameObject objjoyStickLeft = GameObject.FindGameObjectWithTag("JoystickTag") as GameObject;
-            joyStickLeft = objjoyStickLeft.GetComponent<Joystick>();
-        }
+    void Awake() {
+        moveAxis = new[] { 1, 1, 1, 1 };
+
+		if (joyStickLeft == null)
+			Debug.LogError ("Please set the joystick prefab!");
     }
 
-    void Update()
-    {
-        Vector3 position = this.transform.position;
+    void Update() {
 
-        float xMovement = 0;
-        float yMovement = 0;
+        heroParams = transform.position;
+        bordersParams = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        textureParams = gameObject.GetComponent<SpriteRenderer>().bounds.size;
 
-		gameObject.transform.Translate (new Vector3 (joyStickLeft.position.x * Time.deltaTime * moveForce, joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
+        if (joyStickLeft.position.x > 0.0f && heroParams.x + textureParams.x / 2 > bordersParams.x - borderLeftRightWitdh)
+            moveAxis[(int)axis.Rigth] = 0;
+        else
+            moveAxis[(int)axis.Rigth] = 1;
 
-    }
+        if (joyStickLeft.position.x < 0.0f && heroParams.x - textureParams.x / 2 < borderLeftRightWitdh - bordersParams.x)
+            moveAxis[(int)axis.Left] = 0;
+        else
+            moveAxis[(int)axis.Left] = 1;
 
-    float joyStickInput(Joystick jstick)
-    {
-        Vector2 absJoyPos = new Vector2(Mathf.Abs(jstick.position.x),
-                                        Mathf.Abs(jstick.position.y));
+        if (joyStickLeft.position.y > 0.0f && heroParams.y + textureParams.y / 2 > bordersParams.y - borderUpDownWitdh)
+            moveAxis[(int)axis.Up] = 0;
+        else
+            moveAxis[(int)axis.Up] = 1;
 
-        int xDirection = (jstick.position.x > 0) ? 1 : -1;
-        int yDirection = (jstick.position.y > 0) ? 1 : -1;
+        if (joyStickLeft.position.y < 0.0f && heroParams.y - textureParams.y / 2 < borderUpDownWitdh - bordersParams.y)
+            moveAxis[(int)axis.Down] = 0;
+        else
+            moveAxis[(int)axis.Down] = 1;
 
-        return ((absJoyPos.x > absJoyPos.y) ? absJoyPos.x * xDirection : absJoyPos.y * yDirection);
-    }
+		if (joyStickLeft != null)
+            gameObject.transform.Translate(new Vector3(moveAxis[(int)axis.Left] * moveAxis[(int)axis.Rigth] * joyStickLeft.position.x * Time.deltaTime * moveForce, moveAxis[(int)axis.Up] * moveAxis[(int)axis.Down] * joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
+	}
 }
