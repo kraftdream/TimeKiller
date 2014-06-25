@@ -3,7 +3,10 @@ using System.Collections;
 
 public class HeroController : MonoBehaviour {
 
-    public Joystick joyStickLeft = null;
+    private Joystick joyStickLeft = null;
+
+	[Range(1, 20)]
+	public float moveForce;
 
     void Start()
     {
@@ -21,31 +24,8 @@ public class HeroController : MonoBehaviour {
         float xMovement = 0;
         float yMovement = 0;
 
-        if (joyStickLeft.position.x < 0) 
-        { 
-            xMovement = xMovement - 0.05f; 
-        } 
-        
-        if (joyStickLeft.position.x > 0)
-        {
-            xMovement = xMovement + 0.05f;
-        }
+		gameObject.transform.Translate (new Vector3 (joyStickLeft.position.x * Time.deltaTime * moveForce, joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
 
-        if (joyStickLeft.position.y < 0) 
-        { 
-            yMovement = yMovement - 0.05f; 
-        } 
-        
-        if (joyStickLeft.position.y > 0)
-        {
-            yMovement = yMovement + 0.05f;
-        }
-
-        position.x = position.x + xMovement;
-        position.y = position.y + yMovement;
-        this.transform.position = position;
-
-        Debug.Log("x " + joyStickLeft.position.x + ", y " + joyStickLeft.position.y);
     }
 
     float joyStickInput(Joystick jstick)
