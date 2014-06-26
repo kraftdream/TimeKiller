@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class GUIText: GUI
+public class GUIText: MyGUI
 {
     private const int GUI_LAYER = 8;
 
