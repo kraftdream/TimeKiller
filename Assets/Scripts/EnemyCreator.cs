@@ -17,7 +17,7 @@ public class EnemyCreator : MonoBehaviour {
 	{
 		// Start calling the Spawn function repeatedly after a delay .
 		InvokeRepeating("CreateEnemy", delay, time);
-		createdEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+		//createdEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 

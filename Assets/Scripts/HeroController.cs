@@ -124,4 +124,9 @@ public class HeroController : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
 	}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OnCollisionEnter HeroController");
+    }
 }
