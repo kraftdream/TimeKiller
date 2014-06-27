@@ -8,6 +8,7 @@ public class GUIText: MyGUI
 
     private GameObject _textObject;
     private TextMesh _textMesh;
+    private Animation _textAnimation;
     private ScreenPossition _currentScreenPosition;
 
     [SerializeField]
@@ -20,6 +21,9 @@ public class GUIText: MyGUI
     private ScreenPossition _screenPosition;
     [SerializeField]
     private string _valueText;
+    private string _currentValueText;
+    [SerializeField]
+    private AnimationClip _guiAnimation;
 
     [SerializeField]
     private float _marginLeft;
@@ -52,7 +56,7 @@ public class GUIText: MyGUI
 
     void Update()
     {
-        UpdateScreenPosition();
+        UpdateTextEvents();
     }
 
     void InitTextObject()
@@ -60,6 +64,10 @@ public class GUIText: MyGUI
         _textObject = new GameObject(_textObjectName);
         _textObject.transform.parent = transform;
         _textObject.layer = GUI_LAYER;
+        _textAnimation = _textObject.AddComponent<Animation>();
+        _textAnimation.playAutomatically = true;
+        _textAnimation.AddClip(_guiAnimation, _guiAnimation.name);
+
         _textMesh = _textObject.AddComponent<TextMesh>();
 
         _textMesh.font = _textFont;
@@ -67,6 +75,7 @@ public class GUIText: MyGUI
         _textMesh.characterSize = 0.1f;
         _textMesh.fontSize = _fontSize;
         _textMesh.anchor = TextAnchor.MiddleCenter;
+        _currentValueText = ValueText;
         SetText(ValueText);
     }
 
@@ -75,7 +84,7 @@ public class GUIText: MyGUI
         _textMesh.text = _text;
     }
 
-    void UpdateScreenPosition()
+    void UpdateTextEvents()
     {
         if (!_currentScreenPosition.Equals(ScreenPosition))
         {
@@ -83,5 +92,17 @@ public class GUIText: MyGUI
             SetTextScreenPosition(ScreenPosition, _textObject);
             SetMargins(new Margins(_marginLeft, _marginTop, _marginRight, _marginBottom), _textObject);
         }
+
+        if (!_currentValueText.EndsWith(ValueText))
+        {
+            _currentValueText = ValueText;
+            SetText(ValueText);
+            PlayAmination();
+        }
+    }
+
+    public void PlayAmination()
+    {
+        _textAnimation.PlayQueued(_guiAnimation.name);
     }
 }

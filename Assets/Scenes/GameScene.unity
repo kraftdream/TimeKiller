@@ -489,11 +489,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
-  _fontSize: 100
+  _fontSize: 80
   _textObjectName: Score
   _screenPosition: 0
   _valueText: 100
-  _marginLeft: .5
+  _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
+  _marginLeft: 1
   _marginTop: .5
   _marginRight: 0
   _marginBottom: 0
@@ -521,10 +522,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
-  _fontSize: 100
+  _fontSize: 80
   _textObjectName: Combo
   _screenPosition: 2
   _valueText: x10
+  _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
   _marginLeft: 0
   _marginTop: .5
   _marginRight: .5
