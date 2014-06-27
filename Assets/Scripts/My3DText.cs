@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Globalization;
 using UnityEngine;
 using System.Collections;
 
-public class GUIText: MyGUI
+public class My3DText: MyGUI
 {
+    //GUI Layer to camera render
     private const int GUI_LAYER = 8;
+    private const int MAX_FONT_SIZE_INDEX = 50;
 
     private GameObject _textObject;
     private TextMesh _textMesh;
@@ -13,32 +16,44 @@ public class GUIText: MyGUI
 
     [SerializeField]
     private Font _textFont;
+
     [SerializeField]
     private int _fontSize;
+
+    [SerializeField]
+    private int _defaultFontSize;
+
     [SerializeField]
     private string _textObjectName;
+
     [SerializeField]
     private ScreenPossition _screenPosition;
+
+    [SerializeField]
+    private float _value;
+
     [SerializeField]
     private string _valueText;
-    private string _currentValueText;
+
     [SerializeField]
     private AnimationClip _guiAnimation;
 
     [SerializeField]
     private float _marginLeft;
+
     [SerializeField]
     private float _marginTop;
+
     [SerializeField]
     private float _marginRight;
+
     [SerializeField]
     private float _marginBottom;
 
-
-    public ScreenPossition ScreenPosition
+    public float Value
     {
-        get { return _screenPosition; }
-        set { _screenPosition = value; }
+        get { return _value; }
+        set { _value = value; }
     }
 
     public string ValueText
@@ -47,16 +62,46 @@ public class GUIText: MyGUI
         set { _valueText = value; }
     }
 
+    public int MaxFontSize { get; set; }
+
+    public int FontSize
+	{
+		get { return _fontSize; }
+		set { _fontSize = value; }
+	}
+
+    public int DefaultFontSize
+    {
+		get { return _defaultFontSize; }
+		set { _defaultFontSize = value; }
+    }
+
+    public string TextObjectName
+    {
+        get { return _textObjectName; }
+        set { _textObjectName = value; }
+    }
+
+    public Animation TextAnimation
+    {
+        get { return _textAnimation; }
+        set { _textAnimation = value; }
+    }
+
+    public ScreenPossition ScreenPosition
+    {
+        get { return _screenPosition; }
+        set { _screenPosition = value; }
+    }
+
     void Awake ()
     {
         InitTextObject();
-        SetTextScreenPosition(ScreenPosition, _textObject);
-        SetMargins(new Margins(_marginLeft, _marginTop, _marginRight, _marginBottom), _textObject);
 	}
 
     void Update()
     {
-        UpdateTextEvents();
+        UpdateText();
     }
 
     void InitTextObject()
@@ -75,34 +120,42 @@ public class GUIText: MyGUI
         _textMesh.characterSize = 0.1f;
         _textMesh.fontSize = _fontSize;
         _textMesh.anchor = TextAnchor.MiddleCenter;
-        _currentValueText = ValueText;
-        SetText(ValueText);
+        MaxFontSize = FontSize + MAX_FONT_SIZE_INDEX;
+        DefaultFontSize = FontSize;
+
+        if (!string.IsNullOrEmpty(ValueText))
+            _textMesh.text = ValueText;
+		if (Value != -1)
+			_textMesh.text += Value;
     }
 
-    void SetText(String _text)
+    void UpdateText()
     {
-        _textMesh.text = _text;
-    }
-
-    void UpdateTextEvents()
-    {
-        if (!_currentScreenPosition.Equals(ScreenPosition))
+        if (!_textAnimation.isPlaying)
         {
-            _currentScreenPosition = ScreenPosition;
             SetTextScreenPosition(ScreenPosition, _textObject);
             SetMargins(new Margins(_marginLeft, _marginTop, _marginRight, _marginBottom), _textObject);
         }
 
-        if (!_currentValueText.EndsWith(ValueText))
-        {
-            _currentValueText = ValueText;
-            SetText(ValueText);
-            PlayAmination();
-        }
+        _textMesh.fontSize = FontSize;
+		if (!string.IsNullOrEmpty(ValueText) && Value != -1)
+			_textMesh.text = ValueText + Value;
+		if (string.IsNullOrEmpty(ValueText) && Value != -1)
+			_textMesh.text = Value.ToString();
+		if (!string.IsNullOrEmpty(ValueText) && Value == -1)
+			_textMesh.text = ValueText;
     }
 
     public void PlayAmination()
     {
-        _textAnimation.PlayQueued(_guiAnimation.name);
+        _textAnimation.Play(_guiAnimation.name);
+    }
+
+    public void StopAnimation()
+    {
+        if (_textAnimation != null)
+        {
+            _textAnimation.Stop();
+        }
     }
 }

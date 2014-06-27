@@ -91,9 +91,4 @@ public class MyGUI: MonoBehaviour
     {
         return Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
     }
-
-    public static void StartAmin(GameObject _gameObject)
-    {
-
-    }
 }

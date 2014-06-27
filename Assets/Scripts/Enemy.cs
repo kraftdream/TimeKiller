@@ -11,6 +11,15 @@ public class Enemy : MonoBehaviour
         get { return _maxDistance; }
         set { _maxDistance = value; }
     }
+
+    [SerializeField]
+    private int _scoreValue;
+
+    public int ScoreValue
+    {
+        get { return _scoreValue; }
+        set { _scoreValue = value; }
+    }
     #endregion
 
     private Transform _heroTarget;

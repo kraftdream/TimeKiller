@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 using System.Collections;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class HeroController : MonoBehaviour
 {
@@ -27,14 +29,34 @@ public class HeroController : MonoBehaviour
     [Range(0, 1)]
     public float borderUpDownWitdh;
 
+    [SerializeField]
+    private GameObject GUI;
+
+    private My3DText _scoreText;
+    private My3DText _comboText;
+
+    private float _comboTime;
+    private float _stopComboTime;
+
     void Awake() 
     {
         moveAxis = new[] { 1, 1, 1, 1 };
 
         heroAnimation = GetComponent<Animator>();
 
+        //combo will stop after 1 sec
+        _stopComboTime = 1.0f;
+
 		if (joyStickLeft == null)
 			Debug.LogError ("Please set the joystick prefab!");
+
+        foreach (My3DText guiScripts in GUI.GetComponents<My3DText>())
+        {
+            if (guiScripts.TextObjectName.Equals("Score"))
+                _scoreText = guiScripts;
+            if (guiScripts.TextObjectName.Equals("Combo"))
+                _comboText = guiScripts;
+        }
     }
 
     void Update()        
@@ -78,7 +100,15 @@ public class HeroController : MonoBehaviour
 
 		if (joyStickLeft != null)
             gameObject.transform.Translate(new Vector3(moveAxis[(int)axis.Left] * moveAxis[(int)axis.Rigth] * joyStickLeft.position.x * Time.deltaTime * moveForce, moveAxis[(int)axis.Up] * moveAxis[(int)axis.Down] * joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
-    }
+
+        //implement to stop combo
+        if (_comboTime + _stopComboTime < Time.time)
+        {
+			_comboText.StopAnimation();
+			_comboText.FontSize = _comboText.DefaultFontSize;
+			_comboText.Value = 0;
+        }
+	}
     
      private void ChangeAnimationPosition(float positionX, float positionY)
     {
@@ -124,8 +154,23 @@ public class HeroController : MonoBehaviour
         transform.localScale = theScale;
 	}
 
-    void OnCollisionEnter2D(Collision2D collision)
+    //Hero collision
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnCollisionEnter HeroController");
+        //if hero complete attack
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            var enemyScript = other.GetComponent<Enemy>();
+            _scoreText.Value = enemyScript.ScoreValue + _scoreText.Value + _comboText.Value;
+            _comboText.Value = _comboText.Value + 1;
+            _comboTime = Time.time;
+			_scoreText.PlayAmination();
+			_comboText.PlayAmination();
+
+			if (_comboText.FontSize < _comboText.MaxFontSize)
+				_comboText.FontSize += 10;
+        }
+        //if hero dead
+        //ToDO Hero dead
     }
 }
