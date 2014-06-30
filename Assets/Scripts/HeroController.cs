@@ -12,18 +12,18 @@ public class HeroController : MonoBehaviour
     private Animator heroAnimation;
     private bool isFacingRight = true;
 
-    private static string HERO_POSITION_X = "PositionX";
-    private static string HERO_POSITION_Y = "PositionY";
-    private static string HERO_TOP = "Top";
-    private static string HERO_BOTTOM = "Bottom";
+    private const string HERO_POSITION_X = "PositionX";
+    private const string HERO_POSITION_Y = "PositionY";
+    private const string HERO_TOP = "Top";
+    private const string HERO_BOTTOM = "Bottom";
     private int[] moveAxis; //left, right, up, down
 
     private Vector3 heroParams;
     private Vector3 bordersParams;
     private Vector3 textureParams;
 
-	[Range(1, 20)]
-	public float moveForce;
+    [Range(1, 20)]
+    public float moveForce;
     [Range(0, 1)]
     public float borderLeftRightWitdh;
     [Range(0, 1)]
@@ -38,7 +38,7 @@ public class HeroController : MonoBehaviour
     private float _comboTime;
     private float _stopComboTime;
 
-    void Awake() 
+    void Awake()
     {
         moveAxis = new[] { 1, 1, 1, 1 };
 
@@ -47,8 +47,8 @@ public class HeroController : MonoBehaviour
         //combo will stop after 1 sec
         _stopComboTime = 1.0f;
 
-		if (joyStickLeft == null)
-			Debug.LogError ("Please set the joystick prefab!");
+        if (joyStickLeft == null)
+            Debug.Log("Please set the joystick prefab!");
 
         foreach (My3DText guiScripts in GUI.GetComponents<My3DText>())
         {
@@ -59,20 +59,20 @@ public class HeroController : MonoBehaviour
         }
     }
 
-    void Update()        
+    void Update()
     {
-
         heroParams = transform.position;
         bordersParams = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         float positionX = joyStickLeft.position.x;
         float positionY = joyStickLeft.position.y;
+
         textureParams = gameObject.GetComponent<SpriteRenderer>().bounds.size;
 
         if (joyStickLeft.position.x > 0.0f && heroParams.x + textureParams.x / 2 > bordersParams.x - borderLeftRightWitdh)
             moveAxis[(int)axis.Rigth] = 0;
         else
             moveAxis[(int)axis.Rigth] = 1;
-            
+
         heroAnimation.SetFloat(HERO_POSITION_X, Mathf.Abs(positionX));
         heroAnimation.SetFloat(HERO_POSITION_Y, Mathf.Abs(positionY));
 
@@ -98,19 +98,18 @@ public class HeroController : MonoBehaviour
         else
             moveAxis[(int)axis.Down] = 1;
 
-		if (joyStickLeft != null)
+if (joyStickLeft != null)
             gameObject.transform.Translate(new Vector3(moveAxis[(int)axis.Left] * moveAxis[(int)axis.Rigth] * joyStickLeft.position.x * Time.deltaTime * moveForce, moveAxis[(int)axis.Up] * moveAxis[(int)axis.Down] * joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
+
 
         //implement to stop combo
         if (_comboTime + _stopComboTime < Time.time)
         {
 			_comboText.StopAnimation();
-			_comboText.FontSize = _comboText.DefaultFontSize;
-			_comboText.Value = 0;
-        }
 	}
-    
-     private void ChangeAnimationPosition(float positionX, float positionY)
+	}
+
+    private void ChangeAnimationPosition(float positionX, float positionY)
     {
         heroAnimation.SetBool(HERO_TOP, false);
         heroAnimation.SetBool(HERO_BOTTOM, false);
@@ -152,7 +151,7 @@ public class HeroController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-	}
+    }
 
     //Hero collision
     /*void OnTriggerEnter2D(Collider2D other)

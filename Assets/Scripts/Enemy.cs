@@ -36,7 +36,6 @@ public class Enemy : MonoBehaviour
 
     private Transform _heroTarget;
     private MoveScript _moveScript;
-	
 	void Awake()
     {
         _moveScript = gameObject.GetComponent<MoveScript>();

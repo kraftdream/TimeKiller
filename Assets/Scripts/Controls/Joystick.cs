@@ -201,157 +201,157 @@ public class Joystick : MonoBehaviour
 
     private void Update()
     {
-			int count = Input.touchCount;
+        int count = Input.touchCount;
 
-            /* Adjust the tap time window while it still available */
-            if (tapTimeWindow > 0)
-            {
-                tapTimeWindow -= Time.deltaTime;
-            }
-            else
-            {
-                tapCount = 0;
-            }
+        /* Adjust the tap time window while it still available */
+        if (tapTimeWindow > 0)
+        {
+            tapTimeWindow -= Time.deltaTime;
+        }
+        else
+        {
+            tapCount = 0;
+        }
 
-            if (count == 0)
+        if (count == 0)
+        {
+            Restart();
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
             {
-                Restart();
-            }
-            else
-            {
-                for (int i = 0; i < count; i++)
+                Touch touch = Input.GetTouch(i);
+                Vector2 guiTouchPos = touch.position - guiTouchOffset;
+
+                bool shouldLatchFinger = false;
+                if (touchPad && touchZone.Contains(touch.position))
                 {
-                    Touch touch = Input.GetTouch(i);
-                    Vector2 guiTouchPos = touch.position - guiTouchOffset;
+                    shouldLatchFinger = true;
+                }
+                else if (gui.HitTest(touch.position))
+                {
+                    shouldLatchFinger = true;
+                }
 
-                    bool shouldLatchFinger = false;
-                    if (touchPad && touchZone.Contains(touch.position))
-                    {
-                        shouldLatchFinger = true;
-                    }
-                    else if (gui.HitTest(touch.position))
-                    {
-                        shouldLatchFinger = true;
-                    }
+                /* Latch the finger if this is a new touch */
+                if (shouldLatchFinger && (lastFingerId == -1 || lastFingerId != touch.fingerId))
+                {
 
-                    /* Latch the finger if this is a new touch */
-                    if (shouldLatchFinger && (lastFingerId == -1 || lastFingerId != touch.fingerId))
+                    if (touchPad)
                     {
-
-                        if (touchPad)
+                        if (fadeGUI)
                         {
-                            if (fadeGUI)
-                            {
-                                gui.color = new Color(gui.color.r, gui.color.g, gui.color.b, 0.15f);
-                            }
-                            lastFingerId = touch.fingerId;
-                            fingerDownPos = touch.position;
-                            /*
-                             * Currently unused.
-                            fingerDownTime = Time.time;
-                            */
+                            gui.color = new Color(gui.color.r, gui.color.g, gui.color.b, 0.15f);
                         }
-
                         lastFingerId = touch.fingerId;
-
-                        /* Accumulate taps if it is within the time window */
-                        if (tapTimeWindow > 0)
-                        {
-                            tapCount++;
-                        }
-                        else
-                        {
-                            tapCount = 1;
-                            tapTimeWindow = tapTimeDelta;
-                        }
-
-                        /* Tell other joysticks we've latched this finger */
-                        foreach (Joystick j in joysticks)
-                        {
-                            if (j == this)
-                            {
-                                continue;
-                            }
-                            j.latchedFinger = touch.fingerId;
-                        }
+                        fingerDownPos = touch.position;
+                        /*
+                         * Currently unused.
+                        fingerDownTime = Time.time;
+                        */
                     }
 
-                    if (lastFingerId == touch.fingerId)
+                    lastFingerId = touch.fingerId;
+
+                    /* Accumulate taps if it is within the time window */
+                    if (tapTimeWindow > 0)
                     {
-                        /*
-                            Override the tap count with what the iOS SDK reports if it is greater.
-                            This is a workaround, since the iOS SDK does not currently track taps
-                            for multiple touches.
-                        */
-                        if (touch.tapCount > tapCount)
-                        {
-                            tapCount = touch.tapCount;
-                        }
+                        tapCount++;
+                    }
+                    else
+                    {
+                        tapCount = 1;
+                        tapTimeWindow = tapTimeDelta;
+                    }
 
-                        if (touchPad)
+                    /* Tell other joysticks we've latched this finger */
+                    foreach (Joystick j in joysticks)
+                    {
+                        if (j == this)
                         {
-                            /* For a touchpad, let's just set the position directly based on distance from initial touchdown */
-                            position = new Vector2
-                                (
-                                    Mathf.Clamp((touch.position.x - fingerDownPos.x) / (touchZone.width / 2), -1, 1),
-                                    Mathf.Clamp((touch.position.y - fingerDownPos.y) / (touchZone.height / 2), -1, 1)
-                                    );
+                            continue;
                         }
-                        else
-                        {
-                            /* Change the location of the joystick graphic to match where the touch is */
-                            gui.pixelInset = new Rect
-                                (
-                                    Mathf.Clamp(guiTouchPos.x, guiBoundary.min.x, guiBoundary.max.x),
-                                    Mathf.Clamp(guiTouchPos.y, guiBoundary.min.y, guiBoundary.max.y),
-                                    gui.pixelInset.width,
-                                    gui.pixelInset.height
-                                    );
-                        }
-
-                        if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                        {
-                            Restart();
-                        }
+                        j.latchedFinger = touch.fingerId;
                     }
                 }
 
+                if (lastFingerId == touch.fingerId)
+                {
+                    /*
+                        Override the tap count with what the iOS SDK reports if it is greater.
+                        This is a workaround, since the iOS SDK does not currently track taps
+                        for multiple touches.
+                    */
+                    if (touch.tapCount > tapCount)
+                    {
+                        tapCount = touch.tapCount;
+                    }
+
+                    if (touchPad)
+                    {
+                        /* For a touchpad, let's just set the position directly based on distance from initial touchdown */
+                        position = new Vector2
+                            (
+                                Mathf.Clamp((touch.position.x - fingerDownPos.x) / (touchZone.width / 2), -1, 1),
+                                Mathf.Clamp((touch.position.y - fingerDownPos.y) / (touchZone.height / 2), -1, 1)
+                                );
+                    }
+                    else
+                    {
+                        /* Change the location of the joystick graphic to match where the touch is */
+                        gui.pixelInset = new Rect
+                            (
+                                Mathf.Clamp(guiTouchPos.x, guiBoundary.min.x, guiBoundary.max.x),
+                                Mathf.Clamp(guiTouchPos.y, guiBoundary.min.y, guiBoundary.max.y),
+                                gui.pixelInset.width,
+                                gui.pixelInset.height
+                                );
+                    }
+
+                    if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                    {
+                        Restart();
+                    }
+                }
             }
 
-            if (!touchPad)
-            {
-                /* Get a value between -1 and 1 based on the joystick graphic location */
-                position = new Vector2
-                    (
-                        (gui.pixelInset.x + guiTouchOffset.x - guiCenter.x) / guiTouchOffset.x,
-                        (gui.pixelInset.y + guiTouchOffset.y - guiCenter.y) / guiTouchOffset.y
-                        );
-            }
+        }
 
-            /* Adjust for dead zone */
-            float absoluteX = Mathf.Abs(position.x);
-            float absoluteY = Mathf.Abs(position.y);
+        if (!touchPad)
+        {
+            /* Get a value between -1 and 1 based on the joystick graphic location */
+            position = new Vector2
+                (
+                    (gui.pixelInset.x + guiTouchOffset.x - guiCenter.x) / guiTouchOffset.x,
+                    (gui.pixelInset.y + guiTouchOffset.y - guiCenter.y) / guiTouchOffset.y
+                    );
+        }
 
-            if (absoluteX < deadZone.x)
-            {
-                /* Report the joystick as being at the center if it is within the dead zone */
-                position = new Vector2(0, position.y);
-            }
-            else if (normalize)
-            {
-                /* Rescale the output after taking the dead zone into account */
-                position = new Vector2(Mathf.Sign(position.x) * (absoluteX - deadZone.x) / (1 - deadZone.x), position.y);
-            }
+        /* Adjust for dead zone */
+        float absoluteX = Mathf.Abs(position.x);
+        float absoluteY = Mathf.Abs(position.y);
 
-            if (absoluteY < deadZone.y)
-            {
-                /* Report the joystick as being at the center if it is within the dead zone */
-                position = new Vector2(position.x, 0);
-            }
-            else if (normalize)
-            {
-                /* Rescale the output after taking the dead zone into account */
-                position = new Vector2(position.x, Mathf.Sign(position.y) * (absoluteY - deadZone.y) / (1 - deadZone.y));
-            }
+        if (absoluteX < deadZone.x)
+        {
+            /* Report the joystick as being at the center if it is within the dead zone */
+            position = new Vector2(0, position.y);
+        }
+        else if (normalize)
+        {
+            /* Rescale the output after taking the dead zone into account */
+            position = new Vector2(Mathf.Sign(position.x) * (absoluteX - deadZone.x) / (1 - deadZone.x), position.y);
+        }
+
+        if (absoluteY < deadZone.y)
+        {
+            /* Report the joystick as being at the center if it is within the dead zone */
+            position = new Vector2(position.x, 0);
+        }
+        else if (normalize)
+        {
+            /* Rescale the output after taking the dead zone into account */
+            position = new Vector2(position.x, Mathf.Sign(position.y) * (absoluteY - deadZone.y) / (1 - deadZone.y));
+        }
     }
 }
