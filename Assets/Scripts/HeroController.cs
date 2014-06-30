@@ -155,7 +155,7 @@ public class HeroController : MonoBehaviour
 	}
 
     //Hero collision
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         //if hero complete attack
         if (other.gameObject.CompareTag("Enemy"))
@@ -172,5 +172,5 @@ public class HeroController : MonoBehaviour
         }
         //if hero dead
         //ToDO Hero dead
-    }
+    }*/
 }

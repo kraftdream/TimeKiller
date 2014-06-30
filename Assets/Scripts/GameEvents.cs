@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public interface GameEvents
 {
+    void OnMove();
 
-    void OnMove(GameObject gameObject);
+    void OnPrepare();
 
-    void OnPrepare(GameObject gameObject);
+    void OnAttack();
 
-    void OnAttack(GameObject gameObject);
-
-    void OnDeath(GameObject gameObject);
 }
