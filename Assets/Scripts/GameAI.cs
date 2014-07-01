@@ -12,6 +12,7 @@ public class GameAI : GameEntity, GameEvents
 
     // похибка для координати х, щоб персонаж не відразу перевернувся з ліва вправо або навпаки
     private const float _error = 0.8f;
+	private const float _prepare_decrement = 0.01f;
 
     [SerializeField]
     private float _prepareTime;
@@ -46,7 +47,7 @@ public class GameAI : GameEntity, GameEvents
 	{
         _enemyAnimator = GetComponent<Animator>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -80,20 +81,27 @@ public class GameAI : GameEntity, GameEvents
         MoveToWorldPoint(TargetTransform.position.x, TargetTransform.position.y, MoveSpeed);
         ChangeAnimationPosition(TargetTransform.position, Position);
         _state = GameEntityState.Move;
+		_prepareTime = 1.0f;
+		_enemyAnimator.speed = 1.0f;
+		_enemyAnimator.SetBool ("Prepare", false);
         Debug.Log("OnMove");
     }
 
     public void OnPrepare()
     {
         _attackToPossition = GetPositionOnDistance(AttackDistance + 2,
-            GetMoveDirection(Position, new Vector2(TargetTransform.position.x, TargetTransform.position.y)));
+        GetMoveDirection(Position, new Vector2(TargetTransform.position.x, TargetTransform.position.y)));
         _state = GameEntityState.Prepare;
+		_enemyAnimator.SetBool ("Prepare", true);
+		_prepareTime -= _prepare_decrement;
+		_enemyAnimator.speed += _prepare_decrement;
         //Timer to prepare
         Debug.Log("OnPrepare");
     }
 
     public void OnAttack()
     {
+		_enemyAnimator.SetBool ("Prepare", false);
         _state = GameEntityState.Attack;
         MoveToWorldPoint(_attackToPossition.x, _attackToPossition.y, MoveSpeed * MoveSpeed);
 

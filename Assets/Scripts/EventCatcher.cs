@@ -58,9 +58,10 @@ public class EventCatcher : MonoBehaviour
                 float prepareTiming = enemy.GetComponent<GameAI>().PrepareTime;
                 GameAI.GameEntityState state = enemy.GetComponent<GameAI>().State;
 
-                if (state.Equals(GameAI.GameEntityState.Move))
+				if (state.Equals(GameAI.GameEntityState.Move) || state.Equals(GameAI.GameEntityState.Prepare))
                 {
-                    if (Vector2.Distance(enemy.transform.position, _player.transform.position) >= attackDistance)
+                    if (Vector2.Distance(enemy.transform.position, _player.transform.position) >= attackDistance 
+					    && !state.Equals(GameAI.GameEntityState.Prepare))
                     {
                         enemy.SendMessage("OnMove");
                     }
