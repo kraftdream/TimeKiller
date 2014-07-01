@@ -83,9 +83,14 @@ public class GameAI : GameEntity, GameEvents
         MoveToWorldPoint(TargetTransform.position.x, TargetTransform.position.y, MoveSpeed);
         ChangeAnimationPosition(TargetTransform.position, Position);
         _state = GameEntityState.Move;
+<<<<<<< HEAD
 		_prepareTime = 1.0f;
 		_enemyAnimator.speed = 1.0f;
 		_enemyAnimator.SetBool ("Prepare", false);
+        Debug.Log("OnMove");
+=======
+        //Debug.Log("OnMove");
+>>>>>>> Add Game Direction function
     }
 
     public void OnPrepare()

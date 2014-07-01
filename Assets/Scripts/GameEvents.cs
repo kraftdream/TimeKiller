@@ -8,4 +8,5 @@ public interface GameEvents
 
     void OnAttack();
 
+    void OnCollision(GameObject collisionObject);
 }

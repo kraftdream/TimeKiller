@@ -65,7 +65,6 @@ public class EnemyCreator : MonoBehaviour
         _mainCamera = Camera.main;
         _cameraSize = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         _enemySize = _enemy.renderer.bounds.size;
-        //_enemyAttackDistance = _enemy.GetComponent<Enemy>().AttackDistance;
     }
 
     private void Start()
@@ -83,7 +82,7 @@ public class EnemyCreator : MonoBehaviour
         EnemyList.Add((GameObject)Instantiate(_enemy, GetRandomPosition(), transform.rotation));
         EnemyList[EnemyList.Count - 1].transform.parent = transform;
         EnemyList[EnemyList.Count - 1].GetComponent<GameAI>().TargetTransform = _player.transform;
-        //EnemyList[EnemyList.Count - 1].GetComponent<Enemy>().EnemyList = EnemyList;
+        EnemyList[EnemyList.Count - 1].GetComponent<GameAI>().EnemyList = EnemyList;
     }
 
     public void DeleteNullObject()

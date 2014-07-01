@@ -45,7 +45,7 @@ public class MoveScript : MonoBehaviour {
 
     void ChangeAnimationPosition(Vector3 _targetPos, Vector3 _currentPos)
     {
-        _enemyAnimator.SetBool(Directions.TOP, false);
+        /*_enemyAnimator.SetBool(Directions.TOP, false);
         _enemyAnimator.SetBool(Directions.BOTTOM, false);
         _enemyAnimator.SetBool(Directions.LEFT, false);
         _enemyAnimator.SetBool(Directions.RIGHT, false);
@@ -63,7 +63,7 @@ public class MoveScript : MonoBehaviour {
                 _enemyAnimator.SetBool(Directions.BOTTOM, true);
             else
                 _enemyAnimator.SetBool(Directions.TOP, true);
-        }
+        }*/
     }
 
     void MoveToPosition(Vector3 _endPosition)

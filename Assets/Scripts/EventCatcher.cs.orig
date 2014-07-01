@@ -44,24 +44,29 @@ public class EventCatcher : MonoBehaviour
                 float prepareTiming = enemy.GetComponent<GameAI>().PrepareTime;
                 GameAI.GameEntityState state = enemy.GetComponent<GameAI>().State;
 
-		if (state.Equals(GameAI.GameEntityState.Move) || state.Equals(GameAI.GameEntityState.Prepare))
+<<<<<<< HEAD
+				if (state.Equals(GameAI.GameEntityState.Move) || state.Equals(GameAI.GameEntityState.Prepare))
                 {
                     if (Vector2.Distance(enemy.transform.position, _player.transform.position) >= attackDistance 
 					    && !state.Equals(GameAI.GameEntityState.Prepare))
-		    {
-                    	enemy.SendMessage("OnMove");
+=======
+
+                if (Vector2.Distance(enemy.transform.position, _player.transform.position) >= attackDistance)
+                {
+                    enemy.SendMessage("OnMove");
+                }
+                else
+                {
+                    if (prepareTiming <= 0)
+>>>>>>> Add Game Direction function
+                    {
+                        enemy.SendMessage("OnAttack");
                     }
                     else
                     {
-                    	enemy.SendMessage("OnPrepare");
+                        enemy.SendMessage("OnPrepare");
                     }
-		}
-		
-                if (!state.Equals(GameAI.GameEntityState.Move) && prepareTiming <= 0)
-                {
-                    enemy.SendMessage("OnAttack");
                 }
-
                 if (enemy.renderer.bounds.Intersects(_player.renderer.bounds))
                 {
                     _player.SendMessage("OnCollision", enemy);

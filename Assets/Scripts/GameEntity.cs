@@ -2,6 +2,11 @@
 
 public class GameEntity : MonoBehaviour
 {
+    public enum Directions
+    {
+        Bottom, Top, Left, Right
+    }
+
     #region Input variables
 
     [SerializeField]
@@ -86,5 +91,29 @@ public class GameEntity : MonoBehaviour
     public Vector2 GetPositionOnDistance(float distance, Vector2 direction)
     {
         return new Vector2(direction.x * distance + Position.x, direction.y * distance + Position.y); 
+    }
+
+    public Directions GetDirection(Vector2 point)
+    {
+        Vector2 nPoint = point.normalized;
+        Vector3 crossProd = Vector3.Cross(new Vector3(1, 1), new Vector3(nPoint.x, nPoint.y));
+        float angle = Vector2.Angle(new Vector3(1, 1), nPoint);
+
+        if (crossProd.z >= 0)
+        {
+            if (angle <= 90)
+                return Directions.Top;
+            else if (angle <= 180)
+                return Directions.Left;
+        }
+        else
+        {
+            if (angle <= 90)
+                return Directions.Right;
+            else if (angle <= 180)
+                return Directions.Bottom;
+        }
+        
+        return Directions.Bottom;
     }
 }
