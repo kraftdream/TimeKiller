@@ -10,20 +10,37 @@ public class MoveScript : MonoBehaviour {
         get { return _moveSpeed; }
         set { _moveSpeed = value; }
     }
+    [SerializeField]
+    private float _radius; // distance from the player/target
+    public float Radius
+    {
+        get { return _radius; }
+        set { _radius = value; }
+    }
     #endregion
     // похибка для координати х, щоб персонаж не відразу перевернувся з ліва вправо або навпаки
     private const float _error = 0.8f;
     private Animator _enemyAnimator;
+    private StateManager _stateManager;
 
     void Awake()
     {
         _enemyAnimator = GetComponent<Animator>();
+        _stateManager = GetComponent<StateManager>();
     }
 
     public void FollowTarget(Vector3 _targetPosition) 
     {
-        ChangeAnimationPosition(_targetPosition, transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, MoveSpeed * Time.deltaTime);
+        if (Vector3.Distance(_targetPosition, transform.position) > Radius)
+        {
+            ChangeAnimationPosition(_targetPosition, transform.position);
+            _stateManager.CurrentState = State.MOVE;
+            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, MoveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            _stateManager.CurrentState = State.PREPARE;
+        }
     }
 
     void ChangeAnimationPosition(Vector3 _targetPos, Vector3 _currentPos)
@@ -50,6 +67,11 @@ public class MoveScript : MonoBehaviour {
     }
 
     void MoveToPosition(Vector3 _endPosition)
+    {
+
+    }
+
+    public void AttackTarget(Vector3 _targetPosition)
     {
 
     }
