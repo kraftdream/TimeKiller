@@ -105,7 +105,7 @@ public class GameEntity : MonoBehaviour
                 return Directions.Top;
             else if (angle <= 180)
                 return Directions.Left;
-        }
+		}
         else
         {
             if (angle <= 90)

@@ -9,9 +9,6 @@ public class GameAI : GameEntity, GameEvents
     }
 
     #region Input Variables
-
-    // похибка для координати х, щоб персонаж не відразу перевернувся з ліва вправо або навпаки
-    private const float _error = 0.8f;
 	private const float _prepare_decrement = 0.01f;
 
     [SerializeField]
@@ -57,25 +54,11 @@ public class GameAI : GameEntity, GameEvents
 
     void ChangeAnimationPosition(Vector3 _targetPos, Vector3 _currentPos)
     {
-        /*_enemyAnimator.SetBool(Directions.TOP, false);
-        _enemyAnimator.SetBool(Directions.BOTTOM, false);
-        _enemyAnimator.SetBool(Directions.LEFT, false);
-        _enemyAnimator.SetBool(Directions.RIGHT, false);
-        if (Mathf.Abs(_targetPos.x - _currentPos.x) > _error)
-        {
-
-            if (_targetPos.x <= _currentPos.x)
-                _enemyAnimator.SetBool(Directions.LEFT, true);
-            else
-                _enemyAnimator.SetBool(Directions.RIGHT, true);
-        }
-        else
-        {
-            if (_targetPos.y <= _currentPos.y)
-                _enemyAnimator.SetBool(Directions.BOTTOM, true);
-            else
-                _enemyAnimator.SetBool(Directions.TOP, true);
-        }*/
+        _enemyAnimator.SetBool(Directions.Top.ToString(), false);
+		_enemyAnimator.SetBool(Directions.Bottom.ToString(), false);
+		_enemyAnimator.SetBool(Directions.Left.ToString(), false);
+        _enemyAnimator.SetBool(Directions.Right.ToString(), false);
+		_enemyAnimator.SetBool (GetDirection (TargetTransform.position).ToString(), true);
     }
 
     public void OnMove()
@@ -94,6 +77,22 @@ public class GameAI : GameEntity, GameEvents
         GetMoveDirection(Position, new Vector2(TargetTransform.position.x, TargetTransform.position.y)));
         _state = GameEntityState.Prepare;
 		_enemyAnimator.SetBool ("Prepare", true);
+		Directions direction = GetDirection (_attackToPossition);
+		switch (direction) 
+		{
+			case Directions.Bottom:
+				_enemyAnimator.SetFloat("Direction", 0.0f);
+				break;
+			case Directions.Top:
+				_enemyAnimator.SetFloat("Direction", 1.0f);
+				break;
+			case Directions.Left:
+				_enemyAnimator.SetFloat("Direction", 2.0f);
+				break;
+			case Directions.Right:
+				_enemyAnimator.SetFloat("Direction", 3.0f);
+				break;
+		}
 		_prepareTime -= _prepare_decrement;
 		_enemyAnimator.speed += _prepare_decrement;
         //Timer to prepare

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 83d63437176c61d40a6dc91e66bfa021
+guid: 5fa409dd9564d6f47bdee10d1d5dc9cc
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -42,32 +42,22 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: vampire_top_0
+    - name: vampire_right_face_0
       rect:
         serializedVersion: 2
-        x: 31
+        x: 15
         y: 0
-        width: 339
+        width: 305
         height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire_top_1
+    - name: vampire_right_face_1
       rect:
         serializedVersion: 2
         x: 466
         y: 0
-        width: 339
-        height: 400
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire_top_2
-      rect:
-        serializedVersion: 2
-        x: 888
-        y: 0
-        width: 371
+        width: 305
         height: 400
       alignment: 0
       pivot: {x: 0, y: 0}

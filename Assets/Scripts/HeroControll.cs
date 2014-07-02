@@ -13,8 +13,8 @@ public class HeroControll : GameEntity
     private Animator heroAnimation;
     private bool isFacingRight = true;
 
-    private const string HERO_POSITION_X = "PositionX";
-    private const string HERO_POSITION_Y = "PositionY";
+    private const string HERO_LEFT = "Left";
+    private const string HERO_RIGHT = "Right";
     private const string HERO_TOP = "Top";
     private const string HERO_BOTTOM = "Bottom";
     private int[] moveAxis; //left, right, up, down
@@ -37,8 +37,14 @@ public class HeroControll : GameEntity
     private float _comboTime;
     private float _stopComboTime;
 
+	private bool _useEditor = false;
+
     void Awake()
     {
+		#if UNITY_EDITOR
+		_useEditor = true;
+		#endif
+
         moveAxis = new[] { 1, 1, 1, 1 };
 
         heroAnimation = GetComponent<Animator>();
@@ -62,8 +68,8 @@ public class HeroControll : GameEntity
     {
         heroParams = transform.position;
         bordersParams = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        float positionX = joyStickLeft.position.x;
-        float positionY = joyStickLeft.position.y;
+		float positionX = _useEditor ? Input.GetAxis ("Horizontal") : joyStickLeft.position.x;
+		float positionY = _useEditor ? Input.GetAxis ("Vertical") : joyStickLeft.position.y;
 
         textureParams = gameObject.GetComponent<SpriteRenderer>().bounds.size;
 
@@ -72,15 +78,7 @@ public class HeroControll : GameEntity
         else
             moveAxis[(int)axis.Rigth] = 1;
 
-        heroAnimation.SetFloat(HERO_POSITION_X, Mathf.Abs(positionX));
-        heroAnimation.SetFloat(HERO_POSITION_Y, Mathf.Abs(positionY));
-
         ChangeAnimationPosition(positionX, positionY);
-
-        if (positionX > 0 && !isFacingRight)
-            Flip();
-        else if (positionX < 0 && isFacingRight)
-            Flip();
 
         if (joyStickLeft.position.x < 0.0f && heroParams.x - textureParams.x / 2 < borderLeftRightWitdh - bordersParams.x)
             moveAxis[(int)axis.Left] = 0;
@@ -99,7 +97,8 @@ public class HeroControll : GameEntity
 
         if (joyStickLeft != null)
             gameObject.transform.Translate(new Vector3(moveAxis[(int)axis.Left] * moveAxis[(int)axis.Rigth] * joyStickLeft.position.x * Time.deltaTime * MoveSpeed, moveAxis[(int)axis.Up] * moveAxis[(int)axis.Down] * joyStickLeft.position.y * Time.deltaTime * MoveSpeed, 0));
-
+		if(_useEditor)
+			gameObject.transform.Translate (new Vector2(Input.GetAxis ("Horizontal") * Time.deltaTime * MoveSpeed, Input.GetAxis ("Vertical") * Time.deltaTime * MoveSpeed));
 
         //implement to stop combo
         if (_comboTime + _stopComboTime < Time.time)
@@ -114,35 +113,10 @@ public class HeroControll : GameEntity
     {
         heroAnimation.SetBool(HERO_TOP, false);
         heroAnimation.SetBool(HERO_BOTTOM, false);
-
-        if (positionX <= 0 && positionY <= 0)
-        {
-            if (positionX > positionY)
-                heroAnimation.SetBool(HERO_BOTTOM, true);
-            else
-                heroAnimation.SetBool(HERO_BOTTOM, false);
-        }
-        else if (positionX <= 0 && positionY >= 0)
-        {
-            if (Mathf.Abs(positionX) < Mathf.Abs(positionY))
-                heroAnimation.SetBool(HERO_TOP, true);
-            else
-                heroAnimation.SetBool(HERO_TOP, false);
-        }
-        else if (positionX >= 0 && positionY >= 0)
-        {
-            if (positionX < positionY)
-                heroAnimation.SetBool(HERO_TOP, true);
-            else
-                heroAnimation.SetBool(HERO_TOP, false);
-        }
-        else if (positionX >= 0 && positionY <= 0)
-        {
-            if (Mathf.Abs(positionX) < Mathf.Abs(positionY))
-                heroAnimation.SetBool(HERO_BOTTOM, true);
-            else
-                heroAnimation.SetBool(HERO_BOTTOM, false);
-        }
+		heroAnimation.SetBool (HERO_RIGHT, false);
+		heroAnimation.SetBool (HERO_LEFT, false);
+		Directions dir = GetDirection (new Vector2(positionX, positionY));
+		heroAnimation.SetBool (dir.ToString(), true);
     }
 
 
