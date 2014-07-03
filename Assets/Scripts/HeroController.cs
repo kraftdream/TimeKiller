@@ -98,15 +98,15 @@ public class HeroController : MonoBehaviour
         else
             moveAxis[(int)axis.Down] = 1;
 
-if (joyStickLeft != null)
+        if (joyStickLeft != null)
             gameObject.transform.Translate(new Vector3(moveAxis[(int)axis.Left] * moveAxis[(int)axis.Rigth] * joyStickLeft.position.x * Time.deltaTime * moveForce, moveAxis[(int)axis.Up] * moveAxis[(int)axis.Down] * joyStickLeft.position.y * Time.deltaTime * moveForce, 0));
 
 
-        //implement to stop combo
-        if (_comboTime + _stopComboTime < Time.time)
-        {
-			_comboText.StopAnimation();
-	}
+            //implement to stop combo
+            if (_comboTime + _stopComboTime < Time.time)
+            {
+			    _comboText.StopAnimation();
+	    }
 	}
 
     private void ChangeAnimationPosition(float positionX, float positionY)

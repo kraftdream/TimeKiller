@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ActionButton : MonoBehaviour
 {
+    public delegate void OnButtonClickListener(object sender, EventArgs e);
+    public event OnButtonClickListener OnBtnClick;
+
     public Texture2D _texture;
     private Rect _buttonRect;
     private HeroAttack _heroAttack;
@@ -30,9 +34,12 @@ public class ActionButton : MonoBehaviour
                 if (touchItem.phase == TouchPhase.Ended && phaseBegan)
                 {
                     phaseBegan = false;
-                    _heroAttack.IsAttacked = true;
+                    //_heroAttack.IsAttacked = true;
+                    OnBtnClick(this, new EventArgs());
                 }
-            }
+            } 
         }
+        if (Input.GetMouseButton(0))
+            OnBtnClick(this, new EventArgs());
     }
 }

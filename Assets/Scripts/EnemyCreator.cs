@@ -106,7 +106,7 @@ public class EnemyCreator : MonoBehaviour
 
             return new Vector3(x, y, 0);
         }
-        catch (StackOverflowException exception)
+        catch (StackOverflowException)
         {
             return new Vector3(0, 0, 0);
         }

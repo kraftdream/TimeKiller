@@ -29,7 +29,7 @@ public class EventCatcher : MonoBehaviour
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-	    CatchEvents();
+	    //CatchEvents();
 	}
 
     void CatchEvents()
@@ -42,22 +42,22 @@ public class EventCatcher : MonoBehaviour
             {
                 float attackDistance = enemy.GetComponent<GameAI>().AttackDistance;
                 float prepareTiming = enemy.GetComponent<GameAI>().PrepareTime;
-                GameAI.GameEntityState state = enemy.GetComponent<GameAI>().State;
+                GameEntityState state = enemy.GetComponent<GameAI>().State;
 
-		if (state.Equals(GameAI.GameEntityState.Move) || state.Equals(GameAI.GameEntityState.Prepare))
+		        if (state.Equals(GameEntityState.Move) || state.Equals(GameEntityState.Prepare))
                 {
                     if (Vector2.Distance(enemy.transform.position, _player.transform.position) >= attackDistance 
-					    && !state.Equals(GameAI.GameEntityState.Prepare))
-		    {
+					    && !state.Equals(GameEntityState.Prepare))
+		            {
                     	enemy.SendMessage("OnMove");
                     }
                     else
                     {
                     	enemy.SendMessage("OnPrepare");
                     }
-		}
+		        }
 		
-                if (!state.Equals(GameAI.GameEntityState.Move) && prepareTiming <= 0)
+                if (!state.Equals(GameEntityState.Move) && prepareTiming <= 0)
                 {
                     enemy.SendMessage("OnAttack");
                 }
