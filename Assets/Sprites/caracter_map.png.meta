@@ -1,0 +1,256 @@
+fileFormatVersion: 2
+guid: faa81bb57b5d38d40b017eb0b854dfef
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: caracter_map_0
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 3127
+        width: 182
+        height: 637
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_1
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 3127
+        width: 182
+        height: 657
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_2
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 3147
+        width: 499
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_3
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 3147
+        width: 538
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_4
+      rect:
+        serializedVersion: 2
+        x: 2291
+        y: 3147
+        width: 538
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_5
+      rect:
+        serializedVersion: 2
+        x: 3098
+        y: 3147
+        width: 775
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_6
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 2107
+        width: 202
+        height: 636
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_7
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 2107
+        width: 206
+        height: 656
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_8
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 2107
+        width: 202
+        height: 656
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_9
+      rect:
+        serializedVersion: 2
+        x: 1615
+        y: 2107
+        width: 206
+        height: 636
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_10
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 1102
+        width: 202
+        height: 637
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_11
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1102
+        width: 205
+        height: 656
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_12
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 1102
+        width: 202
+        height: 637
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_13
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 1102
+        width: 202
+        height: 656
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_14
+      rect:
+        serializedVersion: 2
+        x: 2129
+        y: 1106
+        width: 202
+        height: 518
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_15
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 93
+        width: 182
+        height: 637
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_16
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 93
+        width: 182
+        height: 657
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_17
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 113
+        width: 538
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_18
+      rect:
+        serializedVersion: 2
+        x: 1793
+        y: 113
+        width: 538
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_19
+      rect:
+        serializedVersion: 2
+        x: 2457
+        y: 113
+        width: 499
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_20
+      rect:
+        serializedVersion: 2
+        x: 3078
+        y: 113
+        width: 775
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

@@ -3,5 +3,5 @@ using System.Collections;
 
 public enum GameEntityState 
 {
-    Move, Prepare, Attack, Collision, Blink
+    Wait, Move, Prepare, Attack, Blink, Collision
 }
