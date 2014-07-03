@@ -24,7 +24,7 @@ Material:
         first:
           name: _FrontTex
         second:
-          m_Texture: {fileID: 2800000, guid: 049a93ada4da28d47b1fd8d2d8c07a1d, type: 3}
+          m_Texture: {fileID: 2800000, guid: a8ec6b91052570d448938dd4d12192bb, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:

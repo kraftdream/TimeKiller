@@ -11,11 +11,9 @@ public class HeroControll : GameEntity
     public Camera cam;
     private float _maxScreenWidth;
     private float _maxScreenHeight;
-    private bool isFacingRight = true;
 
-    private Vector3 heroParams;
-    private Vector3 bordersParams;
-    private Vector3 textureParams;
+    public Joystick joyStickLeft;
+    private Animator heroAnimation;
 
     [Range(0, 1)]
     public float borderLeftRightWitdh;
@@ -66,6 +64,11 @@ public class HeroControll : GameEntity
             _comboText.StopAnimation();
             _comboText.FontSize = _comboText.DefaultFontSize;
             _comboText.Value = 0;
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.LoadLevel("MainMenu");
         }
 	}
 
