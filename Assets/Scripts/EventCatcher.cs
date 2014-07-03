@@ -72,7 +72,6 @@ public class EventCatcher : MonoBehaviour
 
             }
 
-            _enemiesToDelete.ForEach(Destroy);
             _enemiesToDelete.ForEach(gObj => _enemyList.Remove(gObj));
 
         }
