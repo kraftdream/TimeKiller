@@ -83,10 +83,12 @@ public class HeroControll : GameEntity
     protected override void OnCollision(GameEntity collisionObject)
     {
         //if hero complete attack
-        if (collisionObject is GameAI)
+        /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
         {
-            var enemyScript = collisionObject.GetComponent<GameAI>();
-            _scoreText.Value = enemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
+            object enemyScript = collisionObject.GetComponent<GameAI>();
+            if (enemyScript == null)
+                enemyScript = collisionObject.GetComponent<ShooterEnemy>();
+            _scoreText.Value = ((GameEntity) enemyScript).ScorePoint + _scoreText.Value + _comboText.Value;
             _comboText.Value = _comboText.Value + 1;
             _comboTime = Time.time;
             _scoreText.PlayAmination();
@@ -94,7 +96,7 @@ public class HeroControll : GameEntity
 
             if (_comboText.FontSize < _comboText.MaxFontSize)
                 _comboText.FontSize += 10;
-        }
+        }*/
         //if hero dead
         //ToDO Hero dead
     }

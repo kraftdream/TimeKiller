@@ -86,6 +86,13 @@ public abstract class GameEntity : MonoBehaviour
         set { _prepareTime = value; }
     }
 
+    private bool _canAttack = true;
+    public bool CanAttack  
+    {
+        get { return _canAttack; }
+        set { _canAttack = value; }
+    }
+
     private GameEntity _player;
     protected Animator _gameObjectAnimator;
 	protected Vector2 _attackToPosition;
@@ -122,8 +129,12 @@ public abstract class GameEntity : MonoBehaviour
 
     protected void Update()
     {
-        _state = GetCurrentState();
-        switch (_state)
+        GameEntityState _checkingState = GetCurrentState();
+        if (_checkingState != GameEntityState.Collision)
+            _state = _checkingState;
+        if(!_isPlayer)
+            Debug.Log("State = " + _checkingState);
+        switch (_checkingState)
         {
             case GameEntityState.Move:
                 if (_isPlayer)
@@ -157,7 +168,7 @@ public abstract class GameEntity : MonoBehaviour
                 Destroy(this.gameObject);
                 _enemyList.Remove(this.gameObject);
                 break;
-        }        
+        }
     }
 
     private void BlinkAnimation()
@@ -169,9 +180,9 @@ public abstract class GameEntity : MonoBehaviour
     {
         if (!_isPlayer)
         {
-            float attackDistance = this.GetComponent<GameAI>().AttackDistance;
-            float prepareTiming = this.GetComponent<GameAI>().PrepareTime;
-            if (Vector2.Distance(this.transform.position, _player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
+            float attackDistance = AttackDistance;
+            float prepareTiming = PrepareTime;
+            if (Vector2.Distance(transform.position, _player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
             {
                 return GameEntityState.Move;
             }
@@ -180,25 +191,29 @@ public abstract class GameEntity : MonoBehaviour
                 return GameEntityState.Prepare;
             }
 
-            if (this.renderer.bounds.Intersects(_player.renderer.bounds))
+            if (renderer.bounds.Intersects(_player.renderer.bounds))
             {
                 if (_health > 1)
                     return GameEntityState.Blink;
                 else
                     return GameEntityState.Collision;
             }
-            if (prepareTiming <= 0 && !Position.Equals(_attackToPosition))
+            if (prepareTiming <= 0 && !Position.Equals(_attackToPosition) && _canAttack)
             {
                 return GameEntityState.Attack;
-            } 
-			else if(Position.Equals(_attackToPosition))
+            }
+            else if (Position.Equals(_attackToPosition) || !_canAttack)
 			{
+                _prepareTime = _prepareDefault;
 				return GameEntityState.Move;
 			}
             return GameEntityState.Move;
         }
         else
         {
+            /*List<GameObject> intersected = _enemyList.FindAll(gObj => renderer.bounds.Intersects(gObj.renderer.bounds));
+            if(intersected.Count > 0)
+                Debug.Log("Intersected");*/
             return GameEntityState.Move;
         }
     }

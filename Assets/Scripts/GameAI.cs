@@ -3,22 +3,7 @@ using UnityEngine;
 
 public class GameAI : GameEntity
 {
-
-    #region Input Variables
 	private const float _prepare_decrement = 0.01f;
-
-    [SerializeField]
-    private Transform _targetTransform;
-
-    public Transform TargetTransform
-    {
-        get { return _targetTransform; }
-        set { _targetTransform = value; }
-    }
-
-    public List<GameObject> EnemyList { get; set; }
-
-    #endregion
 
 	// Update is called once per frame
 
@@ -56,9 +41,7 @@ public class GameAI : GameEntity
 
 	protected void OnAttack(Vector2 _attackPosition)
     {
-        //base.OnAttack(_attackPosition);
 		_gameObjectAnimator.SetBool ("Prepare", false);
-       
     }
 
     protected override void OnCollision(GameEntity collisionObject)

@@ -85,7 +85,7 @@ GameObject:
   - 114: {fileID: 79529104}
   m_Layer: 0
   m_Name: ActionButton
-  m_TagString: Untagged
+  m_TagString: ActionButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1629,7 +1629,7 @@ GameObject:
   - 114: {fileID: 1258020224}
   m_Layer: 0
   m_Name: EnemyCreator
-  m_TagString: Untagged
+  m_TagString: EnemyCreator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1648,7 +1648,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _time: 1
   _delay: 1
-  _enemy: {fileID: 100000, guid: bb15ac208023bd1459938a0dc927db09, type: 2}
+  _enemy:
+  - {fileID: 100002, guid: 783c616253b4db7488697faa90a1162e, type: 2}
   _maxEnemyCount: 1
   _player: {fileID: 2015788376}
   _distanceToPlayer: 5
@@ -1988,7 +1989,7 @@ Animator:
   m_GameObject: {fileID: 2015788376}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ddd58e7c90604f34ea18827da016df08, type: 2}
+  m_Controller: {fileID: 9100000, guid: c1b99493f4733e048aa74980a46d85e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2021,7 +2022,9 @@ MonoBehaviour:
   _damage: 0
   _scorePoint: 0
   _attackDistance: 0
-  joyStickLeft: {fileID: 1262016679}
+  _state: 0
+  _prepareTime: 0
+  cam: {fileID: 0}
   borderLeftRightWitdh: .5
   borderUpDownWitdh: .5
   GUI: {fileID: 1722200924}
@@ -2045,5 +2048,5 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5fa409dd9564d6f47bdee10d1d5dc9cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a56a479639fb98b4db0ef7d93497f249, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

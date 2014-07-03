@@ -13,7 +13,7 @@ public class EnemyCreator : MonoBehaviour
 
     [SerializeField] private float _delay = 1f;
 
-    [SerializeField] private GameObject _enemy;
+    [SerializeField] private GameObject[] _enemy;
 
     [SerializeField] private int _maxEnemyCount;
 
@@ -64,7 +64,7 @@ public class EnemyCreator : MonoBehaviour
         _enemyList = new List<GameObject>();
         _mainCamera = Camera.main;
         _cameraSize = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-        _enemySize = _enemy.renderer.bounds.size;
+        _enemySize = _enemy[0].renderer.bounds.size;
     }
 
     private void Start()
@@ -78,11 +78,9 @@ public class EnemyCreator : MonoBehaviour
         // Instantiate a random enemy.
         if (EnemyList.Count > MaxEnemyCount - 1)
             return;
-
-        EnemyList.Add((GameObject)Instantiate(_enemy, GetRandomPosition(), transform.rotation));
+        int index = Random.Range(0, _enemy.Length);
+        EnemyList.Add((GameObject)Instantiate(_enemy[index], GetRandomPosition(), transform.rotation));
         EnemyList[EnemyList.Count - 1].transform.parent = transform;
-        EnemyList[EnemyList.Count - 1].GetComponent<GameAI>().TargetTransform = _player.transform;
-        EnemyList[EnemyList.Count - 1].GetComponent<GameAI>().EnemyList = EnemyList;
     }
 
     public void DeleteNullObject()
