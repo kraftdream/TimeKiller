@@ -2849,8 +2849,7 @@ MonoBehaviour:
   _time: 1
   _delay: 1
   _enemy:
-  - {fileID: 100002, guid: 783c616253b4db7488697faa90a1162e, type: 2}
-  - {fileID: 100000, guid: bb15ac208023bd1459938a0dc927db09, type: 2}
+  - {fileID: 100000, guid: b051099d3c2955e4288eabdbcf276a79, type: 2}
   _maxEnemyCount: 0
   _player: {fileID: 2015788376}
   _distanceToPlayer: 5
