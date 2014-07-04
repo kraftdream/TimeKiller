@@ -21,8 +21,8 @@ public class SpriteScreenScaler : MonoBehaviour {
             isSprite = true;
         }
 
-        if (isSprite) {
-
+        if (isSprite)
+        {
             mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
             mScreenWidth = Screen.width;

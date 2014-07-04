@@ -7,6 +7,8 @@ public abstract class GameEntity : MonoBehaviour
 
     #region Input variables
 
+    private const float _prepare_decrement = 0.01f;
+
     [SerializeField]
     private float _health;
 
@@ -31,7 +33,16 @@ public abstract class GameEntity : MonoBehaviour
     [SerializeField]
     private float _prepareTime;
 
+    [SerializeField]
+    private GameEntity _player;
+
     private float _prepareDefault;
+
+    public bool IsMoveJoystick { get; set; }
+
+    protected Vector2 _attackToPosition;
+
+    private List<GameObject> _enemyList;
 
     private Directions _currentDirection;
 
@@ -87,40 +98,28 @@ public abstract class GameEntity : MonoBehaviour
         get { return _prepareTime; }
         set { _prepareTime = value; }
     }
+	private bool _canAttack = true;
 
-    private bool _canAttack = true;
     public bool CanAttack  
     {
         get { return _canAttack; }
         set { _canAttack = value; }
     }
 
-    protected Animator _gameObjectAnimator;
-	protected Vector2 _attackToPosition;
-    private List<GameObject> _enemyList;
+    public Animator GameObjectAnimator { get; set; }
 
-    [SerializeField]
-    private Joystick _joyStickLeft;
-    protected bool _useEditor = false;
-
-    public Joystick JoyStickLeft
+    public GameEntity Player
     {
-        get { return _joyStickLeft; }
-        set { _joyStickLeft = value; }
+        get { return _player; }
+        set { _player = value; }
     }
-
-    public GameEntity Player { get; set; }
 
     #endregion
 
     protected void Awake()
     {
-        #if UNITY_EDITOR
-            _useEditor = true;
-        #endif
 
-        _gameObjectAnimator = GetComponent<Animator>();
-		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<GameEntity> ();
+        GameObjectAnimator = GetComponent<Animator>();
         _enemyList = GameObject.FindGameObjectWithTag("EnemyCreator").GetComponent<EnemyCreator>().EnemyList;
 
         _prepareDefault = _prepareTime;
@@ -132,8 +131,7 @@ public abstract class GameEntity : MonoBehaviour
         GameEntityState _checkingState = GetCurrentState();
         if (_checkingState != GameEntityState.Collision)
             _state = _checkingState;
-        if(!_isPlayer)
-            Debug.Log("State = " + _checkingState);
+
         switch (_checkingState)
         {
             case GameEntityState.Wait:
@@ -144,11 +142,10 @@ public abstract class GameEntity : MonoBehaviour
                 OnMove();
                 break;
             case GameEntityState.Attack:
-                OnAttack(_attackToPosition);
+                OnAttack();
                 break;
             case GameEntityState.Prepare:
-                OnPrepare(_attackToPosition = GetPositionOnDistance(AttackDistance + 2,
-                            GetMoveDirection(Position, new Vector2(Player.transform.position.x, Player.transform.position.y))));
+                OnPrepare();
                 break;
 
             case GameEntityState.Blink:
@@ -168,18 +165,15 @@ public abstract class GameEntity : MonoBehaviour
 
     }
 
-    GameEntityState GetCurrentState(Vector2 _position = new Vector2())
+    GameEntityState GetCurrentState()
     {
         float attackDistance = AttackDistance;
         float prepareTiming = PrepareTime;
 
-        float positionX = _useEditor ? Input.GetAxis("Horizontal") : _joyStickLeft.position.x;
-        float positionY = _useEditor ? Input.GetAxis("Vertical") : _joyStickLeft.position.y;
-
-        if (new Vector2(positionX, positionY).Equals(Vector2.zero))
+        if (tag.Equals("Player") && !IsMoveJoystick)
             return GameEntityState.Wait;
 
-        if (Vector2.Distance(this.transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
+        if (!CanAttack && Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
         {
             return GameEntityState.Move;
         }
@@ -195,42 +189,45 @@ public abstract class GameEntity : MonoBehaviour
             else
                 return GameEntityState.Collision;
         }
-            if (prepareTiming <= 0 && !Position.Equals(_attackToPosition) && _canAttack)
+
+        if (prepareTiming <= 0 && _canAttack)
         {
             return GameEntityState.Attack;
-            }
-            else if (Position.Equals(_attackToPosition) || !_canAttack)
+        }
+        else if (!_canAttack)
 		{
-                _prepareTime = _prepareDefault;
+            _prepareTime = _prepareDefault;
 			return GameEntityState.Move;
 		}
 
         return GameEntityState.Move;
     }
-            /*List<GameObject> intersected = _enemyList.FindAll(gObj => renderer.bounds.Intersects(gObj.renderer.bounds));
-            if(intersected.Count > 0)
-                Debug.Log("Intersected");*/
 
     #region Events
 
     protected virtual void OnWait()
     {
-        SetDefaultAnimation(_gameObjectAnimator);
+        SetDefaultAnimation(GameObjectAnimator);
     }
 
     protected virtual void OnMove()
     {
     }
 
-    protected virtual void OnPrepare(Vector2 destination)
+    protected virtual void OnPrepare()
     {
-        _gameObjectAnimator.SetBool("Prepare", true);
+        _attackToPosition = GetPositionOnDistance(AttackDistance + 2,
+            GetMoveDirection(Position, new Vector2(Player.Position.x, Player.Position.y)));
+
+        GameObjectAnimator.SetBool("Prepare", true);
+        PrepareTime -= _prepare_decrement;
+        GameObjectAnimator.speed += _prepare_decrement;
     }
 
-    protected virtual void OnAttack(Vector2 destination)
+    protected virtual void OnAttack()
     {
-        MoveToWorldPoint(destination.x, destination.y, MoveSpeed * MoveSpeed);
-        _gameObjectAnimator.SetBool("Attack", true);
+        GameObjectAnimator.SetBool("Attack", true);
+        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, MoveSpeed * MoveSpeed);
     }
 
     protected virtual void OnCollision(GameEntity collisionObject) { }
@@ -255,13 +252,6 @@ public abstract class GameEntity : MonoBehaviour
         objectAnimator.SetBool("Prepare", false);
         objectAnimator.SetBool("Attack", false);
         objectAnimator.SetBool("Blink", false);
-    }
-
-    public Rect GetEntityRectSize()
-    {
-        Vector3 size = transform.renderer.bounds.size;
-        Vector3 center = transform.renderer.bounds.center;
-        return new Rect(center.x, center.y, size.x, size.y);
     }
 
     public Vector2 GetMoveDirection(Vector2 startPoint, Vector2 endPoint)
@@ -311,29 +301,5 @@ public abstract class GameEntity : MonoBehaviour
         }
 
         return _currentDirection;
-    }
-
-    public Vector2 GetDirectionAsVector(Vector2 point)
-    {
-        Vector2 nPoint = point.normalized;
-        Vector3 crossProd = Vector3.Cross(new Vector3(1, 1), new Vector3(nPoint.x, nPoint.y));
-        float angle = Vector2.Angle(new Vector3(1, 1), nPoint);
-
-        if (crossProd.z >= 0)
-        {
-            if (angle <= 90)
-                return new Vector2(0f, 0.1f);
-            else if (angle <= 180)
-                return new Vector2(-0.1f, 0f);
-        }
-        else
-        {
-            if (angle <= 90)
-                return new Vector2(0.1f, 0.0f);
-            else if (angle <= 180)
-                return new Vector2(0f, -0.1f);
-        }
-
-        return new Vector2(0f, -0.1f);
     }
 }

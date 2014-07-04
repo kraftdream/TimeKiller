@@ -15,39 +15,16 @@ public class ShooterEnemy : GameEntity {
         base.Update();
     }
 
-    protected override void OnMove(Vector2 _movePosition)
+    protected override void OnMove()
     {
-        MoveToWorldPoint(_movePosition.x, _movePosition.y, MoveSpeed);
-        ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
+        /*MoveToWorldPoint(_movePosition.x, _movePosition.y, MoveSpeed);
+        //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
         PrepareTime = 1.0f;
         _gameObjectAnimator.speed = 1.0f;
-        _gameObjectAnimator.SetBool("Prepare", false);
+        _gameObjectAnimator.SetBool("Prepare", false);*/
     }
 
-    protected override void OnPrepare(Vector2 _attackToPossition)
-    {
-        _gameObjectAnimator.SetBool("Prepare", true);
-        Directions direction = GetDirection(_attackToPossition);
-        switch (direction)
-        {
-            case Directions.Bottom:
-                _gameObjectAnimator.SetFloat("Direction", 0.0f);
-                break;
-            case Directions.Top:
-                _gameObjectAnimator.SetFloat("Direction", 1.0f);
-                break;
-            case Directions.Left:
-                _gameObjectAnimator.SetFloat("Direction", 2.0f);
-                break;
-            case Directions.Right:
-                _gameObjectAnimator.SetFloat("Direction", 3.0f);
-                break;
-        }
-        PrepareTime -= _prepare_decrement;
-        _gameObjectAnimator.speed += _prepare_decrement;
-    }
-
-    protected override void OnAttack(Vector2 _attackPosition)
+    protected override void OnAttack()
     {
         if (_gunTransform != null && CanAttack)
         {
@@ -55,13 +32,13 @@ public class ShooterEnemy : GameEntity {
             var shootObject = Instantiate(_gunTransform) as Transform;
             shootObject.position = transform.position;
             ShootScript script = shootObject.GetComponent<ShootScript>();
-            script.AttackPosition = _attackPosition;
+            script.AttackPosition = _attackToPosition;
             script.EnemyObject = this;
             Directions dir = GetDirection(transform.position);
             if (dir == Directions.Right)
                 Flip(script.transform);
-            
-            _gameObjectAnimator.SetBool("Prepare", false);
+
+            GameObjectAnimator.SetBool("Prepare", false);
         }
     }
 

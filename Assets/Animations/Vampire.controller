@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Player
+  m_Name: Vampire
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: Direction
@@ -57,28 +57,28 @@ BlendTree:
   m_PrefabInternal: {fileID: 0}
   m_Name: Wait Directions
   m_Childs:
-  - m_Motion: {fileID: 7400000, guid: 0c36cc8399f890743b95f309ba9ff5a7, type: 2}
+  - m_Motion: {fileID: 7400000, guid: daa8b5d2e43d71b4abf81506df566a33, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: 531e67502d1afa64e9c059ef2b0e1d39, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 8cd0a30c22568014b918ff643673d38e, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: dfe6207ae745507418120451e5cdad59, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 8cd0a30c22568014b918ff643673d38e, type: 2}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: 707df49b025744d49b62ebb87e71e0dc, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 9e8889b06d32c904eb177bb2c5f9f83d, type: 2}
     m_Threshold: 3
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -98,28 +98,28 @@ BlendTree:
   m_PrefabInternal: {fileID: 0}
   m_Name: Move Directions
   m_Childs:
-  - m_Motion: {fileID: 7400000, guid: 75785c555ba899c4ca19870ace73a5fa, type: 2}
+  - m_Motion: {fileID: 7400000, guid: e9f9cff832a30d946aa1456bad8d24ee, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: 91edfee9817751746ac961fbf36272b8, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 1b026a1de0f6c894aa34afc5235749af, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: 83393aed31d5ee943b84800d5dbdbfda, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 1b026a1de0f6c894aa34afc5235749af, type: 2}
     m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
-  - m_Motion: {fileID: 7400000, guid: c6e34b4635ec25248ae4dcdb75506449, type: 2}
+  - m_Motion: {fileID: 7400000, guid: 277c03f58f9fd4b42ac67c248a059ecd, type: 2}
     m_Threshold: 3
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

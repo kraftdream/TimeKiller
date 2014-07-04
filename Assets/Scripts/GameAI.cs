@@ -4,8 +4,6 @@ using UnityEngine;
 public class GameAI : GameEntity
 {
 
-	private const float _prepare_decrement = 0.01f;
-
 	// Update is called once per frame
 
     protected override void OnMove()
@@ -14,37 +12,14 @@ public class GameAI : GameEntity
         MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
 		//ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
         PrepareTime = 1.0f;
-		_gameObjectAnimator.speed = 1.0f;
-		_gameObjectAnimator.SetBool ("Prepare", false);
-    }
-
-	protected override void OnPrepare(Vector2 _attackToPossition)
-    {
-		_gameObjectAnimator.SetBool ("Prepare", true);
-		Directions direction = GetDirection (_attackToPossition);
-		switch (direction) 
-		{
-			case Directions.Bottom:
-				_gameObjectAnimator.SetFloat("Direction", 0.0f);
-				break;
-			case Directions.Top:
-				_gameObjectAnimator.SetFloat("Direction", 1.0f);
-				break;
-			case Directions.Left:
-				_gameObjectAnimator.SetFloat("Direction", 2.0f);
-				break;
-			case Directions.Right:
-				_gameObjectAnimator.SetFloat("Direction", 3.0f);
-				break;
-		}
-		PrepareTime -= _prepare_decrement;
-		_gameObjectAnimator.speed += _prepare_decrement;
+        GameObjectAnimator.speed = 1.0f;
+        GameObjectAnimator.SetBool("Prepare", false);
     }
 
 	protected void OnAttack(Vector2 _attackPosition)
     {
         //base.OnAttack(_attackPosition);
-		_gameObjectAnimator.SetBool ("Prepare", false);
+        GameObjectAnimator.SetBool("Prepare", false);
        
     }
 

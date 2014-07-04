@@ -81,6 +81,7 @@ public class EnemyCreator : MonoBehaviour
         int index = Random.Range(0, _enemy.Length);
         EnemyList.Add((GameObject)Instantiate(_enemy[index], GetRandomPosition(), transform.rotation));
         EnemyList[EnemyList.Count - 1].transform.parent = transform;
+        EnemyList[EnemyList.Count - 1].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
     }
 
     public void DeleteNullObject()

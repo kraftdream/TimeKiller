@@ -7,19 +7,26 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class HeroControll : GameEntity
 {
-    private float _maxScreenWidth;
-    private float _maxScreenHeight;
 
-    public Joystick joyStickLeft;
-    private Animator heroAnimation;
-
-    [Range(0, 1)]
-    public float borderLeftRightWitdh;
-    [Range(0, 1)]
-    public float borderUpDownWitdh;
+    #region Input Value
 
     [SerializeField]
-    private GameObject GUI;
+    private float borderLeftRightWitdh;
+    
+    [SerializeField]
+    private float borderUpDownWitdh;
+
+    [SerializeField]
+    private ActionButton _actionButton;
+
+    [SerializeField]
+    private GameObject _gui;
+
+    [SerializeField]
+    private Joystick _joystick;
+
+    [SerializeField]
+    private Camera _cameraToAnimate;
 
     private My3DText _scoreText;
     private My3DText _comboText;
@@ -27,23 +34,43 @@ public class HeroControll : GameEntity
     private float _comboTime;
     private float _stopComboTime;
 
-    [SerializeField]
-    private ActionButton _actionButton;
+    private Vector3 _prevPoss;
+    private Vector3 _currPoss;
 
-    public ActionButton ActionButton
+    private float _maxScreenWidth;
+    private float _maxScreenHeight;
+
+    private bool _useEditor;
+
+    public float BorderLeftRightWitdh
     {
-        get { return _actionButton; }
-        set { _actionButton = value; }
+        get { return borderLeftRightWitdh; }
+        set { borderLeftRightWitdh = value; }
     }
+
+    public float BorderUpDownWitdh
+    {
+        get { return borderUpDownWitdh; }
+        set { borderUpDownWitdh = value; }
+    }
+
+    #endregion
 
     protected void Awake()
     {
 		base.Awake ();
 
+        _useEditor = false;
+        #if UNITY_EDITOR
+            _useEditor = true;
+        #endif
+
+        CanAttack = false;
+
         //combo will stop after 1 sec
         _stopComboTime = 1.0f;
 
-        foreach (My3DText guiScripts in GUI.GetComponents<My3DText>())
+        foreach (My3DText guiScripts in _gui.GetComponents<My3DText>())
         {
             if (guiScripts.TextObjectName.Equals("Score"))
                 _scoreText = guiScripts;
@@ -57,12 +84,15 @@ public class HeroControll : GameEntity
         _maxScreenWidth = targetWidth.x - heroWidth;
         _maxScreenHeight = targetWidth.y - heroHeight;
 
-        ActionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
+        _actionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
     }
 
     protected void Update()
     {
         base.Update();
+
+        IsMoveJoystick = GetJoystickMove();
+
         //implement to stop combo
         if (_comboTime + _stopComboTime < Time.time)
         {
@@ -79,21 +109,38 @@ public class HeroControll : GameEntity
 
     protected override void OnMove()
     {
+        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);
         Vector2 movePosition;
-        float positionX = _useEditor ? Input.GetAxis("Horizontal") : JoyStickLeft.position.x;
-        float positionY = _useEditor ? Input.GetAxis("Vertical") : JoyStickLeft.position.y;
 
         if (_useEditor)
             movePosition = new Vector2(Input.GetAxis("Horizontal") * Time.deltaTime * MoveSpeed, Input.GetAxis("Vertical") * Time.deltaTime * MoveSpeed);
         else
-            movePosition = new Vector2(JoyStickLeft.position.x * Time.deltaTime * MoveSpeed, JoyStickLeft.position.y * Time.deltaTime * MoveSpeed);
+            movePosition = new Vector2(_joystick.position.x * Time.deltaTime * MoveSpeed, _joystick.position.y * Time.deltaTime * MoveSpeed);
 
         gameObject.transform.Translate(movePosition);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -_maxScreenWidth, _maxScreenWidth),
             Mathf.Clamp(transform.position.y, -_maxScreenHeight, _maxScreenHeight));
 
-        _gameObjectAnimator.SetBool("Move", true);
-        ChangeAnimationDirection(_gameObjectAnimator, movePosition);
+        GameObjectAnimator.SetBool("Move", true);
+        ChangeAnimationDirection(GameObjectAnimator, movePosition);
+
+        _prevPoss = _currPoss;
+        _currPoss = Position;
+
+        _attackToPosition = GetPositionOnDistance(AttackDistance + 2, GetMoveDirection(_prevPoss, _currPoss));
+    }
+
+    protected override void OnAttack()
+    {
+        GameObjectAnimator.SetBool("Move", false);
+        GameObjectAnimator.SetBool("Attack", true);
+        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, MoveSpeed * MoveSpeed);
+
+        if (Position.Equals(_attackToPosition))
+        {
+            CanAttack = false;
+            SetDefaultAnimation(GameObjectAnimator);
+        }
     }
 
     protected override void OnCollision(GameEntity collisionObject)
@@ -123,6 +170,19 @@ public class HeroControll : GameEntity
 
     void OnActionButtonClicked(object sender, EventArgs eventArgs)
     {
-        //OnAttack(GetPositionOnDistance(0.2f, GetMoveDirection(Position, new Vector2(_player.transform.position.x, _player.transform.position.y) + GetDirectionAsVector(_player.transform.position))));
+        if (State.Equals(GameEntityState.Move))
+            CanAttack = true;
+        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+    }
+
+    bool GetJoystickMove()
+    {
+        float positionX = _useEditor ? Input.GetAxis("Horizontal") : _joystick.position.x;
+        float positionY = _useEditor ? Input.GetAxis("Vertical") : _joystick.position.y;
+
+        if (new Vector2(positionX, positionY).Equals(Vector2.zero))
+            return false;
+
+        return true;
     }
 }
