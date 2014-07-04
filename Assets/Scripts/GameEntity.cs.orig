@@ -106,7 +106,9 @@ public abstract class GameEntity : MonoBehaviour
         set { _canAttack = value; }
     }
 
+<<<<<<< HEAD
     public Animator GameObjectAnimator { get; set; }
+=======
     private Transform _bulletObject;
 
     public Transform BulletObject
@@ -115,6 +117,14 @@ public abstract class GameEntity : MonoBehaviour
         set { _bulletObject = value; }
     }
 
+    private GameEntity _player;
+    protected Animator _gameObjectAnimator;
+	protected Vector2 _attackToPosition;
+    private Joystick _joyStickLeft;
+    private bool _useEditor = false;
+    private bool _isPlayer;
+    private ActionButton _actionButton;
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
 
     public GameEntity Player
     {
@@ -127,7 +137,20 @@ public abstract class GameEntity : MonoBehaviour
     protected void Awake()
     {
 
+<<<<<<< HEAD
         GameObjectAnimator = GetComponent<Animator>();
+        _enemyList = GameObject.FindGameObjectWithTag("EnemyCreator").GetComponent<EnemyCreator>().EnemyList;
+=======
+        _gameObjectAnimator = GetComponent<Animator>();
+		_player = GameObject.FindGameObjectWithTag ("Player").GetComponent<GameEntity> ();
+        _joyStickLeft = GameObject.FindGameObjectWithTag("JoystickTag").GetComponent<Joystick>();
+        _actionButton = GameObject.FindGameObjectWithTag("ActionButton").GetComponent<ActionButton>();
+        _prepareDefault = _prepareTime;
+        _isPlayer = _player.Equals(this);
+        if (_isPlayer)
+            _actionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
+    }
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
 
         _prepareDefault = _prepareTime;
         _currentDirection = Directions.Bottom;
@@ -138,10 +161,12 @@ public abstract class GameEntity : MonoBehaviour
         GameEntityState _checkingState = GetCurrentState();
         if (_checkingState != GameEntityState.Collision)
             _state = _checkingState;
+<<<<<<< HEAD
 
-        if (Player != null && _checkingState != GameEntityState.Wait)
-            Debug.Log("State = " + _checkingState);
-
+=======
+        if (!_isPlayer)
+            Debug.Log(_checkingState);
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
         switch (_checkingState)
         {
             case GameEntityState.Wait:
@@ -161,7 +186,19 @@ public abstract class GameEntity : MonoBehaviour
             case GameEntityState.Blink:
                 //InvokeRepeating();
                 break;
+<<<<<<< HEAD
+            case GameEntityState.Collision:
+                Player.OnCollision(this);
+                OnCollision(Player);
+                Destroy(gameObject);
+                _enemyList.Remove(gameObject);
+                break;
         }
+    }
+
+    private void BlinkAnimation()
+    {
+
     }
 
     GameEntityState GetCurrentState()
@@ -172,24 +209,91 @@ public abstract class GameEntity : MonoBehaviour
         if (tag.Equals("Player") && !IsMoveJoystick)
             return GameEntityState.Wait;
 
-        if (Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
+        if (!CanAttack && Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
         {
+=======
+            /*case GameEntityState.Collision:
+                _player.OnCollision(gameObject);
+                OnCollision(_player.gameObject);
+                Destroy(gameObject);
+                _enemyList.Remove(gameObject);
+                break;*/
+        }
+    }
+
+    GameEntityState GetCurrentState(Vector2 _position = new Vector2())
+    {
+        if (!_isPlayer)
+        {
+            float attackDistance = AttackDistance;
+            float prepareTiming = PrepareTime;
+            /*if (Vector2.Distance(transform.position, _player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
+            {
+                return GameEntityState.Move;
+            }
+            else if (prepareTiming > 0)
+            {
+                return GameEntityState.Prepare;
+            }
+            if ((prepareTiming <= 0 && !Position.Equals(_attackToPosition) && _canAttack))
+            {
+                return GameEntityState.Attack;
+            }
+            else if (Position.Equals(_attackToPosition) || !_canAttack)
+			{
+                _prepareTime = _prepareDefault;
+				return GameEntityState.Move;
+			}
+            return GameEntityState.Move;*/
+
+            if (Vector2.Distance(transform.position, _player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
+            {
+                return GameEntityState.Move;
+            }
+            else if (prepareTiming <= _prepareDefault && prepareTiming > 0 && Vector2.Distance(transform.position, _player.transform.position) < attackDistance)
+            {
+                return GameEntityState.Prepare;
+            }
+            else if ((prepareTiming <= 0 && !Position.Equals(_attackToPosition) && _canAttack) || (BulletObject != null && !BulletObject.position.Equals(_attackToPosition)))
+            {
+                return GameEntityState.Attack;
+            }
+            else if (Position.Equals(_attackToPosition) || BulletObject == null)
+            {
+                _canAttack = true;
+                _prepareTime = _prepareDefault;
+                return GameEntityState.Move;
+            }
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
             return GameEntityState.Move;
         }
-        else if (prepareTiming <= _prepareDefault && prepareTiming > 0)
+        else if (prepareTiming > 0)
         {
+<<<<<<< HEAD
             return GameEntityState.Prepare;
+=======
+            return GameEntityState.Move;
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
         }
-        else if ((prepareTiming <= 0  && _canAttack) || (BulletObject != null && !BulletObject.position.Equals(_attackToPosition)))
+
+        if (!tag.Equals("Player") && renderer.bounds.Intersects(Player.renderer.bounds))
+        {
+            if (_health > 1)
+                return GameEntityState.Blink;
+            else
+                return GameEntityState.Collision;
+        }
+
+        if (prepareTiming <= 0 && _canAttack)
         {
             return GameEntityState.Attack;
         }
-        else if ((!_canAttack || BulletObject == null) && Player != null)
+        else if (!_canAttack)
 		{
-            _canAttack = true;
             _prepareTime = _prepareDefault;
 			return GameEntityState.Move;
 		}
+
         return GameEntityState.Move;
     }
 
@@ -206,7 +310,6 @@ public abstract class GameEntity : MonoBehaviour
 
     protected virtual void OnPrepare()
     {
-        CanAttack = true;
         _attackToPosition = GetPositionOnDistance(AttackDistance + 2,
             GetMoveDirection(Position, new Vector2(Player.Position.x, Player.Position.y)));
 

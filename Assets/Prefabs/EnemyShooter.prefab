@@ -110,6 +110,7 @@ MonoBehaviour:
   _attackDistance: 6
   _state: 0
   _prepareTime: 1
+  _player: {fileID: 0}
   _gunTransform: {fileID: 400000, guid: 18dbefdfd9a209b40a11abd362f38029, type: 2}
 --- !u!198 &19800000
 ParticleSystem:
@@ -1215,7 +1216,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300002, guid: 21e19a892735e9341b5bfaa9e87e3902, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fc403d1b66578b4ba2b6571cc500d27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

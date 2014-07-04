@@ -22,13 +22,6 @@ public class ShooterEnemy : GameEntity {
         PrepareTime = 1.0f;
         _gameObjectAnimator.speed = 1.0f;
         _gameObjectAnimator.SetBool("Prepare", false);*/
-
-        Vector2 movePosition = Player.transform.position;
-        MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
-        //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
-        PrepareTime = 1.0f;
-        GameObjectAnimator.speed = 1.0f;
-        GameObjectAnimator.SetBool("Prepare", false);
     }
 
     protected override void OnAttack()
@@ -36,10 +29,17 @@ public class ShooterEnemy : GameEntity {
         if (_gunTransform != null && CanAttack)
         {
             CanAttack = false;
+<<<<<<< HEAD
+            var shootObject = Instantiate(_gunTransform) as Transform;
+            shootObject.position = transform.position;
+            ShootScript script = shootObject.GetComponent<ShootScript>();
+            script.AttackPosition = _attackToPosition;
+=======
             BulletObject = Instantiate(_gunTransform) as Transform;
             BulletObject.position = transform.position;
             ShootScript script = BulletObject.GetComponent<ShootScript>();
-            script.AttackPosition = _attackToPosition;
+            script.AttackPosition = _attackPosition;
+>>>>>>> Enemy state logic changed & Shooter enemy added & collision logic implemented
             script.EnemyObject = this;
             Directions dir = GetDirection(transform.position);
             if (dir == Directions.Right)

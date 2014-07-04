@@ -143,8 +143,30 @@ public class HeroControll : GameEntity
         }
     }
 
-    protected override void OnCollision(GameEntity collisionObject)
+    public override void OnCollision(GameObject collisionObject)
     {
+        if (collisionObject.CompareTag("Enemy"))
+        {
+            GameEntity enemyScript = collisionObject.GetComponent<GameEntity>();
+            if (enemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
+            {
+                if (enemyScript.BulletObject != null)
+                    Destroy(enemyScript.BulletObject.gameObject);
+                _scoreText.Value -= 10;
+            }
+            else
+            {
+                Destroy(collisionObject);
+                _scoreText.Value = enemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
+                _comboText.Value = _comboText.Value + 1;
+                _comboTime = Time.time;
+                _scoreText.PlayAmination();
+                _comboText.PlayAmination();
+
+                if (_comboText.FontSize < _comboText.MaxFontSize)
+                    _comboText.FontSize += 10;
+            }
+        }
         //if hero complete attack
         /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
         {

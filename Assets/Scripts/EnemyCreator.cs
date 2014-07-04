@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using System.Runtime.CompilerServices;
 
 public class EnemyCreator : MonoBehaviour
 {
@@ -26,10 +27,11 @@ public class EnemyCreator : MonoBehaviour
     private Vector3 _cameraSize;
     private Vector3 _enemySize;
 
-    private List<GameObject> _enemyList;
+    private volatile List<GameObject> _enemyList;
 
     public List<GameObject> EnemyList
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         get { return _enemyList; }
     }
 
@@ -79,7 +81,7 @@ public class EnemyCreator : MonoBehaviour
         if (EnemyList.Count > MaxEnemyCount - 1)
             return;
         int index = Random.Range(0, _enemy.Length);
-        EnemyList.Add((GameObject)Instantiate(_enemy[index], GetRandomPosition(), transform.rotation));
+        EnemyList.Add((GameObject) Instantiate(_enemy[index], GetRandomPosition(), transform.rotation));
         EnemyList[EnemyList.Count - 1].transform.parent = transform;
         EnemyList[EnemyList.Count - 1].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
     }
@@ -113,6 +115,9 @@ public class EnemyCreator : MonoBehaviour
 
     private bool IsIntersects(Bounds newEnemyBounds)
     {
-        return EnemyList.Any(enemy => enemy.renderer.bounds.Intersects(newEnemyBounds));
+        return (from enemy in EnemyList
+                where enemy != null && enemy.renderer.bounds.Intersects(newEnemyBounds)
+                select enemy).ToList<GameObject>().Count > 0;
+        //return EnemyList.FindAll(enemy => enemy != null).Exists(enemy => enemy.renderer.bounds.Intersects(newEnemyBounds));
     }
 }

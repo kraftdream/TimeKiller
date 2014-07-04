@@ -16,14 +16,18 @@ public class GameAI : GameEntity
         GameObjectAnimator.SetBool("Prepare", false);
     }
 
-	protected void OnAttack(Vector2 _attackPosition)
+	protected override void OnAttack()
     {
-        //base.OnAttack(_attackPosition);
+        base.OnAttack();
         GameObjectAnimator.SetBool("Prepare", false);
+        if (Position.Equals(_attackToPosition))
+        {
+            CanAttack = false;
+        }
        
     }
 
-    protected override void OnCollision(GameEntity collisionObject)
+    public override void OnCollision(GameObject collisionObject)
     {
         //get Player game object
     }

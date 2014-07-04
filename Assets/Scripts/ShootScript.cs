@@ -24,7 +24,7 @@ public class ShootScript : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(AttackPosition.x * _gunSpeed.x, AttackPosition.y * _gunSpeed.y), 0.1f);
         else
         {
-            _enemyObject.CanAttack = true;
+            //_enemyObject.CanAttack = true;
             Destroy(gameObject);
         }
 	}
