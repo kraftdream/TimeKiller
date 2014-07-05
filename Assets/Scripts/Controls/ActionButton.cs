@@ -39,7 +39,7 @@ public class ActionButton : MonoBehaviour
                 }
             } 
         }
-        if (Input.GetMouseButton(0))
-            OnBtnClick(this, new EventArgs());
+        //if (Input.GetMouseButtonUp(0))
+            //OnBtnClick(this, new EventArgs());
     }
 }

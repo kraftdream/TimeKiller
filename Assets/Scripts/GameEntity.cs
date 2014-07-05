@@ -16,6 +16,9 @@ public abstract class GameEntity : MonoBehaviour
     private float _moveSpeed;
 
     [SerializeField]
+    private float _attackSpeed;
+
+    [SerializeField]
     private float _armour;
 
     [SerializeField]
@@ -56,6 +59,12 @@ public abstract class GameEntity : MonoBehaviour
     {
         get { return _moveSpeed; }
         set { _moveSpeed = value; }
+    }
+
+    public float AttackSpeed
+    {
+        get { return _attackSpeed; }
+        set { _attackSpeed = value; }
     }
 
     public float Armour
@@ -169,7 +178,7 @@ public abstract class GameEntity : MonoBehaviour
         float attackDistance = AttackDistance;
         float prepareTiming = PrepareTime;
 
-        if (tag.Equals("Player") && !IsMoveJoystick)
+        if (tag.Equals("Player") && !IsMoveJoystick && !CanAttack)
             return GameEntityState.Wait;
 
         if (Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
@@ -197,6 +206,7 @@ public abstract class GameEntity : MonoBehaviour
 
     protected virtual void OnWait()
     {
+        GameObjectAnimator.speed = 1;
         SetDefaultAnimation(GameObjectAnimator);
     }
 

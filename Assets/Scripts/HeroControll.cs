@@ -42,6 +42,8 @@ public class HeroControll : GameEntity
 
     private bool _useEditor;
 
+    private float _defaultAttackSpeed;
+
     public float BorderLeftRightWitdh
     {
         get { return borderLeftRightWitdh; }
@@ -61,6 +63,8 @@ public class HeroControll : GameEntity
 		base.Awake ();
 
         _useEditor = false;
+        _defaultAttackSpeed = AttackSpeed;
+
         #if UNITY_EDITOR
             _useEditor = true;
         #endif
@@ -109,7 +113,6 @@ public class HeroControll : GameEntity
 
     protected override void OnMove()
     {
-        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);
         Vector2 movePosition;
 
         if (_useEditor)
@@ -121,25 +124,39 @@ public class HeroControll : GameEntity
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -_maxScreenWidth, _maxScreenWidth),
             Mathf.Clamp(transform.position.y, -_maxScreenHeight, _maxScreenHeight));
 
+        SetDefaultAnimation(GameObjectAnimator);
         GameObjectAnimator.SetBool("Move", true);
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
+        AnimationWithMoveSpeed();
 
         _prevPoss = _currPoss;
         _currPoss = Position;
 
-        _attackToPosition = GetPositionOnDistance(AttackDistance + 2, GetMoveDirection(_prevPoss, _currPoss));
+        _attackToPosition = GetPositionOnDistance(AttackDistance, GetMoveDirection(_prevPoss, _currPoss));
     }
 
     protected override void OnAttack()
     {
-        GameObjectAnimator.SetBool("Move", false);
+        SetDefaultAnimation(GameObjectAnimator);
         GameObjectAnimator.SetBool("Attack", true);
-        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, MoveSpeed * MoveSpeed);
+
+        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
+
+        if (AttackSpeed > _defaultAttackSpeed * 0.5f)
+        {
+            float currentDistance = Vector2.Distance(Position, _attackToPosition);
+            float distanceToPercent = (currentDistance * 100.0f) / AttackDistance;
+            AttackSpeed = (distanceToPercent *_defaultAttackSpeed) / 50.0f;
+        }
+
+        GameObjectAnimator.speed += AttackSpeed * 0.001f;
 
         if (Position.Equals(_attackToPosition))
         {
+            GameObjectAnimator.speed = 1;
             CanAttack = false;
-            SetDefaultAnimation(GameObjectAnimator);
+            AttackSpeed = _defaultAttackSpeed;
+            _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);
         }
     }
 
@@ -193,8 +210,11 @@ public class HeroControll : GameEntity
     void OnActionButtonClicked(object sender, EventArgs eventArgs)
     {
         if (State.Equals(GameEntityState.Move))
+        {
+            GameObjectAnimator.speed = 1;
             CanAttack = true;
-        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+            _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+        }
     }
 
     bool GetJoystickMove()
@@ -206,5 +226,25 @@ public class HeroControll : GameEntity
             return false;
 
         return true;
+    }
+
+    void AnimationWithMoveSpeed()
+    {
+        if (!_useEditor)
+        {
+            if ((Mathf.Abs(_joystick.position.x) > Mathf.Abs(_joystick.position.y)))
+                GameObjectAnimator.speed = Mathf.Abs(_joystick.position.x);
+            else
+                GameObjectAnimator.speed = Mathf.Abs(_joystick.position.y);
+        }
+        else
+        {
+            if ((Input.GetAxis("Horizontal") * Input.GetAxis("Vertical")) > 0)
+                GameObjectAnimator.speed = (Input.GetAxis("Horizontal") * Input.GetAxis("Vertical")) / 2;
+            else if (_joystick.position.x > 0)
+                GameObjectAnimator.speed = Input.GetAxis("Horizontal");
+            else if (_joystick.position.y > 0)
+                GameObjectAnimator.speed = Input.GetAxis("Vertical");
+        }
     }
 }
