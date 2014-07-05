@@ -124,10 +124,16 @@ public class HeroControll : GameEntity
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -_maxScreenWidth, _maxScreenWidth),
             Mathf.Clamp(transform.position.y, -_maxScreenHeight, _maxScreenHeight));
 
-        SetDefaultAnimation(GameObjectAnimator);
-        GameObjectAnimator.SetBool("Move", true);
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
-        AnimationWithMoveSpeed();
+        
+        if (!GameObjectAnimator.GetBool("Move"))
+        {
+            GameObjectAnimator.speed = 100;
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Move", true);
+        }
+        else
+            AnimationWithMoveSpeed();
 
         _prevPoss = _currPoss;
         _currPoss = Position;
@@ -137,8 +143,8 @@ public class HeroControll : GameEntity
 
     protected override void OnAttack()
     {
-        SetDefaultAnimation(GameObjectAnimator);
-        GameObjectAnimator.SetBool("Attack", true);
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
 
         MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
 
@@ -149,11 +155,18 @@ public class HeroControll : GameEntity
             AttackSpeed = (distanceToPercent *_defaultAttackSpeed) / 50.0f;
         }
 
-        GameObjectAnimator.speed += AttackSpeed * 0.001f;
+        if (!GameObjectAnimator.GetBool("Attack"))
+        {
+            GameObjectAnimator.speed = 100;
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Attack", true);
+        }
+
+        GameObjectAnimator.speed -= AttackSpeed * 0.001f;
 
         if (Position.Equals(_attackToPosition))
         {
-            GameObjectAnimator.speed = 1;
+            GameObjectAnimator.speed = 100;
             CanAttack = false;
             AttackSpeed = _defaultAttackSpeed;
             _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);

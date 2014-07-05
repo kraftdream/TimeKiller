@@ -9,13 +9,11 @@ public class ActionButton : MonoBehaviour
 
     public Texture2D _texture;
     private Rect _buttonRect;
-    private HeroAttack _heroAttack;
     private bool phaseBegan;
 
     void Start()
     {
         _buttonRect = new Rect(Screen.width - 150, Screen.height - 150, 100, 100);
-        _heroAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroAttack>();
     }
 
     void OnGUI()
@@ -39,7 +37,10 @@ public class ActionButton : MonoBehaviour
                 }
             } 
         }
-        //if (Input.GetMouseButtonUp(0))
-            //OnBtnClick(this, new EventArgs());
+
+        #if UNITY_EDITOR
+        if (Input.GetMouseButtonUp(0))
+            OnBtnClick(this, new EventArgs());
+        #endif
     }
 }
