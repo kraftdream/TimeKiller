@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -71,7 +70,6 @@ public class EnemyCreator : MonoBehaviour
 
     private void Start()
     {
-        // Start calling the Spawn function repeatedly after a delay .
         InvokeRepeating("CreateEnemy", Delay, Time);
     }
 

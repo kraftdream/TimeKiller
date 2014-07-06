@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class CollisionDetector : MonoBehaviour {
+public class CollisionDetector : MonoBehaviour
+{
 
     [SerializeField]
     private GameObject _enemyCreator;
@@ -21,13 +22,15 @@ public class CollisionDetector : MonoBehaviour {
         get { return _player; }
     }
 
-	// Use this for initialization
-	void Start () {
-	}
+    // Use this for initialization
+    void Start()
+    {
+    }
 
-	void Update () {
+    void Update()
+    {
         CheckForCollision();
-	}
+    }
 
     void CheckForCollision()
     {
@@ -39,10 +42,26 @@ public class CollisionDetector : MonoBehaviour {
                     continue;
                 GameEntity enemyScript = enemy.GetComponent<GameEntity>();
                 GameObject collisionObject = null;
-                if (enemyScript is ShooterEnemy && !((ShooterEnemy)enemyScript).CanAttack && ((ShooterEnemy)enemyScript).BulletObject != null)
-                    collisionObject = ((ShooterEnemy)enemyScript).BulletObject.gameObject;
+
+//                if (enemyScript is ShooterEnemy && !enemyScript.CanAttack && enemyScript.BulletObject != null)
+//                    collisionObject = ((ShooterEnemy)enemyScript).BulletObject.gameObject;
+//                else
+//                    collisionObject = enemy;
+//                if (IsIntersects(collisionObject.renderer.bounds))
+//                {
+//                    _player.GetComponent<GameEntity>().OnCollision(enemy);
+//                }
+
+                // check if the collision is enemy or a bullet
+                if (enemyScript.BulletObject != null)
+                {
+                    collisionObject = enemyScript.BulletObject.gameObject;
+                }
                 else
+                {
                     collisionObject = enemy;
+                }
+
                 if (IsIntersects(collisionObject.renderer.bounds))
                 {
                     _player.GetComponent<GameEntity>().OnCollision(enemy);
@@ -50,11 +69,10 @@ public class CollisionDetector : MonoBehaviour {
             }
         }
         EnemyCreator.EnemyList.RemoveAll(item => item == null);
-
     }
 
     bool IsIntersects(Bounds _enemyBounds)
     {
         return Player.renderer.bounds.Intersects(_enemyBounds);
-    } 
+    }
 }

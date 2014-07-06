@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading;
 using UnityEngine;
-using System.Collections;
 
 public class EventCatcher : MonoBehaviour
 {
@@ -27,13 +24,13 @@ public class EventCatcher : MonoBehaviour
         _enemiesToDelete = new List<GameObject>();
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
-	    //CatchEvents();
+	void Update() {
+	    CatchEvents();
 	}
 
     void CatchEvents()
     {
+        Debug.Log("CatchEvents");
         _enemiesToDelete.Clear();
 
         if (_enemyList != null)

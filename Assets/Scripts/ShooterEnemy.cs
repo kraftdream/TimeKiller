@@ -36,6 +36,7 @@ public class ShooterEnemy : GameEntity {
         if (_gunTransform != null && CanAttack)
         {
             CanAttack = false;
+
             BulletObject = Instantiate(_gunTransform) as Transform;
             BulletObject.position = transform.position;
             ShootScript script = BulletObject.GetComponent<ShootScript>();

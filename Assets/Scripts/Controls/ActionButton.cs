@@ -8,31 +8,28 @@ public class ActionButton : MonoBehaviour
     public event OnButtonClickListener OnBtnClick;
 
     public Texture2D _texture;
-    private Rect _buttonRect;
+    private Rect _actionArea;
     private bool phaseBegan;
 
     void Start()
     {
-        _buttonRect = new Rect(Screen.width - 150, Screen.height - 150, 100, 100);
+        _actionArea = new Rect(Screen.width / 2, 0, Screen.width, Screen.height);
     }
 
     void OnGUI()
     {
-        GUI.Button(_buttonRect, _texture);
-
         foreach (Touch touchItem in Input.touches)
         {
             Vector2 touchVector = touchItem.position;
             touchVector.y = Screen.height - touchVector.y;
 
-            if (_buttonRect.Contains(touchVector))
+            if (_actionArea.Contains(touchVector))
             {
                 if (touchItem.phase == TouchPhase.Began)
                     phaseBegan = true;
                 if (touchItem.phase == TouchPhase.Ended && phaseBegan)
                 {
                     phaseBegan = false;
-                    //_heroAttack.IsAttacked = true;
                     OnBtnClick(this, new EventArgs());
                 }
             } 

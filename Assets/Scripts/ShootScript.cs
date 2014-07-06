@@ -21,7 +21,8 @@ public class ShootScript : MonoBehaviour {
 
 	void Update () {
         if (renderer.isVisible)
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(AttackPosition.x * _gunSpeed.x, AttackPosition.y * _gunSpeed.y), 0.1f);
+            transform.position = Vector2.MoveTowards(transform.position, 
+                new Vector2(AttackPosition.x * _gunSpeed.x, AttackPosition.y * _gunSpeed.y), 0.1f);
         else
         {
             //_enemyObject.CanAttack = true;

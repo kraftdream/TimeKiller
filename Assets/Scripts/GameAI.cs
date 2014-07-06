@@ -4,8 +4,6 @@ using UnityEngine;
 public class GameAI : GameEntity
 {
 
-	// Update is called once per frame
-
     protected override void OnMove()
     {
         Vector2 movePosition = Player.transform.position;

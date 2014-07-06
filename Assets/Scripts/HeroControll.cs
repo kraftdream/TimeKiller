@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ public class HeroControll : GameEntity
 
     [SerializeField]
     private float borderLeftRightWitdh;
-    
+
     [SerializeField]
     private float borderUpDownWitdh;
 
@@ -44,6 +45,10 @@ public class HeroControll : GameEntity
 
     private float _defaultAttackSpeed;
 
+    private ParticleSystem _playerDeathBlood;
+    private GameObject _collidedGameObject;
+    private GameEntity _collidedEnemyScript;
+
     public float BorderLeftRightWitdh
     {
         get { return borderLeftRightWitdh; }
@@ -60,14 +65,14 @@ public class HeroControll : GameEntity
 
     protected void Awake()
     {
-		base.Awake ();
+        base.Awake();
 
         _useEditor = false;
         _defaultAttackSpeed = AttackSpeed;
 
-        #if UNITY_EDITOR
-            _useEditor = true;
-        #endif
+#if UNITY_EDITOR
+        _useEditor = true;
+#endif
 
         CanAttack = false;
 
@@ -89,6 +94,9 @@ public class HeroControll : GameEntity
         _maxScreenHeight = targetWidth.y - heroHeight;
 
         _actionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
+
+        _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
+        _playerDeathBlood.active = false;
     }
 
     protected void Update()
@@ -109,7 +117,7 @@ public class HeroControll : GameEntity
         {
             Application.LoadLevel("MainMenu");
         }
-	}
+    }
 
     protected override void OnMove()
     {
@@ -125,7 +133,7 @@ public class HeroControll : GameEntity
             Mathf.Clamp(transform.position.y, -_maxScreenHeight, _maxScreenHeight));
 
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
-        
+
         if (!GameObjectAnimator.GetBool("Move"))
         {
             GameObjectAnimator.speed = 100;
@@ -152,7 +160,7 @@ public class HeroControll : GameEntity
         {
             float currentDistance = Vector2.Distance(Position, _attackToPosition);
             float distanceToPercent = (currentDistance * 100.0f) / AttackDistance;
-            AttackSpeed = (distanceToPercent *_defaultAttackSpeed) / 50.0f;
+            AttackSpeed = (distanceToPercent * _defaultAttackSpeed) / 50.0f;
         }
 
         if (!GameObjectAnimator.GetBool("Attack"))
@@ -175,35 +183,39 @@ public class HeroControll : GameEntity
 
     public override void OnCollision(GameObject collisionObject)
     {
+
         if (collisionObject.CompareTag("Enemy"))
         {
-            GameEntity enemyScript = collisionObject.GetComponent<GameEntity>();
-            if (enemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
-            {
-                if (enemyScript.BulletObject != null)
-                    Destroy(enemyScript.BulletObject.gameObject);
-                _scoreText.Value -= 10;
-            }
-            else
-            {
-                Destroy(collisionObject);
-                _scoreText.Value = enemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
-                _comboText.Value = _comboText.Value + 1;
-                _comboTime = Time.time;
-                _scoreText.PlayAmination();
-                _comboText.PlayAmination();
+            _collidedGameObject = collisionObject;
+            _collidedEnemyScript = collisionObject.GetComponent<GameEntity>();
 
-                if (_comboText.FontSize < _comboText.MaxFontSize)
-                    _comboText.FontSize += 10;
+            if (State == GameEntityState.Attack)
+            {
+                HeroKillsEnemy();
             }
+
+            if (State != GameEntityState.Attack)
+            {
+                HeroDead();
+                DestroyBullet();
+            }
+
+//            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
+//            {
+//                if (_collidedEnemyScript.BulletObject != null)
+//                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
+//                _scoreText.Value -= 10;
+//            
+//            }
         }
+        
         //if hero complete attack
         /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
         {
-            object enemyScript = collisionObject.GetComponent<GameAI>();
-            if (enemyScript == null)
-                enemyScript = collisionObject.GetComponent<ShooterEnemy>();
-            _scoreText.Value = ((GameEntity) enemyScript).ScorePoint + _scoreText.Value + _comboText.Value;
+            object _collidedEnemyScript = collisionObject.GetComponent<GameAI>();
+            if (_collidedEnemyScript == null)
+                _collidedEnemyScript = collisionObject.GetComponent<ShooterEnemy>();
+            _scoreText.Value = ((GameEntity) _collidedEnemyScript).ScorePoint + _scoreText.Value + _comboText.Value;
             _comboText.Value = _comboText.Value + 1;
             _comboTime = Time.time;
             _scoreText.PlayAmination();
@@ -212,8 +224,32 @@ public class HeroControll : GameEntity
             if (_comboText.FontSize < _comboText.MaxFontSize)
                 _comboText.FontSize += 10;
         }*/
-        //if hero dead
-        //ToDO Hero dead
+    }
+
+    void HeroKillsEnemy()
+    {
+        Destroy(_collidedGameObject);
+        _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
+        _comboText.Value = _comboText.Value + 1;
+        _comboTime = Time.time;
+        _scoreText.PlayAmination();
+        _comboText.PlayAmination();
+
+        if (_comboText.FontSize < _comboText.MaxFontSize)
+            _comboText.FontSize += 10;
+    }
+
+    void HeroDead()
+    {
+        _playerDeathBlood.active = true;
+    }
+
+    void DestroyBullet()
+    {
+        if (_collidedEnemyScript.BulletObject != null)
+        {
+            Destroy(_collidedEnemyScript.BulletObject.gameObject);
+        }
     }
 
     protected override void OnBlink()

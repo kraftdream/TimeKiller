@@ -148,8 +148,8 @@ public abstract class GameEntity : MonoBehaviour
         if (_checkingState != GameEntityState.Collision)
             _state = _checkingState;
 
-        if (_checkingState != GameEntityState.Wait)
-            Debug.Log("State = " + _checkingState);
+//        if (_checkingState != GameEntityState.Wait)
+//            Debug.Log("State = " + _checkingState);
 
         switch (_checkingState)
         {
