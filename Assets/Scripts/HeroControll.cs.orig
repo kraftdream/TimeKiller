@@ -27,7 +27,10 @@ public class HeroControll : GameEntity
     private Joystick _joystick;
 
     [SerializeField]
-    private Camera _cameraToAnimate;
+    private Camera _mainCamera;
+
+    [SerializeField]
+    private Camera _guiCamera;
 
     [SerializeField]
     private GameObject _playerAttackSlash;
@@ -54,18 +57,21 @@ public class HeroControll : GameEntity
 
     private float _defaultAttackSpeed;
 
+<<<<<<< HEAD
     private Directions _currDirection;
 
+=======
+    // player death initialization
+>>>>>>> Added restart menu.
     private ParticleSystem _playerDeathBlood;
     private GameObject _collidedGameObject;
     private GameEntity _collidedEnemyScript;
+    private Material _darkScreen;
 
-<<<<<<< HEAD
     private ScoreControll _scoreControll;
-=======
+
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
->>>>>>> Add sound to attack, kill, dead event
 
     public float BorderLeftRightWitdh
     {
@@ -113,6 +119,7 @@ public class HeroControll : GameEntity
 
         _actionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
 
+<<<<<<< HEAD
         _attackSound = gameObject.AddComponent<AudioSource>();
         _attackSound.clip = _attackAudioClip;
         _attackSound.pitch = 1.1f;
@@ -125,6 +132,12 @@ public class HeroControll : GameEntity
         _playerDeathBlood.active = false;
 
         _scoreControll = new ScoreControll();
+=======
+        // player death initialization
+        _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
+        _playerDeathBlood.active = false;
+        _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
+>>>>>>> Added restart menu.
     }
 
     protected void Update()
@@ -213,9 +226,13 @@ public class HeroControll : GameEntity
             GameObjectAnimator.speed = 100;
             CanAttack = false;
             AttackSpeed = _defaultAttackSpeed;
+<<<<<<< HEAD
             _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);
 
             _playerAttackSlash.SetActive(false);
+=======
+            _mainCamera.GetComponent<Animator>().SetBool("Shake", false);
+>>>>>>> Added restart menu.
         }
     }
 
@@ -234,19 +251,19 @@ public class HeroControll : GameEntity
 
             if (State != GameEntityState.Attack)
             {
-                HeroDead();
                 DestroyBullet();
+                HeroDead();
             }
 
-//            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
-//            {
-//                if (_collidedEnemyScript.BulletObject != null)
-//                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
-//                _scoreText.Value -= 10;
-//            
-//            }
+            //            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
+            //            {
+            //                if (_collidedEnemyScript.BulletObject != null)
+            //                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
+            //                _scoreText.Value -= 10;
+            //            
+            //            }
         }
-        
+
         //if hero complete attack
         /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
         {
@@ -266,15 +283,11 @@ public class HeroControll : GameEntity
 
     void HeroKillsEnemy()
     {
-<<<<<<< HEAD
-        Destroy(_collidedGameObject);
-        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
-=======
         if (!_collidedGameObject.audio.isPlaying)
             _collidedGameObject.audio.Play();
+        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
 
         Destroy(_collidedGameObject, 1);
->>>>>>> Add sound to attack, kill, dead event
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
         _comboTime = Time.time;
@@ -287,9 +300,40 @@ public class HeroControll : GameEntity
 
     void HeroDead()
     {
+<<<<<<< HEAD
         _bloodSound.Play();
         _playerDeathBlood.active = true;
         _scoreControll.SaveScore((int)_scoreText.Value);
+=======
+        Health = 0;
+        _playerDeathBlood.active = true;
+        StartCoroutine(DeathScreen());
+    }
+
+    IEnumerator DeathScreen()
+    {
+        String colorComponent = "_Color";
+        Color color = _darkScreen.GetColor(colorComponent);
+
+        while (color.a < 0.5f)
+        {
+            yield return new WaitForEndOfFrame();
+            color.a = color.a + 0.01f;
+            _darkScreen.SetColor(colorComponent, color);
+
+            Time.timeScale -= 0.018f;
+        }
+
+//        yield return new WaitForSeconds(0.3f);
+//        Time.timeScale = 0;
+
+        RestartMenu();
+    }
+
+    void RestartMenu()
+    {
+        _guiCamera.GetComponent<RestartMenu>().IsShowRestart = true;
+>>>>>>> Added restart menu.
     }
 
     void DestroyBullet()
@@ -310,7 +354,11 @@ public class HeroControll : GameEntity
         {
             GameObjectAnimator.speed = 1;
             CanAttack = true;
+<<<<<<< HEAD
             
+=======
+            _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
+>>>>>>> Added restart menu.
         }
     }
 

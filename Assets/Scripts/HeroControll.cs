@@ -27,7 +27,10 @@ public class HeroControll : GameEntity
     private Joystick _joystick;
 
     [SerializeField]
-    private Camera _cameraToAnimate;
+    private Camera _mainCamera;
+
+    [SerializeField]
+    private Camera _guiCamera;
 
     [SerializeField]
     private GameObject _playerAttackSlash;
@@ -59,6 +62,7 @@ public class HeroControll : GameEntity
     private ParticleSystem _playerDeathBlood;
     private GameObject _collidedGameObject;
     private GameEntity _collidedEnemyScript;
+    private Material _darkScreen;
 
     private ScoreControll _scoreControll;
 
@@ -211,7 +215,7 @@ public class HeroControll : GameEntity
             GameObjectAnimator.speed = 100;
             CanAttack = false;
             AttackSpeed = _defaultAttackSpeed;
-            _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", false);
+            _mainCamera.GetComponent<Animator>().SetBool("Shake", false);
 
             _playerAttackSlash.SetActive(false);
         }
@@ -232,19 +236,19 @@ public class HeroControll : GameEntity
 
             if (State != GameEntityState.Attack)
             {
-                HeroDead();
                 DestroyBullet();
+                HeroDead();
             }
 
-//            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
-//            {
-//                if (_collidedEnemyScript.BulletObject != null)
-//                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
-//                _scoreText.Value -= 10;
-//            
-//            }
+            //            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
+            //            {
+            //                if (_collidedEnemyScript.BulletObject != null)
+            //                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
+            //                _scoreText.Value -= 10;
+            //            
+            //            }
         }
-        
+
         //if hero complete attack
         /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
         {
@@ -282,8 +286,35 @@ public class HeroControll : GameEntity
     void HeroDead()
     {
         _bloodSound.Play();
+        Health = 0;
         _playerDeathBlood.active = true;
         _scoreControll.SaveScore((int)_scoreText.Value);
+        StartCoroutine(DeathScreen());
+    }
+
+    IEnumerator DeathScreen()
+    {
+        String colorComponent = "_Color";
+        Color color = _darkScreen.GetColor(colorComponent);
+
+        while (color.a < 0.5f)
+        {
+            yield return new WaitForEndOfFrame();
+            color.a = color.a + 0.01f;
+            _darkScreen.SetColor(colorComponent, color);
+
+            Time.timeScale -= 0.018f;
+        }
+
+//        yield return new WaitForSeconds(0.3f);
+//        Time.timeScale = 0;
+
+        RestartMenu();
+    }
+
+    void RestartMenu()
+    {
+        _guiCamera.GetComponent<RestartMenu>().IsShowRestart = true;
     }
 
     void DestroyBullet()
@@ -304,7 +335,7 @@ public class HeroControll : GameEntity
         {
             GameObjectAnimator.speed = 1;
             CanAttack = true;
-            
+            _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
         }
     }
 
