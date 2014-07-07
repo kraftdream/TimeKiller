@@ -49,6 +49,8 @@ public class HeroControll : GameEntity
     private GameObject _collidedGameObject;
     private GameEntity _collidedEnemyScript;
 
+    private ScoreControll _scoreControll;
+
     public float BorderLeftRightWitdh
     {
         get { return borderLeftRightWitdh; }
@@ -97,6 +99,8 @@ public class HeroControll : GameEntity
 
         _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
         _playerDeathBlood.active = false;
+
+        _scoreControll = new ScoreControll();
     }
 
     protected void Update()
@@ -110,6 +114,7 @@ public class HeroControll : GameEntity
         {
             _comboText.StopAnimation();
             _comboText.FontSize = _comboText.DefaultFontSize;
+            _scoreControll.BestCombo = _comboText.Value;
             _comboText.Value = 0;
         }
 
@@ -229,6 +234,7 @@ public class HeroControll : GameEntity
     void HeroKillsEnemy()
     {
         Destroy(_collidedGameObject);
+        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
         _comboTime = Time.time;
@@ -242,6 +248,7 @@ public class HeroControll : GameEntity
     void HeroDead()
     {
         _playerDeathBlood.active = true;
+        _scoreControll.SaveScore((int)_scoreText.Value);
     }
 
     void DestroyBullet()
@@ -262,7 +269,7 @@ public class HeroControll : GameEntity
         {
             GameObjectAnimator.speed = 1;
             CanAttack = true;
-            _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+            
         }
     }
 
