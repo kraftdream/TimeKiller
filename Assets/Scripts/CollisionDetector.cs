@@ -38,8 +38,9 @@ public class CollisionDetector : MonoBehaviour
         {
             foreach (GameObject enemy in EnemyCreator.EnemyList)
             {
-                if (enemy == null)
+                if (enemy == null || enemy.GetComponent<GameAI>().State.Equals(GameEntityState.Death))
                     continue;
+
                 GameEntity enemyScript = enemy.GetComponent<GameEntity>();
                 GameObject collisionObject = null;
                 // check if the collision is enemy or a bullet

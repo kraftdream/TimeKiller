@@ -121,7 +121,7 @@ public class HeroControll : GameEntity
 
         _bloodSound = gameObject.AddComponent<AudioSource>();
         _bloodSound.clip = _bloodAudioClip;
-        _bloodSound.pitch = 1.1f;
+        _bloodSound.pitch = 0.7f;
 
         _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
         _playerDeathBlood.active = false;
@@ -251,7 +251,7 @@ public class HeroControll : GameEntity
             _collidedGameObject.audio.Play();
         _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
 
-        Destroy(_collidedGameObject, 1);
+        Destroy(_collidedGameObject, 30.0f);
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
         _comboTime = Time.time;
@@ -311,7 +311,6 @@ public class HeroControll : GameEntity
         {
             GameObjectAnimator.speed = 1;
             CanAttack = true;
-            _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
         }
     }
 

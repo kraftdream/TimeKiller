@@ -156,8 +156,8 @@ public abstract class GameEntity : MonoBehaviour
         if (_checkingState != GameEntityState.Collision)
             _state = _checkingState;
 
-//        if (_checkingState != GameEntityState.Wait)
-//            Debug.Log("State = " + _checkingState);
+        //if (Player != null)
+            //Debug.Log("State = " + _checkingState);
 
         switch (_checkingState)
         {
@@ -180,6 +180,7 @@ public abstract class GameEntity : MonoBehaviour
                 break;
 
             case GameEntityState.Death:
+                OnDeath();
                 break;
         }
     }
@@ -229,7 +230,7 @@ public abstract class GameEntity : MonoBehaviour
     }
 
     protected virtual void OnDeath()
-    { 
+    {
     }
 
     protected virtual void OnPrepare()
@@ -245,6 +246,7 @@ public abstract class GameEntity : MonoBehaviour
         {
             SetDefaultAnimation(GameObjectAnimator);
             GameObjectAnimator.SetBool("Prepare", true);
+            GameObjectAnimator.speed = 100;
         }
 
         ChangeAnimationDirection(GameObjectAnimator, _attackToPosition);

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameAI : GameEntity
 {
+    [SerializeField]
+    private ParticleSystem _enemyDeathBlood;
 
     protected override void OnMove()
     {
@@ -14,14 +16,14 @@ public class GameAI : GameEntity
         PrepareTime = 1.0f;
         GameObjectAnimator.speed = 1.0f;
 
-        ChangeAnimationDirection(GameObjectAnimator, movePosition);
-
         if (!GameObjectAnimator.GetBool("Move"))
         {
             SetDefaultAnimation(GameObjectAnimator);
             GameObjectAnimator.SetBool("Move", true);
             GameObjectAnimator.speed = 100;
         }
+
+        ChangeAnimationDirection(GameObjectAnimator, movePosition);
     }
 
 	protected override void OnAttack()
@@ -43,6 +45,18 @@ public class GameAI : GameEntity
             CanAttack = false;
         }
        
+    }
+
+    protected override void OnDeath()
+    {
+        _enemyDeathBlood.active = true;
+
+        if (!GameObjectAnimator.GetBool("Death"))
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Death", true);
+            GameObjectAnimator.speed = 100;
+        }
     }
 
     public override void OnCollision(GameObject collisionObject)
