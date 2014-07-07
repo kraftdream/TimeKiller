@@ -116,11 +116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 1
   _moveSpeed: 3
-  _attackSpeed: 0
+  _attackSpeed: 5
   _armour: 0
   _damage: 1
   _scorePoint: 10
-  _attackDistance: 4
+  _attackDistance: 3
   _state: 0
   _prepareTime: 1
   _player: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
@@ -144,7 +144,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 41754107c2740e64e93f595d48fe4d2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b83c4586b0a288a4ca45e853d83e63a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

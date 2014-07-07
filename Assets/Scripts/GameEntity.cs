@@ -234,11 +234,21 @@ public abstract class GameEntity : MonoBehaviour
 
     protected virtual void OnPrepare()
     {
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
+
         CanAttack = true;
         _attackToPosition = GetPositionOnDistance(AttackDistance + 2,
             GetMoveDirection(Position, new Vector2(Player.Position.x, Player.Position.y)));
 
-        GameObjectAnimator.SetBool("Prepare", true);
+        if (!GameObjectAnimator.GetBool("Prepare"))
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Prepare", true);
+        }
+
+        ChangeAnimationDirection(GameObjectAnimator, _attackToPosition);
+
         PrepareTime -= _prepare_decrement;
         GameObjectAnimator.speed += _prepare_decrement;
     }
@@ -246,7 +256,7 @@ public abstract class GameEntity : MonoBehaviour
     protected virtual void OnAttack()
     {
         GameObjectAnimator.SetBool("Attack", true);
-        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, MoveSpeed * MoveSpeed);
+        MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
     }
 
     public virtual void OnCollision(GameObject collisionObject) { }

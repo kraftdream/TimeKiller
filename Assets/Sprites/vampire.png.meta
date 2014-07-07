@@ -1,0 +1,316 @@
+fileFormatVersion: 2
+guid: b83c4586b0a288a4ca45e853d83e63a7
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 500
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: vampire_0
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 3132
+        width: 222
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_1
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 3132
+        width: 263
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_2
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 3132
+        width: 223
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_3
+      rect:
+        serializedVersion: 2
+        x: 1765
+        y: 3132
+        width: 263
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_4
+      rect:
+        serializedVersion: 2
+        x: 2387
+        y: 3132
+        width: 304
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_5
+      rect:
+        serializedVersion: 2
+        x: 2918
+        y: 3132
+        width: 341
+        height: 559
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_6
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 2110
+        width: 222
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_7
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 2110
+        width: 263
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_8
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 2110
+        width: 223
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_9
+      rect:
+        serializedVersion: 2
+        x: 1765
+        y: 2110
+        width: 263
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_10
+      rect:
+        serializedVersion: 2
+        x: 2201
+        y: 2110
+        width: 381
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_11
+      rect:
+        serializedVersion: 2
+        x: 2691
+        y: 2110
+        width: 541
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_12
+      rect:
+        serializedVersion: 2
+        x: 3400
+        y: 2110
+        width: 540
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_13
+      rect:
+        serializedVersion: 2
+        x: 4063
+        y: 2110
+        width: 536
+        height: 577
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_14
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 1106
+        width: 258
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_15
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 1106
+        width: 264
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_16
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 1106
+        width: 264
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_17
+      rect:
+        serializedVersion: 2
+        x: 1783
+        y: 1106
+        width: 304
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_18
+      rect:
+        serializedVersion: 2
+        x: 2360
+        y: 1106
+        width: 286
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_19
+      rect:
+        serializedVersion: 2
+        x: 2909
+        y: 1106
+        width: 304
+        height: 541
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_20
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 98
+        width: 299
+        height: 499
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_21
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 98
+        width: 263
+        height: 499
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_22
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 98
+        width: 264
+        height: 499
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_23
+      rect:
+        serializedVersion: 2
+        x: 1665
+        y: 98
+        width: 263
+        height: 499
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_24
+      rect:
+        serializedVersion: 2
+        x: 2173
+        y: 98
+        width: 286
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_25
+      rect:
+        serializedVersion: 2
+        x: 2705
+        y: 98
+        width: 300
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: vampire_26
+      rect:
+        serializedVersion: 2
+        x: 4131
+        y: 98
+        width: 322
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
