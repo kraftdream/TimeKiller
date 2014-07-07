@@ -54,8 +54,14 @@ public class CollisionDetector : MonoBehaviour
 
                 if (IsIntersects(collisionObject.renderer.bounds))
                 {
-                    _player.GetComponent<GameEntity>().OnCollision(enemy);
+                    if (!enemyScript.CollisionDetected)
+                    {
+                        enemyScript.CollisionDetected = true;
+                        _player.GetComponent<GameEntity>().OnCollision(enemy);
+                    }
                 }
+                else
+                    enemyScript.CollisionDetected = false;
             }
         }
         EnemyCreator.EnemyList.RemoveAll(item => item == null);

@@ -241,7 +241,8 @@ MonoBehaviour:
   _actionButton: {fileID: 0}
   _gui: {fileID: 0}
   _joystick: {fileID: 0}
-  _cameraToAnimate: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _guiCamera: {fileID: 0}
   _playerAttackSlash: {fileID: 100000}
   _attackAudioClip: {fileID: 8300000, guid: 8ba8bd01ea818ce4b98a7915570d97b3, type: 3}
   _bloodAudioClip: {fileID: 8300000, guid: 6d140a84e6580224597c577f46d36863, type: 3}

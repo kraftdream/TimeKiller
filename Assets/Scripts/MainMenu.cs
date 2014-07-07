@@ -42,7 +42,6 @@ public class MainMenu : MonoBehaviour
         _gameName.x = _gameOptions.x = - _screenOffset;
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
 
-
         _textCenterPoint = GetCenterScreen(_gameStart.width);
     }
 

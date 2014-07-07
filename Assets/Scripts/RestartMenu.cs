@@ -3,17 +3,21 @@ using System.Collections;
 
 public class RestartMenu : MonoBehaviour
 {
-
     private bool _isShowRestart;
     private Rect _gameStart;
     private Rect _gameOptions;
     private Rect _gameExit;
+    private float _textCenterPoint;
+    private float _textWidth = 50.0f;
+    public GUIStyle gameButtonsStyle;
 
     void Start()
     {
-        _gameStart = new Rect(Screen.width / 2, Screen.height / 2, 150, 50);
-        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 80, 150, 50);
-        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 160, 150, 50);
+        _textCenterPoint = GetCenterScreen(_textWidth);
+
+        _gameStart = new Rect(_textCenterPoint, Screen.height / 2 - 90, _textWidth, 80);
+        _gameOptions = new Rect(_textCenterPoint, Screen.height / 2, _textWidth, 80);
+        _gameExit = new Rect(_textCenterPoint, Screen.height / 2 + 90, _textWidth, 80);
     }
 
     public bool IsShowRestart
@@ -26,25 +30,36 @@ public class RestartMenu : MonoBehaviour
     {
         if (_isShowRestart)
         {
+            GUI.skin.button = gameButtonsStyle;
 
             if (GUI.Button(_gameStart, "Restart"))
             {
-                Time.timeScale = 1;
+                SetNormalGameSpeed();
                 Application.LoadLevel("GameScene");
             }
 
             if (GUI.Button(_gameOptions, "Main Menu"))
             {
-                Time.timeScale = 1;
+                SetNormalGameSpeed();
                 Application.LoadLevel("MainMenu");
             }
 
             if (GUI.Button(_gameExit, "Exit"))
             {
-                Time.timeScale = 1;
+                SetNormalGameSpeed();
                 Application.Quit();
             }
         }
+    }
+
+    private float GetCenterScreen(float textWidth)
+    {
+        return Screen.width / 2 - (textWidth / 2);
+    }
+
+    void SetNormalGameSpeed()
+    {
+        Time.timeScale = 1;        
     }
 }
 

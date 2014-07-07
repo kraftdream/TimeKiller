@@ -90,9 +90,9 @@ public class HeroControll : GameEntity
         _useEditor = false;
         _defaultAttackSpeed = AttackSpeed;
 
-        #if UNITY_EDITOR
-            _useEditor = true;
-        #endif
+#if UNITY_EDITOR
+        _useEditor = true;
+#endif
 
         CanAttack = false;
 
@@ -125,6 +125,7 @@ public class HeroControll : GameEntity
 
         _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
         _playerDeathBlood.active = false;
+        _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
 
         _scoreControll = new ScoreControll();
     }
@@ -239,38 +240,16 @@ public class HeroControll : GameEntity
                 DestroyBullet();
                 HeroDead();
             }
-
-            //            if (_collidedEnemyScript.State == GameEntityState.Attack && State == GameEntityState.Move)
-            //            {
-            //                if (_collidedEnemyScript.BulletObject != null)
-            //                    Destroy(_collidedEnemyScript.BulletObject.gameObject);
-            //                _scoreText.Value -= 10;
-            //            
-            //            }
         }
-
-        //if hero complete attack
-        /*if (collisionObject is GameAI || collisionObject is ShooterEnemy)
-        {
-            object _collidedEnemyScript = collisionObject.GetComponent<GameAI>();
-            if (_collidedEnemyScript == null)
-                _collidedEnemyScript = collisionObject.GetComponent<ShooterEnemy>();
-            _scoreText.Value = ((GameEntity) _collidedEnemyScript).ScorePoint + _scoreText.Value + _comboText.Value;
-            _comboText.Value = _comboText.Value + 1;
-            _comboTime = Time.time;
-            _scoreText.PlayAmination();
-            _comboText.PlayAmination();
-
-            if (_comboText.FontSize < _comboText.MaxFontSize)
-                _comboText.FontSize += 10;
-        }*/
     }
 
     void HeroKillsEnemy()
     {
+        _collidedEnemyScript.Health--;
+
         if (!_collidedGameObject.audio.isPlaying)
             _collidedGameObject.audio.Play();
-        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+        _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
 
         Destroy(_collidedGameObject, 1);
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
@@ -285,11 +264,12 @@ public class HeroControll : GameEntity
 
     void HeroDead()
     {
+        Health -= 1.0f;
         _bloodSound.Play();
-        Health = 0;
         _playerDeathBlood.active = true;
         _scoreControll.SaveScore((int)_scoreText.Value);
         StartCoroutine(DeathScreen());
+        RestartMenu();
     }
 
     IEnumerator DeathScreen()
@@ -303,13 +283,9 @@ public class HeroControll : GameEntity
             color.a = color.a + 0.01f;
             _darkScreen.SetColor(colorComponent, color);
 
-            Time.timeScale -= 0.018f;
+            if (Time.timeScale > 0.15)
+                Time.timeScale -= 0.018f;
         }
-
-//        yield return new WaitForSeconds(0.3f);
-//        Time.timeScale = 0;
-
-        RestartMenu();
     }
 
     void RestartMenu()

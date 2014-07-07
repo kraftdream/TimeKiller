@@ -115,6 +115,13 @@ public abstract class GameEntity : MonoBehaviour
         set { _canAttack = value; }
     }
 
+    private bool _collisionDetected;
+    public bool CollisionDetected
+    {
+        get { return _collisionDetected; }
+        set { _collisionDetected = value; }
+    }
+
     public Animator GameObjectAnimator { get; set; }
     private Transform _bulletObject;
 
@@ -130,6 +137,7 @@ public abstract class GameEntity : MonoBehaviour
         get { return _player; }
         set { _player = value; }
     }
+
 
     #endregion
 
@@ -170,6 +178,9 @@ public abstract class GameEntity : MonoBehaviour
             case GameEntityState.Blink:
                 //InvokeRepeating();
                 break;
+
+            case GameEntityState.Death:
+                break;
         }
     }
 
@@ -180,6 +191,9 @@ public abstract class GameEntity : MonoBehaviour
 
         if ((tag.Equals("Player") && !IsMoveJoystick && !CanAttack) || (Player != null && Player.Health <= 0))
             return GameEntityState.Wait;
+
+        if (Health <= 0)
+            return GameEntityState.Death;
 
         if (Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
         {
@@ -212,6 +226,10 @@ public abstract class GameEntity : MonoBehaviour
 
     protected virtual void OnMove()
     {
+    }
+
+    protected virtual void OnDeath()
+    { 
     }
 
     protected virtual void OnPrepare()

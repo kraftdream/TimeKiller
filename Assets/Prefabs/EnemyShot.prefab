@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8004a14c3f34bd546a327c0e8fef4980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunSpeed: {x: 10, y: 10}
+  _gunSpeed: 5
   AttackPosition: {x: 0, y: 0}
 --- !u!212 &21200000
 SpriteRenderer:
