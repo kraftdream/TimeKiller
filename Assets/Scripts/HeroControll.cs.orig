@@ -60,10 +60,12 @@ public class HeroControll : GameEntity
     private GameObject _collidedGameObject;
     private GameEntity _collidedEnemyScript;
 
+<<<<<<< HEAD
     private ScoreControll _scoreControll;
-
+=======
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
+>>>>>>> Add sound to attack, kill, dead event
 
     public float BorderLeftRightWitdh
     {
@@ -264,11 +266,15 @@ public class HeroControll : GameEntity
 
     void HeroKillsEnemy()
     {
+<<<<<<< HEAD
+        Destroy(_collidedGameObject);
+        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
+=======
         if (!_collidedGameObject.audio.isPlaying)
             _collidedGameObject.audio.Play();
-        _cameraToAnimate.GetComponent<Animator>().SetBool("Shake", true);
 
         Destroy(_collidedGameObject, 1);
+>>>>>>> Add sound to attack, kill, dead event
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
         _comboTime = Time.time;

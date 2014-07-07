@@ -36,7 +36,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 500
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -105,6 +105,26 @@ TextureImporter:
     - name: caracter_map_6
       rect:
         serializedVersion: 2
+        x: 3860
+        y: 3126
+        width: 857
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_7
+      rect:
+        serializedVersion: 2
+        x: 4735
+        y: 3126
+        width: 933
+        height: 478
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_8
+      rect:
+        serializedVersion: 2
         x: 133
         y: 2105
         width: 207
@@ -112,7 +132,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_7
+    - name: caracter_map_9
       rect:
         serializedVersion: 2
         x: 606
@@ -122,7 +142,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_8
+    - name: caracter_map_10
       rect:
         serializedVersion: 2
         x: 1102
@@ -132,7 +152,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_9
+    - name: caracter_map_11
       rect:
         serializedVersion: 2
         x: 1616
@@ -142,7 +162,37 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_10
+    - name: caracter_map_12
+      rect:
+        serializedVersion: 2
+        x: 2177
+        y: 2105
+        width: 201
+        height: 661
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_13
+      rect:
+        serializedVersion: 2
+        x: 2756
+        y: 2064
+        width: 206
+        height: 702
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_14
+      rect:
+        serializedVersion: 2
+        x: 3246
+        y: 2093
+        width: 207
+        height: 679
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_15
       rect:
         serializedVersion: 2
         x: 157
@@ -152,7 +202,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_11
+    - name: caracter_map_16
       rect:
         serializedVersion: 2
         x: 629
@@ -162,7 +212,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_12
+    - name: caracter_map_17
       rect:
         serializedVersion: 2
         x: 1125
@@ -172,7 +222,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_13
+    - name: caracter_map_18
       rect:
         serializedVersion: 2
         x: 1633
@@ -182,7 +232,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_14
+    - name: caracter_map_19
       rect:
         serializedVersion: 2
         x: 2130
@@ -192,7 +242,27 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_15
+    - name: caracter_map_20
+      rect:
+        serializedVersion: 2
+        x: 2738
+        y: 1113
+        width: 201
+        height: 620
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_21
+      rect:
+        serializedVersion: 2
+        x: 3152
+        y: 1113
+        width: 206
+        height: 561
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: caracter_map_22
       rect:
         serializedVersion: 2
         x: 174
@@ -202,7 +272,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_16
+    - name: caracter_map_23
       rect:
         serializedVersion: 2
         x: 647
@@ -212,7 +282,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_17
+    - name: caracter_map_24
       rect:
         serializedVersion: 2
         x: 1037
@@ -222,7 +292,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_18
+    - name: caracter_map_25
       rect:
         serializedVersion: 2
         x: 1757
@@ -232,7 +302,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_19
+    - name: caracter_map_26
       rect:
         serializedVersion: 2
         x: 2395
@@ -242,7 +312,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_20
+    - name: caracter_map_27
       rect:
         serializedVersion: 2
         x: 3027
@@ -252,76 +322,6 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_21
-      rect:
-        serializedVersion: 2
-        x: 3860
-        y: 3126
-        width: 857
-        height: 478
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_22
-      rect:
-        serializedVersion: 2
-        x: 4735
-        y: 3126
-        width: 933
-        height: 478
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_23
-      rect:
-        serializedVersion: 2
-        x: 2177
-        y: 2105
-        width: 201
-        height: 661
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_24
-      rect:
-        serializedVersion: 2
-        x: 2756
-        y: 2064
-        width: 206
-        height: 702
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_25
-      rect:
-        serializedVersion: 2
-        x: 3246
-        y: 2093
-        width: 207
-        height: 679
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_26
-      rect:
-        serializedVersion: 2
-        x: 2738
-        y: 1113
-        width: 201
-        height: 620
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: caracter_map_27
-      rect:
-        serializedVersion: 2
-        x: 3152
-        y: 1113
-        width: 206
-        height: 561
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
     - name: caracter_map_28
       rect:
         serializedVersion: 2
@@ -330,7 +330,7 @@ TextureImporter:
         width: 857
         height: 484
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: caracter_map_29
       rect:
@@ -340,7 +340,7 @@ TextureImporter:
         width: 774
         height: 484
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: caracter_map_30
       rect:
@@ -350,7 +350,7 @@ TextureImporter:
         width: 71
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
