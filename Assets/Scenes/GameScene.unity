@@ -3078,6 +3078,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _health
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3329,7 +3333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
+  _health: 1
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0

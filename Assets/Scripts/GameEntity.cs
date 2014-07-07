@@ -178,7 +178,7 @@ public abstract class GameEntity : MonoBehaviour
         float attackDistance = AttackDistance;
         float prepareTiming = PrepareTime;
 
-        if (tag.Equals("Player") && !IsMoveJoystick && !CanAttack)
+        if ((tag.Equals("Player") && !IsMoveJoystick && !CanAttack) || (Player != null && Player.Health <= 0))
             return GameEntityState.Wait;
 
         if (Player != null && Vector2.Distance(transform.position, Player.transform.position) >= attackDistance && prepareTiming == _prepareDefault)
