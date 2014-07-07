@@ -42,16 +42,6 @@ public class CollisionDetector : MonoBehaviour
                     continue;
                 GameEntity enemyScript = enemy.GetComponent<GameEntity>();
                 GameObject collisionObject = null;
-
-//                if (enemyScript is ShooterEnemy && !enemyScript.CanAttack && enemyScript.BulletObject != null)
-//                    collisionObject = ((ShooterEnemy)enemyScript).BulletObject.gameObject;
-//                else
-//                    collisionObject = enemy;
-//                if (IsIntersects(collisionObject.renderer.bounds))
-//                {
-//                    _player.GetComponent<GameEntity>().OnCollision(enemy);
-//                }
-
                 // check if the collision is enemy or a bullet
                 if (enemyScript.BulletObject != null)
                 {

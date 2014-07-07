@@ -17,18 +17,21 @@ public class ShooterEnemy : GameEntity {
 
     protected override void OnMove()
     {
-        /*MoveToWorldPoint(_movePosition.x, _movePosition.y, MoveSpeed);
-        //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
-        PrepareTime = 1.0f;
-        _gameObjectAnimator.speed = 1.0f;
-        _gameObjectAnimator.SetBool("Prepare", false);*/
-
         Vector2 movePosition = Player.transform.position;
         MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
         //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
         PrepareTime = 1.0f;
         GameObjectAnimator.speed = 1.0f;
         GameObjectAnimator.SetBool("Prepare", false);
+    }
+
+    protected override void OnPrepare()
+    {
+        CanAttack = true;
+        _attackToPosition = GetMoveDirection(Position, new Vector2(Player.Position.x, Player.Position.y));
+        GameObjectAnimator.SetBool("Prepare", true);
+        PrepareTime -= _prepare_decrement;
+        GameObjectAnimator.speed += _prepare_decrement;
     }
 
     protected override void OnAttack()

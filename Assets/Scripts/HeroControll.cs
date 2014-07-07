@@ -70,9 +70,9 @@ public class HeroControll : GameEntity
         _useEditor = false;
         _defaultAttackSpeed = AttackSpeed;
 
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         _useEditor = true;
-#endif
+        #endif
 
         CanAttack = false;
 
@@ -242,6 +242,7 @@ public class HeroControll : GameEntity
     void HeroDead()
     {
         _playerDeathBlood.active = true;
+        Health -= 1.0f;
     }
 
     void DestroyBullet()
