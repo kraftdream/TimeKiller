@@ -45,34 +45,7 @@ public class GameAI : GameEntity
         }
        
     }
-
-    protected override void OnDeath()
-    {
-        if (GameObjectAnimator.speed > 50)
-            GameObjectAnimator.speed = 1;
-
-        _enemyDeathBlood.active = true;
-
-        if (!GameObjectAnimator.GetBool("Death"))
-        {
-            SetDefaultAnimation(GameObjectAnimator);
-            GameObjectAnimator.SetBool("Death", true);
-            Invoke("Disable", 10);
-        }
-    }
-
-    private void OnEnable()
-    {
-        Health = 1;
-    }
-
-
-    private void Disable()
-    {
-        gameObject.SetActive(false); 
-        _enemyDeathBlood.active = false;
-    }
-
+    
     public override void OnCollision(GameObject collisionObject)
     {
         //get Player game object

@@ -73,7 +73,7 @@ public class EnemyCreator : MonoBehaviour
     {
         for (int i = 0; i < MaxEnemyCount; i++)
         {
-            GameObject enemy = (GameObject) Instantiate(_enemy[0]);
+            GameObject enemy = (GameObject) Instantiate(_enemy[Random.Range(0, _enemy.Length)]);
             enemy.transform.parent = transform;
             enemy.SetActive(false);
             EnemyList.Add(enemy);

@@ -8,8 +8,7 @@ public class ShooterEnemy : GameEntity {
     [SerializeField]
     private Transform _gunTransform;
 
-    [SerializeField]
-    private ParticleSystem _enemyDeathBlood;
+    
 
     // Update is called once per frame
 
@@ -73,22 +72,7 @@ public class ShooterEnemy : GameEntity {
         }
     }
 
-    protected override void OnDeath()
-    {
-        if (GameObjectAnimator.speed > 50)
-            GameObjectAnimator.speed = 1;
-
-        _enemyDeathBlood.active = true;
-
-        if (!GameObjectAnimator.GetBool("Death"))
-        {
-            SetDefaultAnimation(GameObjectAnimator);
-            GameObjectAnimator.SetBool("Death", true);
-            GameObjectAnimator.speed = 100;
-        }
-    }
-
-    public override void OnCollision(GameObject collisionObject)
+   public override void OnCollision(GameObject collisionObject)
     {
         //get Player game object
     }
