@@ -7,9 +7,6 @@ public abstract class GameEntity : MonoBehaviour
 
     #region Input variables
 
-    [SerializeField]
-    private ParticleSystem _enemyDeathBlood;
-
     private const float _prepare_decrement = 0.01f;
 
     [SerializeField]
@@ -41,6 +38,9 @@ public abstract class GameEntity : MonoBehaviour
 
     [SerializeField]
     private GameEntity _player;
+
+	[SerializeField]
+	private ParticleSystem _deathBlood;
 
     private float _prepareDefault;
 
@@ -235,7 +235,7 @@ public abstract class GameEntity : MonoBehaviour
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
 
-        _enemyDeathBlood.active = true;
+		_deathBlood.active = true;
 
         if (!GameObjectAnimator.GetBool("Death"))
         {
@@ -254,7 +254,7 @@ public abstract class GameEntity : MonoBehaviour
     private void Disable()
     {
         gameObject.SetActive(false);
-        _enemyDeathBlood.active = false;
+		_deathBlood.active = false;
     }
 
     protected virtual void OnPrepare()

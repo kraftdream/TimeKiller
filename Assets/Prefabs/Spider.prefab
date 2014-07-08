@@ -300,9 +300,9 @@ MonoBehaviour:
   _attackDistance: 6
   _state: 0
   _prepareTime: 1
-  _player: {fileID: 0}
+  _player: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+  _deathBlood: {fileID: 19800000}
   _gunTransform: {fileID: 400000, guid: 18dbefdfd9a209b40a11abd362f38029, type: 2}
-  _enemyDeathBlood: {fileID: 19800000}
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1

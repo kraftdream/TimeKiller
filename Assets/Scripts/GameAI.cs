@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class GameAI : GameEntity
 {
-    [SerializeField]
-    private ParticleSystem _enemyDeathBlood;
-
     protected override void OnMove()
     {
         if (GameObjectAnimator.speed > 50)

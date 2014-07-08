@@ -131,8 +131,6 @@ public class HeroControll : GameEntity
         _crySound.pitch = 0.5f;
         _crySound.volume = 0.5f;
 
-        _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
-        _playerDeathBlood.active = false;
         _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
 
         _scoreControll = new ScoreControll();
@@ -282,18 +280,13 @@ public class HeroControll : GameEntity
         _backgroundSound.pitch = 0.5f;
         _crySound.Play();
 
-        _playerDeathBlood.active = true;
         _scoreControll.SaveScore((int)_scoreText.Value);
         StartCoroutine(DeathScreen());
         RestartMenu();
         HideJoystickAndGuiLayer();
 
-        if (!GameObjectAnimator.GetBool("Death"))
-        {
-            GameObjectAnimator.speed = 100;
-            SetDefaultAnimation(GameObjectAnimator);
-            GameObjectAnimator.SetBool("Death", true);
-        }
+		base.OnDeath ();
+
         GameObjectAnimator.speed = 1;
     }
 
