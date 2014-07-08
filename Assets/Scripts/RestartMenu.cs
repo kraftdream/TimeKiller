@@ -8,16 +8,16 @@ public class RestartMenu : MonoBehaviour
     private Rect _gameOptions;
     private Rect _gameExit;
     private float _textCenterPoint;
-    private float _textWidth = 50.0f;
+    private float _textWidth = 250.0f;
     public GUIStyle gameButtonsStyle;
 
     void Start()
     {
         _textCenterPoint = GetCenterScreen(_textWidth);
 
-        _gameStart = new Rect(_textCenterPoint, Screen.height / 2 - 90, _textWidth, 80);
-        _gameOptions = new Rect(_textCenterPoint, Screen.height / 2, _textWidth, 80);
-        _gameExit = new Rect(_textCenterPoint, Screen.height / 2 + 90, _textWidth, 80);
+        _gameStart = new Rect(_textCenterPoint, Screen.height / 2 - 90, _textWidth, 50);
+        _gameOptions = new Rect(_textCenterPoint, Screen.height / 2, _textWidth, 50);
+        _gameExit = new Rect(_textCenterPoint, Screen.height / 2 + 90, _textWidth, 50);
     }
 
     public bool IsShowRestart
