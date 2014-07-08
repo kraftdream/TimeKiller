@@ -270,6 +270,7 @@ public class HeroControll : GameEntity
         _scoreControll.SaveScore((int)_scoreText.Value);
         StartCoroutine(DeathScreen());
         RestartMenu();
+        HideJoystickAndGuiLayer();
     }
 
     IEnumerator DeathScreen()
@@ -293,6 +294,11 @@ public class HeroControll : GameEntity
         _guiCamera.GetComponent<RestartMenu>().IsShowRestart = true;
     }
 
+    void HideJoystickAndGuiLayer()
+    {
+        _guiCamera.enabled = false;
+    }
+
     void DestroyBullet()
     {
         if (_collidedEnemyScript.BulletObject != null)
@@ -303,6 +309,7 @@ public class HeroControll : GameEntity
 
     protected override void OnBlink()
     {
+
     }
 
     void OnActionButtonClicked(object sender, EventArgs eventArgs)

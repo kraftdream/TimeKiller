@@ -4,21 +4,18 @@ using System.Collections;
 public class RestartMenu : MonoBehaviour
 {
     private bool _isShowRestart;
-    private Rect _gameStart;
-    private Rect _gameOptions;
-    private Rect _gameExit;
+    private Rect _gameOver;
+    private Rect _gameKills;
+    private Rect _gameScore;
+    private Rect _gameCombo;
+    private Rect _gameRestart;
+    private Rect _gameMainMenu;
     private float _textCenterPoint;
     private float _textWidth = 250.0f;
+    private bool _needToShowStatistics;
+
+    public GUIStyle gameOverStyle;
     public GUIStyle gameButtonsStyle;
-
-    void Start()
-    {
-        _textCenterPoint = GetCenterScreen(_textWidth);
-
-        _gameStart = new Rect(_textCenterPoint, Screen.height / 2 - 90, _textWidth, 50);
-        _gameOptions = new Rect(_textCenterPoint, Screen.height / 2, _textWidth, 50);
-        _gameExit = new Rect(_textCenterPoint, Screen.height / 2 + 90, _textWidth, 50);
-    }
 
     public bool IsShowRestart
     {
@@ -26,30 +23,62 @@ public class RestartMenu : MonoBehaviour
         set { _isShowRestart = value; }
     }
 
+    void Start()
+    {
+        _textCenterPoint = GetCenterScreen(_textWidth);
+
+        _gameMainMenu = new Rect(20, Screen.height - 70, _textWidth, 50);
+        _gameRestart = new Rect(Screen.width - 170, Screen.height - 70, _textWidth, 50);
+        _gameOver = new Rect(_textCenterPoint, Screen.height / 2 - 180, _textWidth, 50);
+        _gameKills = new Rect(_textCenterPoint / 2, Screen.height / 2 - 50, _textWidth, 50);
+        _gameScore = new Rect(_textCenterPoint / 2, Screen.height / 2 + 10, _textWidth, 50);
+        _gameCombo = new Rect(_textCenterPoint / 2, Screen.height / 2 + 70, _textWidth, 50);
+    }
+
+    void Update()
+    {
+        if (_isShowRestart)
+        {
+            StartCoroutine(StatisticsShow());
+        }
+    }
+
     void OnGUI()
     {
         if (_isShowRestart)
         {
             GUI.skin.button = gameButtonsStyle;
+            GUI.skin.label = gameButtonsStyle;
 
-            if (GUI.Button(_gameStart, "Restart"))
-            {
-                SetNormalGameSpeed();
-                Application.LoadLevel("GameScene");
-            }
+            GUI.Label(_gameOver, "GAME OVER", gameOverStyle);
 
-            if (GUI.Button(_gameOptions, "Main Menu"))
+            if (_needToShowStatistics)
             {
-                SetNormalGameSpeed();
-                Application.LoadLevel("MainMenu");
-            }
+                GUI.Label(_gameKills, "Killes: ");
+                GUI.Label(_gameScore, "Your Score: ");
+                GUI.Label(_gameCombo, "Best Combo: ");
 
-            if (GUI.Button(_gameExit, "Exit"))
-            {
-                SetNormalGameSpeed();
-                Application.Quit();
+                if (GUI.Button(_gameMainMenu, "Main Menu"))
+                {
+                    SetNormalGameSpeed();
+                    Application.LoadLevel("MainMenu");
+                }
+
+                if (GUI.Button(_gameRestart, "Restart"))
+                {
+                    SetNormalGameSpeed();
+                    Application.LoadLevel("GameScene");
+                }
+
+                StopAllCoroutines();
             }
         }
+    }
+
+    IEnumerator StatisticsShow()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _needToShowStatistics = true;
     }
 
     private float GetCenterScreen(float textWidth)
@@ -62,5 +91,3 @@ public class RestartMenu : MonoBehaviour
         Time.timeScale = 1;        
     }
 }
-
-
