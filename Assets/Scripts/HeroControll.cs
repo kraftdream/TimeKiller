@@ -245,7 +245,7 @@ public class HeroControll : GameEntity
     {
         _collidedEnemyScript.Health--;
 
-        if (!_collidedGameObject.audio.isPlaying)
+        if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy)
             _collidedGameObject.audio.Play();
         _mainCamera.GetComponent<Animator>().SetBool("Shake", true); 
 

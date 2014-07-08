@@ -71,11 +71,6 @@ public class GameAI : GameEntity
         _enemyDeathBlood.active = false;
     }
 
-    void OnDisable()
-    {
-        GameObjectAnimator.SetBool("Death", false);
-    }
-
     public override void OnCollision(GameObject collisionObject)
     {
         //get Player game object
