@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Threading;
 using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class HeroControll : GameEntity
 {
@@ -190,6 +186,8 @@ public class HeroControll : GameEntity
         if (!_attackSound.isPlaying)
             _attackSound.Play();
 
+        CheckPlayerCrossScreenBoundaries();
+
         MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
 
         if (AttackSpeed > _defaultAttackSpeed * 0.5f)
@@ -369,5 +367,25 @@ public class HeroControll : GameEntity
         {
             _playerAttackSlash.transform.localPosition = new Vector3(-renderer.bounds.size.x * 0.1f, -renderer.bounds.size.y * 0.1f, 0);
         }
+    }
+
+    void CheckPlayerCrossScreenBoundaries()
+    {
+        if (_attackToPosition.x > _maxScreenWidth)
+        {
+            _attackToPosition = new Vector2(_maxScreenWidth, _attackToPosition.y);
+        }
+        else if (_attackToPosition.x < -_maxScreenWidth)
+        {
+            _attackToPosition = new Vector2(-_maxScreenWidth, _attackToPosition.y);
+        }
+        else if (_attackToPosition.y > _maxScreenHeight)
+        {
+            _attackToPosition = new Vector2(_attackToPosition.x, _maxScreenHeight);
+        }
+        else if (_attackToPosition.y < -_maxScreenHeight)
+        {
+            _attackToPosition = new Vector2(_attackToPosition.x, -_maxScreenHeight);
+        }   
     }
 }
