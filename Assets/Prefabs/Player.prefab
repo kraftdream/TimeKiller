@@ -226,11 +226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
+  _defaultHealth: 1
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0
-  _damage: 0
+  _damage: 1
   _scorePoint: 0
   _attackDistance: 5
   _state: 0

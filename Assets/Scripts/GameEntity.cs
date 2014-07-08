@@ -10,7 +10,7 @@ public abstract class GameEntity : MonoBehaviour
     private const float _prepare_decrement = 0.01f;
 
     [SerializeField]
-    private float _health;
+    private float _defaultHealth;
 
     [SerializeField]
     private float _moveSpeed;
@@ -52,11 +52,13 @@ public abstract class GameEntity : MonoBehaviour
 
     private Directions _currentDirection;
 
-    public float Health
+    public float DefaultHealth
     {
-        get { return _health; }
-        set { _health = value; }
+        get { return _defaultHealth; }
+        set { _defaultHealth = value; }
     }
+
+    public float Health { get; set; }
 
     public float MoveSpeed
     {
@@ -149,6 +151,7 @@ public abstract class GameEntity : MonoBehaviour
 
         GameObjectAnimator = GetComponent<Animator>();
 
+        Health = DefaultHealth;
         _prepareDefault = _prepareTime;
         _currentDirection = Directions.Bottom;
     }
@@ -248,7 +251,7 @@ public abstract class GameEntity : MonoBehaviour
 
     private void OnEnable()
     {
-        Health = 1;
+        Health = DefaultHealth;
     }
 
     private void Disable()

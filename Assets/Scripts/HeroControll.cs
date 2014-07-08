@@ -243,24 +243,25 @@ public class HeroControll : GameEntity
                 if (_collidedEnemyScript.BulletObject != null && _collidedEnemyScript.BulletObject.renderer.bounds.Intersects(renderer.bounds))
                     DestroyBullet();
                 else
-                    HeroKillsEnemy();
+                    HeroTochEnemy();
             }
-
-            if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
+			else if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
             {
                 DestroyBullet();
                 HeroDead();
             }
-            _collidedEnemyScript.CollisionDetected = false;
+			else
+				_collidedEnemyScript.CollisionDetected = false;
         }
     }
 
-    void HeroKillsEnemy()
+    void HeroTochEnemy()
     {
-        _collidedEnemyScript.Health--;
+        _collidedEnemyScript.Health -= Damage;
 
         if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy)
             _collidedGameObject.audio.Play();
+
         _mainCamera.GetComponent<Animator>().SetBool("Shake", true); 
 
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
@@ -275,7 +276,7 @@ public class HeroControll : GameEntity
 
     void HeroDead()
     {
-        Health -= 1.0f;
+        Health -= _collidedEnemyScript.Damage;
         _bloodSound.Play();
         _backgroundSound.pitch = 0.5f;
         _crySound.Play();
