@@ -230,7 +230,10 @@ public class HeroControll : GameEntity
 
             if (State == GameEntityState.Attack)
             {
-                HeroKillsEnemy();
+                if (_collidedEnemyScript.BulletObject != null && _collidedEnemyScript.BulletObject.renderer.bounds.Intersects(renderer.bounds))
+                    DestroyBullet();
+                else
+                    HeroKillsEnemy();
             }
 
             if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
@@ -238,6 +241,7 @@ public class HeroControll : GameEntity
                 DestroyBullet();
                 HeroDead();
             }
+            _collidedEnemyScript.CollisionDetected = false;
         }
     }
 
@@ -288,7 +292,9 @@ public class HeroControll : GameEntity
 
     void RestartMenu()
     {
-        _guiCamera.GetComponent<RestartMenu>().IsShowRestart = true;
+        RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
+        restartMenu.IsShowRestart = true;
+		restartMenu.GameScore = _scoreText.Value;
     }
 
     void HideJoystickAndGuiLayer()

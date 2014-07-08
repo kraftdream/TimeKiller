@@ -30,7 +30,7 @@ public class My3DText: MyGUI
     private ScreenPossition _screenPosition;
 
     [SerializeField]
-    private float _value;
+    private int _value;
 
     [SerializeField]
     private string _valueText;
@@ -50,7 +50,7 @@ public class My3DText: MyGUI
     [SerializeField]
     private float _marginBottom;
 
-    public float Value
+    public int Value
     {
         get { return _value; }
         set { _value = value; }

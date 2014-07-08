@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Runtime.InteropServices;
+using UnityEngine.SocialPlatforms;
 
 public class RestartMenu : MonoBehaviour
 {
+	private string _leaderBoardID = "CgkIoML55u0ZEAIQAQ";
     private bool _isShowRestart;
+    private Rect _postResult;
     private Rect _gameOver;
     private Rect _gameKills;
     private Rect _gameScore;
@@ -23,12 +27,20 @@ public class RestartMenu : MonoBehaviour
         set { _isShowRestart = value; }
     }
 
+    public int GameScore
+    {
+        get;
+        set;
+    }
+
     void Start()
     {
         _textCenterPoint = GetCenterScreen(_textWidth);
+		Social.Active = new UnityEngine.SocialPlatforms.GPGSocial();
 
         _gameMainMenu = new Rect(20, Screen.height - 70, _textWidth, 50);
         _gameRestart = new Rect(Screen.width - 170, Screen.height - 70, _textWidth, 50);
+        _postResult = new Rect(Screen.width / 2 - 125, Screen.height - 70, _textWidth, 50);
         _gameOver = new Rect(_textCenterPoint, Screen.height / 2 - 180, _textWidth, 50);
         _gameKills = new Rect(_textCenterPoint / 2, Screen.height / 2 - 50, _textWidth, 50);
         _gameScore = new Rect(_textCenterPoint / 2, Screen.height / 2 + 10, _textWidth, 50);
@@ -55,7 +67,7 @@ public class RestartMenu : MonoBehaviour
             if (_needToShowStatistics)
             {
                 GUI.Label(_gameKills, "Killes: ");
-                GUI.Label(_gameScore, "Your Score: ");
+                GUI.Label(_gameScore, "Your Score:    " + GameScore);
                 GUI.Label(_gameCombo, "Best Combo: ");
 
                 if (GUI.Button(_gameMainMenu, "Main Menu"))
@@ -70,10 +82,31 @@ public class RestartMenu : MonoBehaviour
                     Application.LoadLevel("GameScene");
                 }
 
+                if(GUI.Button(_postResult, "Report Score"))
+                {
+
+                    SetNormalGameSpeed();
+                    AndroidHelperClass.Instance.makeToast("Report pressed");
+                }
                 StopAllCoroutines();
             }
         }
     }
+
+	private void PostResults() 
+	{
+		Social.localUser.Authenticate(OnLoginSuccess);
+	}
+
+	void OnLoginSuccess(bool result)
+	{
+		if (result) 
+		{
+			Social.ReportScore(GameScore, _leaderBoardID, delegate(bool scoreResult) {
+                if (scoreResult) ;
+			});
+		}
+	}
 
     IEnumerator StatisticsShow()
     {

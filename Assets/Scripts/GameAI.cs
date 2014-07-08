@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameAI : GameEntity
@@ -25,7 +25,7 @@ public class GameAI : GameEntity
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
     }
 
-	protected override void OnAttack()
+    protected override void OnAttack()
     {
         MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
 
@@ -33,17 +33,17 @@ public class GameAI : GameEntity
             GameObjectAnimator.speed = 1;
 
         if (!GameObjectAnimator.GetBool("Attack"))
-	    {
-	        SetDefaultAnimation(GameObjectAnimator);
-	        GameObjectAnimator.SetBool("Attack", true);
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Attack", true);
             GameObjectAnimator.speed = 100;
-	    }
+        }
 
-	    if (Position.Equals(_attackToPosition))
+        if (Position.Equals(_attackToPosition))
         {
             CanAttack = false;
         }
-       
+
     }
     
     public override void OnCollision(GameObject collisionObject)

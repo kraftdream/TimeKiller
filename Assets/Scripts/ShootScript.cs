@@ -19,12 +19,9 @@ public class ShootScript : MonoBehaviour {
     }
 
 	void Update () {
-        if (renderer.isVisible)
+        if (renderer.isVisible && _enemyObject.State != GameEntityState.Wait)
             transform.Translate(AttackPosition.x * Time.deltaTime * _gunSpeed, AttackPosition.y * Time.deltaTime * _gunSpeed, 0);
         else
-        {
-            //_enemyObject.CanAttack = true;
             Destroy(gameObject);
-        }
 	}
 }

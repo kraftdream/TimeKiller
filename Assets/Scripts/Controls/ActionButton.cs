@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using System;
 
@@ -32,12 +32,12 @@ public class ActionButton : MonoBehaviour
                     phaseBegan = false;
                     OnBtnClick(this, new EventArgs());
                 }
-            } 
+            }
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (Input.GetMouseButtonUp(0))
             OnBtnClick(this, new EventArgs());
-        #endif
+#endif
     }
 }

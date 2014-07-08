@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ public abstract class GameEntity : MonoBehaviour
     private float _damage;
 
     [SerializeField]
-    private float _scorePoint;
+    private int _scorePoint;
 
     [SerializeField]
     private float _attackDistance;
@@ -82,7 +82,7 @@ public abstract class GameEntity : MonoBehaviour
         set { _damage = value; }
     }
 
-    public float ScorePoint
+    public int ScorePoint
     {
         get { return _scorePoint; }
         set { _scorePoint = value; }
@@ -110,9 +110,9 @@ public abstract class GameEntity : MonoBehaviour
         get { return _prepareTime; }
         set { _prepareTime = value; }
     }
-	private bool _canAttack = true;
+    private bool _canAttack = true;
 
-    public bool CanAttack  
+    public bool CanAttack
     {
         get { return _canAttack; }
         set { _canAttack = value; }
@@ -160,7 +160,7 @@ public abstract class GameEntity : MonoBehaviour
             _state = _checkingState;
 
         //if (Player != null)
-            //Debug.Log("State = " + _checkingState);
+        //Debug.Log("State = " + _checkingState);
 
         switch (_checkingState)
         {
@@ -207,16 +207,16 @@ public abstract class GameEntity : MonoBehaviour
         {
             return GameEntityState.Prepare;
         }
-        else if ((prepareTiming <= 0  && _canAttack) || (BulletObject != null && !BulletObject.position.Equals(_attackToPosition)))
+        else if ((prepareTiming <= 0 && _canAttack) || (BulletObject != null && !BulletObject.position.Equals(_attackToPosition)))
         {
             return GameEntityState.Attack;
         }
         else if ((!_canAttack || BulletObject == null) && Player != null)
-		{
+        {
             _canAttack = true;
             _prepareTime = _prepareDefault;
-			return GameEntityState.Move;
-		}
+            return GameEntityState.Move;
+        }
         return GameEntityState.Move;
     }
 
@@ -292,7 +292,7 @@ public abstract class GameEntity : MonoBehaviour
 
     protected virtual void OnBlink() { }
 
-    #endregion 
+    #endregion
 
     public void MoveToWorldPoint(float x, float y, float speed)
     {
@@ -319,7 +319,7 @@ public abstract class GameEntity : MonoBehaviour
 
     public Vector2 GetPositionOnDistance(float distance, Vector2 direction)
     {
-        return new Vector2(direction.x * distance + Position.x, direction.y * distance + Position.y); 
+        return new Vector2(direction.x * distance + Position.x, direction.y * distance + Position.y);
     }
 
     public Directions GetDirection(Vector2 point)

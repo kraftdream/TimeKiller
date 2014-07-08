@@ -10,15 +10,20 @@ public class EnemyCreator : MonoBehaviour
 {
     #region Input values
 
-    [SerializeField] private float _time = 1f;
+    [SerializeField]
+    private float _time = 1f;
 
-    [SerializeField] private float _delay = 1f;
+    [SerializeField]
+    private float _delay = 1f;
 
-    [SerializeField] private GameObject[] _enemy;
+    [SerializeField]
+    private GameObject[] _enemy;
 
-    [SerializeField] private int _maxEnemyCount;
+    [SerializeField]
+    private int _maxEnemyCount;
 
-    [SerializeField] private GameObject _player;
+    [SerializeField]
+    private GameObject _player;
 
     [SerializeField]
     private float _distanceToPlayer;
@@ -83,6 +88,9 @@ public class EnemyCreator : MonoBehaviour
 
     private void CreateEnemy()
     {
+
+        if (_player.GetComponent<GameEntity>().Health <= 0)
+            CancelInvoke("CreateEnemy");
         for (int i = 0; i < EnemyList.Count; i++)
         {
             if (!EnemyList[i].activeInHierarchy)
@@ -100,8 +108,8 @@ public class EnemyCreator : MonoBehaviour
     {
         try
         {
-            float x = Random.Range(_enemySize.x/2 - _cameraSize.x, _cameraSize.x - (_enemySize.x/2));
-            float y = Random.Range(_enemySize.y/2 - _cameraSize.y, _cameraSize.y - (_enemySize.y/2));
+            float x = Random.Range(_enemySize.x / 2 - _cameraSize.x, _cameraSize.x - (_enemySize.x / 2));
+            float y = Random.Range(_enemySize.y / 2 - _cameraSize.y, _cameraSize.y - (_enemySize.y / 2));
 
             if (IsIntersects(new Bounds(new Vector3(x, y, 0), new Vector3(_enemySize.x, _enemySize.y, _enemySize.z))))
                 return GetRandomPosition();
