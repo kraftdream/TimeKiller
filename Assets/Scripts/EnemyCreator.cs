@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -62,7 +63,7 @@ public class EnemyCreator : MonoBehaviour
 
     private void Awake()
     {
-        _enemyList = new List<GameObject>();
+        _enemyList = new List<GameObject>(MaxEnemyCount);
         _mainCamera = Camera.main;
         _cameraSize = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         _enemySize = _enemy[0].renderer.bounds.size;
@@ -70,24 +71,29 @@ public class EnemyCreator : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("CreateEnemy", Delay, Time);
+        for (int i = 0; i < MaxEnemyCount; i++)
+        {
+            GameObject enemy = (GameObject) Instantiate(_enemy[0]);
+            enemy.transform.parent = transform;
+            enemy.SetActive(false);
+            EnemyList.Add(enemy);
+        }
+        InvokeRepeating("CreateEnemy", Delay, Time); 
     }
 
     private void CreateEnemy()
     {
-        // Instantiate a random enemy.
-        if (EnemyList.Count > MaxEnemyCount - 1)
-            return;
-        int index = Random.Range(0, _enemy.Length);
-        EnemyList.Add((GameObject) Instantiate(_enemy[index], GetRandomPosition(), transform.rotation));
-        EnemyList[EnemyList.Count - 1].transform.parent = transform;
-        EnemyList[EnemyList.Count - 1].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
-    }
-
-    public void DeleteNullObject()
-    {
-        //EnemyList.ForEach((GameObject enemy) => { if (enemy == null) EnemyList.Remove(null); });
-        EnemyList.Remove(null);
+        for (int i = 0; i < EnemyList.Count; i++)
+        {
+            if (!EnemyList[i].activeInHierarchy)
+            {
+                EnemyList[i].transform.position = GetRandomPosition();
+                EnemyList[i].transform.rotation = transform.rotation;
+                EnemyList[i].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
+                EnemyList[i].SetActive(true); 
+                return;
+            }
+        }
     }
 
     private Vector3 GetRandomPosition()

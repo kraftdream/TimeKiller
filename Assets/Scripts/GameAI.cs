@@ -55,8 +55,25 @@ public class GameAI : GameEntity
         {
             SetDefaultAnimation(GameObjectAnimator);
             GameObjectAnimator.SetBool("Death", true);
-            GameObjectAnimator.speed = 100;
+            Invoke("Disable", 10);
         }
+    }
+
+    private void OnEnable()
+    {
+        Health = 1;
+    }
+
+
+    private void Disable()
+    {
+        gameObject.SetActive(false); 
+        _enemyDeathBlood.active = false;
+    }
+
+    void OnDisable()
+    {
+        GameObjectAnimator.SetBool("Death", false);
     }
 
     public override void OnCollision(GameObject collisionObject)

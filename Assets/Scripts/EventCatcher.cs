@@ -24,7 +24,7 @@ public class EventCatcher : MonoBehaviour
         _enemiesToDelete = new List<GameObject>();
 	}
 	
-	void Update() {
+	void Update() {  
 	    CatchEvents();
 	}
 
@@ -64,13 +64,8 @@ public class EventCatcher : MonoBehaviour
                     _player.SendMessage("OnCollision", enemy);
                     enemy.SendMessage("OnCollision", _player);
                     //if (_player.GetComponent<GameAI>().State.Equals(GameAI.GameEntityState.Attack))
-                        _enemiesToDelete.Add(enemy);
                 }
-
             }
-
-            _enemiesToDelete.ForEach(gObj => _enemyList.Remove(gObj));
-
         }
     }
 }

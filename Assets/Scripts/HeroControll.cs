@@ -249,9 +249,8 @@ public class HeroControll : GameEntity
 
         if (!_collidedGameObject.audio.isPlaying)
             _collidedGameObject.audio.Play();
-        _mainCamera.GetComponent<Animator>().SetBool("Shake", true);
+        _mainCamera.GetComponent<Animator>().SetBool("Shake", true); 
 
-        Destroy(_collidedGameObject, 30.0f);
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
         _comboTime = Time.time;
