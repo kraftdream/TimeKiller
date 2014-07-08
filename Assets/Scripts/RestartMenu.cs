@@ -84,9 +84,8 @@ public class RestartMenu : MonoBehaviour
 
                 if(GUI.Button(_postResult, "Report Score"))
                 {
-
+                    PostResults();
                     SetNormalGameSpeed();
-                    AndroidHelperClass.Instance.makeToast("Report pressed");
                 }
                 StopAllCoroutines();
             }
@@ -101,12 +100,14 @@ public class RestartMenu : MonoBehaviour
 	void OnLoginSuccess(bool result)
 	{
 		if (result) 
-		{
-			Social.ReportScore(GameScore, _leaderBoardID, delegate(bool scoreResult) {
-                if (scoreResult) ;
-			});
-		}
+			Social.ReportScore(GameScore, _leaderBoardID, OnReportResult);
 	}
+
+    private void OnReportResult(bool result)
+    {
+        if(result)
+            NerdGPG.Instance().showLeaderBoards(_leaderBoardID);
+    }
 
     IEnumerator StatisticsShow()
     {
