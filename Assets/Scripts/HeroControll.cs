@@ -37,6 +37,12 @@ public class HeroControll : GameEntity
     [SerializeField]
     private AudioClip _bloodAudioClip;
 
+    [SerializeField]
+    private AudioClip _cryAudioClip;
+
+    [SerializeField]
+    private AudioSource _backgroundSound;
+
     private My3DText _scoreText;
     private My3DText _comboText;
 
@@ -64,6 +70,7 @@ public class HeroControll : GameEntity
 
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
+    private AudioSource _crySound;
 
     public float BorderLeftRightWitdh
     {
@@ -118,6 +125,11 @@ public class HeroControll : GameEntity
         _bloodSound = gameObject.AddComponent<AudioSource>();
         _bloodSound.clip = _bloodAudioClip;
         _bloodSound.pitch = 0.7f;
+
+        _crySound = gameObject.AddComponent<AudioSource>();
+        _crySound.clip = _cryAudioClip;
+        _crySound.pitch = 0.5f;
+        _crySound.volume = 0.5f;
 
         _playerDeathBlood = GetComponentInChildren<ParticleSystem>();
         _playerDeathBlood.active = false;
@@ -267,11 +279,22 @@ public class HeroControll : GameEntity
     {
         Health -= 1.0f;
         _bloodSound.Play();
+        _backgroundSound.pitch = 0.5f;
+        _crySound.Play();
+
         _playerDeathBlood.active = true;
         _scoreControll.SaveScore((int)_scoreText.Value);
         StartCoroutine(DeathScreen());
         RestartMenu();
         HideJoystickAndGuiLayer();
+
+        if (!GameObjectAnimator.GetBool("Death"))
+        {
+            GameObjectAnimator.speed = 100;
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Death", true);
+        }
+        GameObjectAnimator.speed = 1;
     }
 
     IEnumerator DeathScreen()
