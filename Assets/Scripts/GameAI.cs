@@ -14,7 +14,6 @@ public class GameAI : GameEntity
         Vector2 movePosition = Player.transform.position;
         MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
         PrepareTime = 1.0f;
-        GameObjectAnimator.speed = 1.0f;
 
         if (!GameObjectAnimator.GetBool("Move"))
         {
@@ -49,6 +48,9 @@ public class GameAI : GameEntity
 
     protected override void OnDeath()
     {
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
+
         _enemyDeathBlood.active = true;
 
         if (!GameObjectAnimator.GetBool("Death"))

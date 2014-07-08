@@ -8,6 +8,9 @@ public class ShooterEnemy : GameEntity {
     [SerializeField]
     private Transform _gunTransform;
 
+    [SerializeField]
+    private ParticleSystem _enemyDeathBlood;
+
     // Update is called once per frame
 
     void Update()
@@ -17,19 +20,41 @@ public class ShooterEnemy : GameEntity {
 
     protected override void OnMove()
     {
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
+
         Vector2 movePosition = Player.transform.position;
         MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
         //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
         PrepareTime = 1.0f;
-        GameObjectAnimator.speed = 1.0f;
-        GameObjectAnimator.SetBool("Prepare", false);
+
+        if (!GameObjectAnimator.GetBool("Move"))
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Move", true);
+            GameObjectAnimator.speed = 100;
+        }
+
+        ChangeAnimationDirection(GameObjectAnimator, movePosition);
     }
 
     protected override void OnPrepare()
     {
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
+
         CanAttack = true;
         _attackToPosition = GetMoveDirection(Position, new Vector2(Player.Position.x, Player.Position.y));
-        GameObjectAnimator.SetBool("Prepare", true);
+
+        if (!GameObjectAnimator.GetBool("Prepare"))
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Prepare", true);
+            GameObjectAnimator.speed = 100;
+        }
+
+        ChangeAnimationDirection(GameObjectAnimator, _attackToPosition);
+
         PrepareTime -= _prepare_decrement;
         GameObjectAnimator.speed += _prepare_decrement;
     }
@@ -45,19 +70,22 @@ public class ShooterEnemy : GameEntity {
             ShootScript script = BulletObject.GetComponent<ShootScript>();
             script.AttackPosition = _attackToPosition;
             script.EnemyObject = this;
-            Directions dir = GetDirection(transform.position);
-            if (dir == Directions.Right)
-                Flip(script.transform);
-
-            GameObjectAnimator.SetBool("Prepare", false);
         }
     }
 
-    private void Flip(Transform shot)
+    protected override void OnDeath()
     {
-        Vector3 theScale = shot.localScale;
-        theScale.x *= -1;
-        shot.localScale = theScale;
+        if (GameObjectAnimator.speed > 50)
+            GameObjectAnimator.speed = 1;
+
+        _enemyDeathBlood.active = true;
+
+        if (!GameObjectAnimator.GetBool("Death"))
+        {
+            SetDefaultAnimation(GameObjectAnimator);
+            GameObjectAnimator.SetBool("Death", true);
+            GameObjectAnimator.speed = 100;
+        }
     }
 
     public override void OnCollision(GameObject collisionObject)

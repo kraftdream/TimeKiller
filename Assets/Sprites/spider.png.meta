@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 403729e84a1d2d04aa60e9573cbe7bfb
+guid: 2a34691585628f84fa0d064bb100f859
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -42,303 +42,333 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: vampire 1_0
+    - name: spider_0
       rect:
         serializedVersion: 2
-        x: 307
-        y: 3132
-        width: 222
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_1
-      rect:
-        serializedVersion: 2
-        x: 779
-        y: 3132
-        width: 263
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_2
-      rect:
-        serializedVersion: 2
-        x: 1292
-        y: 3132
-        width: 223
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_3
-      rect:
-        serializedVersion: 2
-        x: 1765
-        y: 3132
-        width: 263
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_4
-      rect:
-        serializedVersion: 2
-        x: 2387
-        y: 3132
-        width: 304
-        height: 518
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_5
-      rect:
-        serializedVersion: 2
-        x: 2918
-        y: 3132
-        width: 341
-        height: 559
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_6
-      rect:
-        serializedVersion: 2
-        x: 307
-        y: 2110
-        width: 222
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_7
-      rect:
-        serializedVersion: 2
-        x: 779
-        y: 2110
-        width: 263
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_8
-      rect:
-        serializedVersion: 2
-        x: 1292
-        y: 2110
-        width: 223
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_9
-      rect:
-        serializedVersion: 2
-        x: 1765
-        y: 2110
-        width: 263
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_10
-      rect:
-        serializedVersion: 2
-        x: 2201
-        y: 2110
-        width: 381
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_11
-      rect:
-        serializedVersion: 2
-        x: 2691
-        y: 2110
-        width: 541
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_12
-      rect:
-        serializedVersion: 2
-        x: 3400
-        y: 2110
-        width: 540
-        height: 518
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_13
-      rect:
-        serializedVersion: 2
-        x: 4063
-        y: 2110
-        width: 536
-        height: 577
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_14
-      rect:
-        serializedVersion: 2
-        x: 307
-        y: 1106
-        width: 258
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_15
-      rect:
-        serializedVersion: 2
-        x: 797
-        y: 1106
-        width: 264
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_16
-      rect:
-        serializedVersion: 2
-        x: 1292
-        y: 1106
-        width: 264
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_17
-      rect:
-        serializedVersion: 2
-        x: 1783
-        y: 1106
-        width: 304
-        height: 500
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_18
-      rect:
-        serializedVersion: 2
-        x: 2360
-        y: 1106
-        width: 286
-        height: 518
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_19
-      rect:
-        serializedVersion: 2
-        x: 2909
-        y: 1106
-        width: 304
-        height: 541
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_20
-      rect:
-        serializedVersion: 2
-        x: 3463
-        y: 1102
-        width: 482
-        height: 322
+        x: 157
+        y: 2107
+        width: 224
+        height: 497
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_21
+    - name: spider_1
       rect:
         serializedVersion: 2
-        x: 4076
-        y: 1102
-        width: 477
-        height: 322
+        x: 691
+        y: 2107
+        width: 182
+        height: 497
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_22
+    - name: spider_2
       rect:
         serializedVersion: 2
-        x: 148
-        y: 98
-        width: 299
-        height: 499
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_23
-      rect:
-        serializedVersion: 2
-        x: 679
-        y: 98
-        width: 263
-        height: 499
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_24
-      rect:
-        serializedVersion: 2
-        x: 1174
-        y: 98
-        width: 264
-        height: 499
+        x: 1165
+        y: 2125
+        width: 378
+        height: 479
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_25
+    - name: spider_3
       rect:
         serializedVersion: 2
-        x: 1665
-        y: 98
-        width: 263
-        height: 499
+        x: 1812
+        y: 2125
+        width: 378
+        height: 479
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_26
+    - name: spider_4
       rect:
         serializedVersion: 2
-        x: 2173
-        y: 98
-        width: 286
-        height: 517
+        x: 2405
+        y: 2125
+        width: 460
+        height: 479
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_27
+    - name: spider_5
       rect:
         serializedVersion: 2
-        x: 2705
-        y: 98
+        x: 2965
+        y: 2426
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_6
+      rect:
+        serializedVersion: 2
+        x: 3175
+        y: 2107
+        width: 228
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_7
+      rect:
+        serializedVersion: 2
+        x: 3736
+        y: 2107
+        width: 205
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_8
+      rect:
+        serializedVersion: 2
+        x: 4210
+        y: 2107
+        width: 241
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_9
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1447
+        width: 378
+        height: 501
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_10
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 1447
         width: 300
-        height: 540
+        height: 501
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_28
+    - name: spider_11
       rect:
         serializedVersion: 2
-        x: 3413
-        y: 98
-        width: 323
-        height: 499
+        x: 1133
+        y: 1447
+        width: 383
+        height: 501
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: vampire 1_29
+    - name: spider_12
       rect:
         serializedVersion: 2
-        x: 4131
-        y: 98
-        width: 322
-        height: 499
+        x: 1675
+        y: 1447
+        width: 301
+        height: 501
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_13
+      rect:
+        serializedVersion: 2
+        x: 2213
+        y: 1447
+        width: 306
+        height: 501
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_14
+      rect:
+        serializedVersion: 2
+        x: 2674
+        y: 1447
+        width: 378
+        height: 501
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_15
+      rect:
+        serializedVersion: 2
+        x: 3298
+        y: 1447
+        width: 378
+        height: 382
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_16
+      rect:
+        serializedVersion: 2
+        x: 3914
+        y: 1447
+        width: 382
+        height: 382
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_17
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 790
+        width: 378
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_18
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 790
+        width: 300
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_19
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 790
+        width: 383
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_20
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 790
+        width: 301
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_21
+      rect:
+        serializedVersion: 2
+        x: 2213
+        y: 790
+        width: 306
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_22
+      rect:
+        serializedVersion: 2
+        x: 2674
+        y: 790
+        width: 378
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_23
+      rect:
+        serializedVersion: 2
+        x: 3376
+        y: 795
+        width: 319
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_24
+      rect:
+        serializedVersion: 2
+        x: 3955
+        y: 795
+        width: 319
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_25
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 157
+        width: 223
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_26
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 157
+        width: 187
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_27
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 175
+        width: 379
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_28
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 175
+        width: 382
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_29
+      rect:
+        serializedVersion: 2
+        x: 2482
+        y: 175
+        width: 461
+        height: 479
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_30
+      rect:
+        serializedVersion: 2
+        x: 3294
+        y: 157
+        width: 227
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_31
+      rect:
+        serializedVersion: 2
+        x: 3790
+        y: 157
+        width: 206
+        height: 497
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_32
+      rect:
+        serializedVersion: 2
+        x: 4292
+        y: 157
+        width: 242
+        height: 497
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

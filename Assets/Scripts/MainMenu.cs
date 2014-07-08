@@ -71,7 +71,7 @@ public class MainMenu : MonoBehaviour
         GUI.matrix = transMatrix;
         
         //Main Menu Screen
-        GUI.Label(_gameName, "Time Killer", gameNameStyle);
+		GUI.Label(_gameName, "Blade Hunter", gameNameStyle);
         GUI.skin.button = gameButtonsStyle;
 
         if (GUI.Button(_gameStart, "Start"))

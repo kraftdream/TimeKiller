@@ -38,7 +38,7 @@ public class CollisionDetector : MonoBehaviour
         {
             foreach (GameObject enemy in EnemyCreator.EnemyList)
             {
-                if (enemy == null || enemy.GetComponent<GameAI>().State.Equals(GameEntityState.Death))
+                if (enemy == null || enemy.GetComponent<GameEntity>().State.Equals(GameEntityState.Death))
                     continue;
 
                 GameEntity enemyScript = enemy.GetComponent<GameEntity>();

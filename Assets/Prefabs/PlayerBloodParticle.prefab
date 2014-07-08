@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3300000}
   - 64: {fileID: 6400000}
   - 23: {fileID: 2300000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CollisionBlood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerBloodParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1164,7 +1164,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: b7fe20f7e1b4df84080ac30243ab091a, type: 2}
+  - {fileID: 2100000, guid: 8ce05f32a2b942a4ca5dac8281746e8b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
