@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Globalization;
-using UnityEngine;
+ using UnityEditor;
+ using UnityEngine;
 using System.Collections;
 
 public class My3DText: MyGUI

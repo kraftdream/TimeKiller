@@ -1,4 +1,8 @@
-﻿﻿using System;
+<<<<<<< HEAD
+﻿﻿﻿using System;
+=======
+﻿using System;
+>>>>>>> Fix bug with direction function & add new fog particle to vampire
 using System.Collections.Generic;
 using UnityEngine;
 

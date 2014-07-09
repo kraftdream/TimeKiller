@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameAI : GameEntity
 {
+<<<<<<< HEAD
     public static float Prioroty { get; set; }
+=======
+
+>>>>>>> Fix bug with direction function & add new fog particle to vampire
     protected override void OnMove()
     {
         if (GameObjectAnimator.speed > 50)

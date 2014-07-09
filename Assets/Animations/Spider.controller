@@ -568,6 +568,10 @@ Transition:
     m_ConditionEvent: Prepare
     m_EventTreshold: 0
     m_ExitTime: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Death
+    m_EventTreshold: 0
+    m_ExitTime: 0
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
