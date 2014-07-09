@@ -40,9 +40,6 @@ public class HeroControll : GameEntity
     [SerializeField]
     private AudioClip _cryAudioClip;
 
-    [SerializeField]
-    private AudioSource _backgroundSound;
-
     private My3DText _scoreText;
     private My3DText _comboText;
 
@@ -193,7 +190,7 @@ public class HeroControll : GameEntity
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
 
-        if (!_attackSound.isPlaying)
+        if (!_attackSound.isPlaying && (PlayerPrefs.GetString("Sound") != "Off"))
             _attackSound.Play();
 
         CheckPlayerCrossScreenBoundaries();
@@ -259,7 +256,7 @@ public class HeroControll : GameEntity
     {
         _collidedEnemyScript.Health -= Damage;
 
-        if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy)
+        if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy && PlayerPrefs.GetString("Sound") != "Off")
             _collidedGameObject.audio.Play();
 
         _mainCamera.GetComponent<Animator>().SetBool("Shake", true); 
@@ -277,9 +274,11 @@ public class HeroControll : GameEntity
     void HeroDead()
     {
         Health -= _collidedEnemyScript.Damage;
-        _bloodSound.Play();
-        _backgroundSound.pitch = 0.5f;
-        _crySound.Play();
+        if (PlayerPrefs.GetString("Sound") != "Off")
+        {
+            _bloodSound.Play();
+            _crySound.Play();
+        }
 
         _scoreControll.SaveScore((int)_scoreText.Value);
         StartCoroutine(DeathScreen());

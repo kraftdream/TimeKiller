@@ -9,7 +9,8 @@ public class MainMenu : MonoBehaviour
     private Rect _gameOptions;
     private Rect _gameExit;
     private Rect _optionsBack;
-    private Rect _optionsMute;
+    private Rect _optionsSound;
+    private Rect _optionsMusic;
     private float _textCenterPoint;
 
     private const float _textSpeed = 2000.0f;
@@ -25,10 +26,13 @@ public class MainMenu : MonoBehaviour
     private Matrix4x4 transMatrix;
     private Vector3 positionVec;
 
+    private AudioSource audioSource;
+
     private bool sound = true;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         transMatrix = Matrix4x4.identity;
         positionVec = Vector3.zero;
 
@@ -37,7 +41,8 @@ public class MainMenu : MonoBehaviour
         _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 80, 150, 50);
         _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 160, 150, 50);
         _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 160, 150, 50);
-        _optionsMute = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 80, 150, 50);
+        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
+        _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2, 300, 50);
 
         _gameName.x = _gameOptions.x = - _screenOffset;
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
@@ -57,6 +62,15 @@ public class MainMenu : MonoBehaviour
         {
             positionVec.x = Mathf.SmoothStep(positionVec.x, 0, Time.deltaTime * 10);
             transMatrix = Matrix4x4.TRS(positionVec, Quaternion.identity, Vector3.one);
+        }
+
+        if (PlayerPrefs.GetString("Music") == "Off")
+        {
+            audioSource.mute = true;
+        }
+        else
+        {
+            audioSource.mute = false;
         }
 
 
@@ -92,15 +106,52 @@ public class MainMenu : MonoBehaviour
         
         //Options Screen
 
-        if (GUI.Button(_optionsMute, CheckSound()))
+        if (GUI.Button(_optionsSound, CheckSound()))
         {
             SwitchSound();
+        }
+
+        if (GUI.Button(_optionsMusic, ChecMusic()))
+        {
+            SwitchMusic();
         }
 
         if (GUI.Button(_optionsBack, "Back"))
         {
             options = false;
             back = true;
+        }
+    }
+
+    private string ChecMusic()
+    {
+        if (PlayerPrefs.HasKey("Music"))
+        {
+            if (PlayerPrefs.GetString("Music") == "On")
+            {
+                return "Music  Off";
+            }
+            if (PlayerPrefs.GetString("Music") == "Off")
+            {
+                return "Music  On";
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString("Music", "On");
+        }
+        return "Music  Off";
+    }
+
+    void SwitchMusic()
+    {
+        if (PlayerPrefs.GetString("Music") == "On")
+        {
+            PlayerPrefs.SetString("Music", "Off");
+        }
+        else if (PlayerPrefs.GetString("Music") == "Off")
+        {
+            PlayerPrefs.SetString("Music", "On");
         }
     }
 
@@ -122,18 +173,18 @@ public class MainMenu : MonoBehaviour
         {
             if (PlayerPrefs.GetString("Sound") == "On")
             {
-                return "Sound Off";
+                return "Sound Effects  Off";
             }
             if (PlayerPrefs.GetString("Sound") == "Off")
             {
-                return "Sound On";
+                return "Sound Effects  On";
             }
         }
         else
         {
             PlayerPrefs.SetString("Sound", "On");
         }
-        return "Sound Off";
+        return "Sound Effects  Off";
     }
 
     IEnumerator StartTextAnimation()
