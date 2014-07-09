@@ -8,6 +8,7 @@ public abstract class GameEntity : MonoBehaviour
     #region Input variables
 
     private const float _prepare_decrement = 0.01f;
+    private bool _isBloodOn;
 
     [SerializeField]
     private float _defaultHealth;
@@ -153,6 +154,8 @@ public abstract class GameEntity : MonoBehaviour
         Health = DefaultHealth;
         _prepareDefault = _prepareTime;
         _currentDirection = Directions.Bottom;
+
+        SetBloodStatus();
     }
 
     protected void Update()
@@ -237,7 +240,8 @@ public abstract class GameEntity : MonoBehaviour
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
 
-        _deathBlood.active = true;
+        if(_isBloodOn)
+            _deathBlood.active = true;
 
         if (!GameObjectAnimator.GetBool("Death"))
         {
@@ -362,5 +366,13 @@ public abstract class GameEntity : MonoBehaviour
         }
 
         return _currentDirection;
+    }
+
+    void SetBloodStatus()
+    {
+        if (PlayerPrefs.GetString("Blood").Equals("On"))
+        {
+            _isBloodOn = true;
+        }
     }
 }

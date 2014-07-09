@@ -156,7 +156,7 @@ public class HeroControll : GameEntity
             _comboText.Value = 0;
         }
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.LoadLevel("MainMenu");
         }
