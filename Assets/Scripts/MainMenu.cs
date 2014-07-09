@@ -11,6 +11,8 @@ public class MainMenu : MonoBehaviour
     private Rect _optionsBack;
     private Rect _optionsSound;
     private Rect _optionsMusic;
+    private Rect _optionsVibrate;
+
     private float _textCenterPoint;
 
     private const float _textSpeed = 2000.0f;
@@ -30,6 +32,12 @@ public class MainMenu : MonoBehaviour
 
     private bool sound = true;
 
+    private const String ON = "On";
+    private const String OFF = "Off";
+    private const String MUSIC = "Music";
+    private const String SOUND = "Sound";
+    private const String VIBRATE = "Vibrate";
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -40,9 +48,10 @@ public class MainMenu : MonoBehaviour
         _gameStart = new Rect(Screen.width / 2, Screen.height / 2, 150, 50);
         _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 80, 150, 50);
         _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 160, 150, 50);
-        _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 160, 150, 50);
-        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
         _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2, 300, 50);
+        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
+        _optionsVibrate = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 160, 300, 50);
+        _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 240, 150, 50);
 
         _gameName.x = _gameOptions.x = - _screenOffset;
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
@@ -64,7 +73,7 @@ public class MainMenu : MonoBehaviour
             transMatrix = Matrix4x4.TRS(positionVec, Quaternion.identity, Vector3.one);
         }
 
-        if (PlayerPrefs.GetString("Music") == "Off")
+        if (PlayerPrefs.GetString(MUSIC) == OFF)
         {
             audioSource.mute = true;
         }
@@ -116,6 +125,11 @@ public class MainMenu : MonoBehaviour
             SwitchMusic();
         }
 
+        if (GUI.Button(_optionsVibrate, ChecVibrate()))
+        {
+            SwitchVibrate();
+        }
+
         if (GUI.Button(_optionsBack, "Back"))
         {
             options = false;
@@ -125,66 +139,98 @@ public class MainMenu : MonoBehaviour
 
     private string ChecMusic()
     {
-        if (PlayerPrefs.HasKey("Music"))
+        if (PlayerPrefs.HasKey(MUSIC))
         {
-            if (PlayerPrefs.GetString("Music") == "On")
+            if (PlayerPrefs.GetString(MUSIC) == ON)
             {
-                return "Music  Off";
+                return MUSIC + " " + OFF;
             }
-            if (PlayerPrefs.GetString("Music") == "Off")
+            if (PlayerPrefs.GetString(MUSIC) == OFF)
             {
-                return "Music  On";
+                return MUSIC + " " + ON;
             }
         }
         else
         {
-            PlayerPrefs.SetString("Music", "On");
+            PlayerPrefs.SetString(MUSIC, ON);
         }
-        return "Music  Off";
+        return MUSIC + " " + OFF;
     }
 
     void SwitchMusic()
     {
-        if (PlayerPrefs.GetString("Music") == "On")
+        if (PlayerPrefs.GetString(MUSIC) == ON)
         {
-            PlayerPrefs.SetString("Music", "Off");
+            PlayerPrefs.SetString(MUSIC, OFF);
         }
-        else if (PlayerPrefs.GetString("Music") == "Off")
+        else if (PlayerPrefs.GetString(MUSIC) == OFF)
         {
-            PlayerPrefs.SetString("Music", "On");
+            PlayerPrefs.SetString(MUSIC, ON);
         }
     }
 
     void SwitchSound()
     {
-        if (PlayerPrefs.GetString("Sound") == "On")
+        if (PlayerPrefs.GetString(SOUND) == ON)
         {
-            PlayerPrefs.SetString("Sound", "Off");
+            PlayerPrefs.SetString(SOUND, OFF);
         }
-        else if (PlayerPrefs.GetString("Sound") == "Off")
+        else if (PlayerPrefs.GetString(SOUND) == OFF)
         {
-            PlayerPrefs.SetString("Sound", "On");
+            PlayerPrefs.SetString(SOUND, ON);
         }
     }
 
     String CheckSound()
     {
-        if (PlayerPrefs.HasKey("Sound"))
+        if (PlayerPrefs.HasKey(SOUND))
         {
-            if (PlayerPrefs.GetString("Sound") == "On")
+            if (PlayerPrefs.GetString(SOUND) == ON)
             {
-                return "Sound Effects  Off";
+                return SOUND + " " + OFF;
             }
-            if (PlayerPrefs.GetString("Sound") == "Off")
+            if (PlayerPrefs.GetString(SOUND) == OFF)
             {
-                return "Sound Effects  On";
+                return SOUND + " " + ON;
             }
         }
         else
         {
-            PlayerPrefs.SetString("Sound", "On");
+            PlayerPrefs.SetString(SOUND, ON);
         }
-        return "Sound Effects  Off";
+        return SOUND + " " + OFF;
+    }
+
+    private string ChecVibrate()
+    {
+        if (PlayerPrefs.HasKey(VIBRATE))
+        {
+            if (PlayerPrefs.GetString(VIBRATE) == OFF)
+            {
+                return VIBRATE + " " + ON;
+            }
+            if (PlayerPrefs.GetString(VIBRATE) == ON)
+            {
+                return VIBRATE + " " + OFF;
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString(VIBRATE, OFF);
+        }
+        return VIBRATE + " " + ON;
+    }
+
+    void SwitchVibrate()
+    {
+        if (PlayerPrefs.GetString(VIBRATE) == ON)
+        {
+            PlayerPrefs.SetString(VIBRATE, OFF);
+        }
+        else if (PlayerPrefs.GetString(VIBRATE) == OFF)
+        {
+            PlayerPrefs.SetString(VIBRATE, ON);
+        }
     }
 
     IEnumerator StartTextAnimation()

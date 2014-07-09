@@ -48,6 +48,7 @@ GameObject:
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
   - 82: {fileID: 8200002}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: EnemyRedBloodParticle
   m_TagString: Untagged
@@ -315,6 +316,17 @@ MonoBehaviour:
   _prepareTime: 1
   _player: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   _deathBlood: {fileID: 19800000}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b65069ea2ccbb4bbc4113576768443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -69,6 +69,7 @@ public class HeroControll : GameEntity
 
     private ScoreControll _scoreControll;
     private int _killsCount;
+    private bool _isVibrateOn;
 
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
@@ -136,6 +137,8 @@ public class HeroControll : GameEntity
         _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
 
         _scoreControll = new ScoreControll();
+
+        SetVibrateStatus();
     }
 
     protected void Update()
@@ -246,6 +249,9 @@ public class HeroControll : GameEntity
                     DestroyBullet();
                 else
                     HeroTochEnemy();
+
+                if (_isVibrateOn)
+                    Handheld.Vibrate();
             }
 			else if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
             {
@@ -379,6 +385,14 @@ public class HeroControll : GameEntity
                 GameObjectAnimator.speed = Input.GetAxis("Horizontal");
             else if (_joystick.position.y > 0)
                 GameObjectAnimator.speed = Input.GetAxis("Vertical");
+        }
+    }
+
+    void SetVibrateStatus()
+    {
+        if (PlayerPrefs.GetString("Vibrate").Equals("On"))
+        {
+            _isVibrateOn = true;
         }
     }
 
