@@ -172,8 +172,8 @@ public class HeroControll : GameEntity
             movePosition = new Vector2(_joystick.position.x * Time.deltaTime * MoveSpeed, _joystick.position.y * Time.deltaTime * MoveSpeed);
 
         gameObject.transform.Translate(movePosition);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -_maxScreenWidth, _maxScreenWidth),
-            Mathf.Clamp(transform.position.y, -_maxScreenHeight, _maxScreenHeight));
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -_maxScreenWidth + borderLeftRightWitdh, _maxScreenWidth - borderLeftRightWitdh),
+            Mathf.Clamp(transform.position.y, -_maxScreenHeight + borderUpDownWitdh, _maxScreenHeight - borderUpDownWitdh));
 
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
         _currDirection = GetDirection(movePosition);

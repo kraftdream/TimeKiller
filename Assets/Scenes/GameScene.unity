@@ -603,6 +603,15 @@ Prefab:
       propertyPath: _defaultHealth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300034, guid: bbba8581a98cd0440bb3c97b036f6f1d,
+        type: 3}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: borderUpDownWitdh
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3798,7 +3807,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _deathBlood: {fileID: 799514645}
   borderLeftRightWitdh: .5
-  borderUpDownWitdh: .5
+  borderUpDownWitdh: 0
   _actionButton: {fileID: 79529104}
   _gui: {fileID: 1722200924}
   _joystick: {fileID: 1262016679}
@@ -3830,5 +3839,5 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300030, guid: faa81bb57b5d38d40b017eb0b854dfef, type: 3}
+  m_Sprite: {fileID: 21300034, guid: bbba8581a98cd0440bb3c97b036f6f1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
