@@ -250,13 +250,16 @@ public abstract class GameEntity : MonoBehaviour
 
     private void OnEnable()
     {
-        Health = DefaultHealth;
+        _state = GameEntityState.Move;
     }
 
     private void Disable()
     {
         gameObject.SetActive(false);
         _deathBlood.active = false;
+        GameObjectAnimator.SetBool("Death", false);
+        PrepareTime = _prepareDefault;
+        Health = DefaultHealth;
     }
 
     protected virtual void OnPrepare()
