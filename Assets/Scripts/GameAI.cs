@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameAI : GameEntity
 {
+    public static float Prioroty { get; set; }
     protected override void OnMove()
     {
         if (GameObjectAnimator.speed > 50)

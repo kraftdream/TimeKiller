@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,8 +39,8 @@ public abstract class GameEntity : MonoBehaviour
     [SerializeField]
     private GameEntity _player;
 
-	[SerializeField]
-	private ParticleSystem _deathBlood;
+    [SerializeField]
+    private ParticleSystem _deathBlood;
 
     private float _prepareDefault;
 
@@ -143,7 +143,6 @@ public abstract class GameEntity : MonoBehaviour
         set { _player = value; }
     }
 
-
     #endregion
 
     protected void Awake()
@@ -238,7 +237,7 @@ public abstract class GameEntity : MonoBehaviour
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
 
-		_deathBlood.active = true;
+        _deathBlood.active = true;
 
         if (!GameObjectAnimator.GetBool("Death"))
         {
@@ -257,7 +256,7 @@ public abstract class GameEntity : MonoBehaviour
     private void Disable()
     {
         gameObject.SetActive(false);
-		_deathBlood.active = false;
+        _deathBlood.active = false;
     }
 
     protected virtual void OnPrepare()

@@ -20,19 +20,22 @@ public class EnemyCreator : MonoBehaviour
     private GameObject[] _enemy;
 
     [SerializeField]
-    private int _maxEnemyCount;
-
-    [SerializeField]
     private GameObject _player;
 
     [SerializeField]
     private float _distanceToPlayer;
+
+    [SerializeField]
+    private int _gameAIPercentage = 70;
+    private int _shootEnemyPercentage = 30;
 
     private Camera _mainCamera;
     private Vector3 _cameraSize;
     private Vector3 _enemySize;
 
     private volatile List<GameObject> _enemyList;
+
+    private int _maxVisibleCount = 10;
 
     public List<GameObject> EnemyList
     {
@@ -52,12 +55,6 @@ public class EnemyCreator : MonoBehaviour
         set { _delay = value; }
     }
 
-    public int MaxEnemyCount
-    {
-        get { return _maxEnemyCount; }
-        set { _maxEnemyCount = value; }
-    }
-
     public float DistanceToPlayer
     {
         get { return _distanceToPlayer; }
@@ -68,7 +65,7 @@ public class EnemyCreator : MonoBehaviour
 
     private void Awake()
     {
-        _enemyList = new List<GameObject>(MaxEnemyCount);
+        _enemyList = new List<GameObject>();
         _mainCamera = Camera.main;
         _cameraSize = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         _enemySize = _enemy[0].renderer.bounds.size;
@@ -76,32 +73,57 @@ public class EnemyCreator : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < MaxEnemyCount; i++)
-        {
-            GameObject enemy = (GameObject) Instantiate(_enemy[Random.Range(0, _enemy.Length)]);
-            enemy.transform.parent = transform;
-            enemy.SetActive(false);
-            EnemyList.Add(enemy);
-        }
         InvokeRepeating("CreateEnemy", Delay, Time); 
     }
 
     private void CreateEnemy()
     {
-
         if (_player.GetComponent<GameEntity>().Health <= 0)
             CancelInvoke("CreateEnemy");
-        for (int i = 0; i < EnemyList.Count; i++)
+
+        if (EnemyList.Count(gameObj => gameObj.activeInHierarchy && gameObj.GetComponent<GameEntity>().State != GameEntityState.Death) < _maxVisibleCount)
+            CreateEnemyByPriority();
+    }
+
+    private void CreateEnemyByPriority()
+    {
+        int createdGameAICount = EnemyList.Count(gameObj => gameObj.GetComponent<GameEntity>() is GameAI && gameObj.activeInHierarchy && gameObj.GetComponent<GameEntity>().State != GameEntityState.Death);
+        GameAI.Prioroty = GetPercentage(createdGameAICount, _gameAIPercentage);
+
+        int createdShootEnemyCount = EnemyList.Count(gameObj => gameObj.GetComponent<GameEntity>() is ShooterEnemy && gameObj.activeInHierarchy && gameObj.GetComponent<GameEntity>().State != GameEntityState.Death);
+        ShooterEnemy.Prioroty = GetPercentage(createdShootEnemyCount, _shootEnemyPercentage);
+
+        if (ShooterEnemy.Prioroty > GameAI.Prioroty && createdGameAICount > 3)
+            CreateNewEnemy<ShooterEnemy>();
+        else
+            CreateNewEnemy<GameAI>();
+    }
+
+    private void CreateNewEnemy<T>() where T : GameEntity
+    {
+        List<GameObject> enemys = EnemyList.FindAll(gameObj => gameObj.GetComponent<GameEntity>() is T && !gameObj.activeInHierarchy);
+        if (enemys.Count > 0)
         {
-            if (!EnemyList[i].activeInHierarchy)
-            {
-                EnemyList[i].transform.position = GetRandomPosition();
-                EnemyList[i].transform.rotation = transform.rotation;
-                EnemyList[i].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
-                EnemyList[i].SetActive(true); 
-                return;
-            }
+            enemys[0].transform.position = GetRandomPosition();
+            enemys[0].transform.rotation = transform.rotation;
+            enemys[0].GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
+            enemys[0].SetActive(true);
         }
+        else
+        {
+            GameObject enemy = (GameObject)Instantiate(_enemy[Type.Equals(typeof(T), typeof(ShooterEnemy)) ? 0 : 1]);
+            enemy.transform.position = GetRandomPosition();
+            enemy.transform.rotation = transform.rotation;
+			enemy.SetActive(true);
+            enemy.GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
+            EnemyList.Add(enemy);
+        }
+
+    }
+
+    private float GetPercentage(int createdEnemyCount, int enemyPercentage)
+    {
+        return 100 - ((createdEnemyCount * 100) / (_maxVisibleCount * enemyPercentage / 100));
     }
 
     private Vector3 GetRandomPosition()

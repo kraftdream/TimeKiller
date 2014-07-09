@@ -8,6 +8,8 @@ public class ShooterEnemy : GameEntity {
     [SerializeField]
     private Transform _gunTransform;
 
+    public static float Prioroty { get; set; }
+
     // Update is called once per frame
 
     void Update()

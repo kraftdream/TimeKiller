@@ -3126,14 +3126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502ceeb701060884da81be7309b1593c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 1
+  _time: .5
   _delay: 1
   _enemy:
   - {fileID: 100002, guid: 783c616253b4db7488697faa90a1162e, type: 2}
   - {fileID: 100000, guid: b051099d3c2955e4288eabdbcf276a79, type: 2}
-  _maxEnemyCount: 50
   _player: {fileID: 2015788376}
   _distanceToPlayer: 5
+  _gameAIPercentage: 70
 --- !u!4 &1258020225
 Transform:
   m_ObjectHideFlags: 0
