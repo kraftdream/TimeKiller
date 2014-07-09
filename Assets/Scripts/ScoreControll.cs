@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ScoreControll
 {
+
+    private const String BEST_SCORE = "BestScore";
+
     [SerializeField]
     private float _bestCombo = 0;
 
@@ -15,29 +19,29 @@ public class ScoreControll
         }
 
     }
-    
-	public int GetBestScore()
+
+    public int GetBestScore()
 	{
-	    if (PlayerPrefs.HasKey("BestScore"))
+        if (PlayerPrefs.HasKey(BEST_SCORE))
 	    {
-	        return PlayerPrefs.GetInt("BastScore");
+            return PlayerPrefs.GetInt(BEST_SCORE);
 	    }
-        PlayerPrefs.SetInt("BestScore", 0);
+        PlayerPrefs.SetInt(BEST_SCORE, 0);
 	    return 0;
 	}
 
     public void SaveScore(int score)
     {
-        if (PlayerPrefs.HasKey("BestScore"))
+        if (PlayerPrefs.HasKey(BEST_SCORE))
         {
-            if (PlayerPrefs.GetInt("BestScore") < score)
+            if (PlayerPrefs.GetInt(BEST_SCORE) < score)
             {
-                PlayerPrefs.SetInt("BestScore", score);
+                PlayerPrefs.SetInt(BEST_SCORE, score);
             }
         }
         else
         {
-            PlayerPrefs.SetInt("BestScore", score);
+            PlayerPrefs.SetInt(BEST_SCORE, score);
         }
     }
 }

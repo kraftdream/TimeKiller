@@ -65,8 +65,10 @@ public class HeroControll : GameEntity
     private GameObject _collidedGameObject;
     private GameEntity _collidedEnemyScript;
     private Material _darkScreen;
+    private const string COLOR_COMPONENT = "_Color";
 
     private ScoreControll _scoreControll;
+    private int _killsCount;
 
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
@@ -259,6 +261,9 @@ public class HeroControll : GameEntity
     {
         _collidedEnemyScript.Health -= Damage;
 
+        if (_collidedEnemyScript.Health == 0)
+            _killsCount++;
+
         if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy)
             _collidedGameObject.audio.Play();
 
@@ -281,7 +286,7 @@ public class HeroControll : GameEntity
         _backgroundSound.pitch = 0.5f;
         _crySound.Play();
 
-        _scoreControll.SaveScore((int)_scoreText.Value);
+        _scoreControll.SaveScore(_scoreText.Value);
         StartCoroutine(DeathScreen());
         RestartMenu();
         HideJoystickAndGuiLayer();
@@ -293,14 +298,13 @@ public class HeroControll : GameEntity
 
     IEnumerator DeathScreen()
     {
-        String colorComponent = "_Color";
-        Color color = _darkScreen.GetColor(colorComponent);
+        Color color = _darkScreen.GetColor(COLOR_COMPONENT);
 
         while (color.a < 0.5f)
         {
             yield return new WaitForEndOfFrame();
             color.a = color.a + 0.01f;
-            _darkScreen.SetColor(colorComponent, color);
+            _darkScreen.SetColor(COLOR_COMPONENT, color);
 
             if (Time.timeScale > 0.15)
                 Time.timeScale -= 0.018f;
@@ -311,7 +315,10 @@ public class HeroControll : GameEntity
     {
         RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
         restartMenu.IsShowRestart = true;
+        restartMenu.Kills = _killsCount;
+        restartMenu.BestCombo = (int) _scoreControll.BestCombo;
 		restartMenu.GameScore = _scoreText.Value;
+        restartMenu.GameBestScore = _scoreControll.GetBestScore();
     }
 
     void HideJoystickAndGuiLayer()

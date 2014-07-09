@@ -5,17 +5,19 @@ using UnityEngine.SocialPlatforms;
 
 public class RestartMenu : MonoBehaviour
 {
-	private string _leaderBoardID = "CgkIoML55u0ZEAIQAQ";
+    private const string _leaderBoardID = "CgkIoML55u0ZEAIQAQ";
     private bool _isShowRestart;
     private Rect _postResult;
     private Rect _gameOver;
     private Rect _gameKills;
     private Rect _gameScore;
+    private Rect _gameBestScore;
     private Rect _gameCombo;
     private Rect _gameRestart;
     private Rect _gameMainMenu;
+
     private float _textCenterPoint;
-    private float _textWidth = 250.0f;
+    private const float _textWidth = 250.0f;
     private bool _needToShowStatistics;
 
     public GUIStyle gameOverStyle;
@@ -33,6 +35,24 @@ public class RestartMenu : MonoBehaviour
         set;
     }
 
+    public int GameBestScore
+    {
+        get;
+        set;
+    }
+
+    public int Kills
+    {
+        get; 
+        set;
+    }
+
+    public int BestCombo
+    {
+        get; 
+        set;
+    }
+
     void Start()
     {
         _textCenterPoint = GetCenterScreen(_textWidth);
@@ -43,8 +63,9 @@ public class RestartMenu : MonoBehaviour
         _postResult = new Rect(Screen.width / 2 - 125, Screen.height - 70, _textWidth, 50);
         _gameOver = new Rect(_textCenterPoint, Screen.height / 2 - 180, _textWidth, 50);
         _gameKills = new Rect(_textCenterPoint / 2, Screen.height / 2 - 50, _textWidth, 50);
-        _gameScore = new Rect(_textCenterPoint / 2, Screen.height / 2 + 10, _textWidth, 50);
-        _gameCombo = new Rect(_textCenterPoint / 2, Screen.height / 2 + 70, _textWidth, 50);
+        _gameCombo = new Rect(_textCenterPoint / 2, Screen.height / 2 + 10, _textWidth, 50);
+        _gameScore = new Rect(_textCenterPoint / 2, Screen.height / 2 + 70, _textWidth, 50);
+        _gameBestScore = new Rect(_textCenterPoint / 2, Screen.height / 2 + 130, _textWidth, 50);
     }
 
     void Update()
@@ -66,9 +87,10 @@ public class RestartMenu : MonoBehaviour
 
             if (_needToShowStatistics)
             {
-                GUI.Label(_gameKills, "Killes: ");
-                GUI.Label(_gameScore, "Your Score:    " + GameScore);
-                GUI.Label(_gameCombo, "Best Combo: ");
+                GUI.Label(_gameKills, "Kills: " + Kills);
+                GUI.Label(_gameCombo, "Best Combo: "  + BestCombo);
+                GUI.Label(_gameScore, "Your Score: " + GameScore);
+                GUI.Label(_gameBestScore, "Best Score: " + GameBestScore);
 
                 if (GUI.Button(_gameMainMenu, "Main Menu"))
                 {
