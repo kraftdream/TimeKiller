@@ -3656,7 +3656,7 @@ MonoBehaviour:
   _defaultFontSize: 0
   _textObjectName: ComboText
   _screenPosition: 2
-  _value: 0
+  _value: -1
   _valueText: combo
   _guiAnimation: {fileID: 7400000, guid: 4086507e908dcb04fb30dc409257a7f2, type: 2}
   _marginLeft: 0
