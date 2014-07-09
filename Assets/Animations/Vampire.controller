@@ -351,7 +351,7 @@ Transition:
   - m_ConditionMode: 5
     m_ConditionEvent: Prepare
     m_EventTreshold: 0
-    m_ExitTime: .400000006
+    m_ExitTime: .300000012
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -733,12 +733,12 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
+      first: {fileID: 0}
+      second: []
+    data:
       first: {fileID: 110261765}
       second:
       - {fileID: 110135080}
-    data:
-      first: {fileID: 0}
-      second: []
     data:
       first: {fileID: 110200000}
       second:

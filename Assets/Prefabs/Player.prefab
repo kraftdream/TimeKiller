@@ -32,7 +32,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 1
@@ -236,9 +236,9 @@ MonoBehaviour:
   _state: 0
   _prepareTime: 0
   _player: {fileID: 0}
-  _deathBlood: {fileID: 0}
+  _deathBlood: {fileID: 19800000}
   borderLeftRightWitdh: .5
-  borderUpDownWitdh: .5
+  borderUpDownWitdh: 0
   _actionButton: {fileID: 0}
   _gui: {fileID: 0}
   _joystick: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   _playerAttackSlash: {fileID: 100000}
   _attackAudioClip: {fileID: 8300000, guid: 8ba8bd01ea818ce4b98a7915570d97b3, type: 3}
   _bloodAudioClip: {fileID: 8300000, guid: 6d140a84e6580224597c577f46d36863, type: 3}
-  _cryAudioClip: {fileID: 8300000, guid: 77a7d5764206f8d41af67d20919afdee, type: 3}
+  _cryAudioClip: {fileID: 8300000, guid: eaf9da192c3c4704c90b15dfbc29fcf9, type: 3}
   _backgroundSound: {fileID: 0}
 --- !u!198 &19800000
 ParticleSystem:
@@ -1353,7 +1353,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300030, guid: faa81bb57b5d38d40b017eb0b854dfef, type: 3}
+  m_Sprite: {fileID: 21300034, guid: bbba8581a98cd0440bb3c97b036f6f1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
