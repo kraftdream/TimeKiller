@@ -35,7 +35,7 @@ public class EnemyCreator : MonoBehaviour
 
     private volatile List<GameObject> _enemyList;
 
-    private int _maxVisibleCount = 10;
+    private float _maxVisibleCount = 10f;
 
     public List<GameObject> EnemyList
     {
@@ -113,6 +113,7 @@ public class EnemyCreator : MonoBehaviour
         {
             GameObject enemy = (GameObject)Instantiate(_enemy[Type.Equals(typeof(T), typeof(ShooterEnemy)) ? 0 : 1]);
             enemy.transform.position = GetRandomPosition();
+            enemy.transform.parent = transform;
             enemy.transform.rotation = transform.rotation;
 			enemy.SetActive(true);
             enemy.GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
