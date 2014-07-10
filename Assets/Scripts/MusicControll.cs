@@ -8,13 +8,9 @@ public class MusicControll : MonoBehaviour {
 	void Awake () {
         audioSource = GetComponent<AudioSource>();
 
-        if (PlayerPrefs.GetString("Music") == "Off")
+        if (PlayerPrefs.GetString("Music") == "On")
         {
-            audioSource.mute = true;
-        }
-        else
-        {
-            audioSource.mute = false;
+            audioSource.Play();
         }
 	}
 }
