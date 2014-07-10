@@ -25,9 +25,8 @@ public class EnemyCreator : MonoBehaviour
     [SerializeField]
     private float _distanceToPlayer;
 
-    [SerializeField]
-    private int _gameAIPercentage = 70;
-    private int _shootEnemyPercentage = 30;
+    private int _gameAIPercentage = 60;
+    private int _shootEnemyPercentage = 40;
 
     private Camera _mainCamera;
     private Vector3 _cameraSize;
