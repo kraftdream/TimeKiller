@@ -97,7 +97,7 @@ PlayerSettings:
   iPadHighResLandscapeSplashScreen: {fileID: 0}
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
-  AndroidKeystoreName: C:/Users/Denis/Desktop/bladehunter.keystore
+  AndroidKeystoreName: C:/Users/tamas/UnityProjects/bladehunter.keystore
   AndroidKeyaliasName: bladehunter
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
