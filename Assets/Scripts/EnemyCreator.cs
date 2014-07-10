@@ -116,6 +116,7 @@ public class EnemyCreator : MonoBehaviour
             enemy.transform.rotation = transform.rotation;
 			enemy.SetActive(true);
             enemy.GetComponent<GameEntity>().Player = _player.GetComponent<GameEntity>();
+            enemy.transform.parent = gameObject.transform;
             EnemyList.Add(enemy);
         }
 
