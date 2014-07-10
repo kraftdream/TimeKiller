@@ -3113,7 +3113,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: b051099d3c2955e4288eabdbcf276a79, type: 2}
   _player: {fileID: 2015788376}
   _distanceToPlayer: 5
-  _gameAIPercentage: 70
+  _gameAIPercentage: 30
 --- !u!4 &1258020225
 Transform:
   m_ObjectHideFlags: 0

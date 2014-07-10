@@ -262,7 +262,7 @@ public abstract class GameEntity : MonoBehaviour
     {
         gameObject.SetActive(false);
         _deathBlood.active = false;
-        GameObjectAnimator.SetBool("Death", false);
+        SetDefaultAnimation(GameObjectAnimator);
         PrepareTime = _prepareDefault;
         Health = DefaultHealth;
     }

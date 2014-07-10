@@ -24,7 +24,6 @@ public class ShooterEnemy : GameEntity {
 
         Vector2 movePosition = Player.transform.position;
         MoveToWorldPoint(movePosition.x, movePosition.y, MoveSpeed);
-        //ChangeAnimationPosition(_gameObjectAnimator, _movePosition);
         PrepareTime = 1.0f;
 
         if (!GameObjectAnimator.GetBool("Move"))
@@ -52,7 +51,7 @@ public class ShooterEnemy : GameEntity {
             GameObjectAnimator.speed = 100;
         }
 
-        ChangeAnimationDirection(GameObjectAnimator, _attackToPosition);
+        ChangeAnimationDirection(GameObjectAnimator, new Vector2(Player.Position.x, Player.Position.y));
 
         PrepareTime -= _prepare_decrement;
         GameObjectAnimator.speed += _prepare_decrement;
@@ -60,6 +59,8 @@ public class ShooterEnemy : GameEntity {
 
     protected override void OnAttack()
     {
+        ChangeAnimationDirection(GameObjectAnimator, new Vector2(Player.Position.x, Player.Position.y));
+
         if (_gunTransform != null && CanAttack)
         {
             CanAttack = false;

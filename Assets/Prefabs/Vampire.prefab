@@ -306,8 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultHealth: 1
-  _moveSpeed: 1
-  _attackSpeed: 5
+  _moveSpeed: 2
+  _attackSpeed: 7
   _armour: 0
   _damage: 1
   _scorePoint: 10

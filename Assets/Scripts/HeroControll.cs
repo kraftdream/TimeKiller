@@ -238,7 +238,7 @@ public class HeroControll : GameEntity
     public override void OnCollision(GameObject collisionObject)
     {
 
-        if (collisionObject.CompareTag("Enemy"))
+        if (collisionObject.CompareTag("Enemy") || collisionObject.CompareTag("ShootEnemy"))
         {
             _collidedGameObject = collisionObject;
             _collidedEnemyScript = collisionObject.GetComponent<GameEntity>();
@@ -255,8 +255,12 @@ public class HeroControll : GameEntity
             }
 			else if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
             {
-                //DestroyBullet();
-                HeroDead();
+                if (collisionObject.CompareTag("Enemy") && _collidedEnemyScript.renderer.bounds.Intersects(renderer.bounds))
+                    HeroDead();
+                else if (_collidedEnemyScript.tag.Equals("ShootEnemy") && !_collidedEnemyScript.renderer.bounds.Intersects(renderer.bounds))
+                    HeroDead();
+                else
+                    _collidedEnemyScript.CollisionDetected = false;
             }
 			else
 				_collidedEnemyScript.CollisionDetected = false;
