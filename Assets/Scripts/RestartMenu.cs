@@ -107,7 +107,6 @@ public class RestartMenu : MonoBehaviour
                 if(GUI.Button(_postResult, "Report Score"))
                 {
                     PostResults();
-                    SetNormalGameSpeed();
                 }
                 StopAllCoroutines();
             }

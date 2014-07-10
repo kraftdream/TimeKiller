@@ -248,7 +248,8 @@ public abstract class GameEntity : MonoBehaviour
             SetDefaultAnimation(GameObjectAnimator);
             GameObjectAnimator.SetBool("Death", true);
             GameObjectAnimator.speed = 100;
-            Invoke("Disable", 10);
+            if (Player != null)
+                Invoke("Disable", 10);
         }
     }
 

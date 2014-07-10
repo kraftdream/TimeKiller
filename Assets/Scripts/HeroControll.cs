@@ -255,7 +255,7 @@ public class HeroControll : GameEntity
             }
 			else if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
             {
-                DestroyBullet();
+                //DestroyBullet();
                 HeroDead();
             }
 			else
