@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     private Rect _optionsSound;
     private Rect _optionsMusic;
     private Rect _optionsVibrate;
+    private Rect _optionsBlood;
 
     private float _textCenterPoint;
 
@@ -21,6 +22,7 @@ public class MainMenu : MonoBehaviour
 
     private bool options = false;
     private bool back = true;
+    private bool _touchPhaseBegan;
 
     public GUIStyle gameNameStyle;
     public GUIStyle gameButtonsStyle;
@@ -37,6 +39,7 @@ public class MainMenu : MonoBehaviour
     private const String MUSIC = "Music";
     private const String SOUND = "Sound";
     private const String VIBRATE = "Vibrate";
+    private const String BLOOD = "Blood";
 
     void Start()
     {
@@ -44,16 +47,18 @@ public class MainMenu : MonoBehaviour
         transMatrix = Matrix4x4.identity;
         positionVec = Vector3.zero;
 
-        _gameName = new Rect(Screen.width / 2, Screen.height / 2 - 150, 150, 10);
-        _gameStart = new Rect(Screen.width / 2, Screen.height / 2, 150, 50);
-        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 80, 150, 50);
-        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 160, 150, 50);
-        _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2, 300, 50);
-        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
-        _optionsVibrate = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 160, 300, 50);
+        _gameName = new Rect(Screen.width / 2, Screen.height / 2 - 140, 150, 10);
+        _gameStart = new Rect(Screen.width / 2, Screen.height / 2, 150, 60);
+        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 90, 150, 60);
+        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 180, 150, 60);
+
+        _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 - 160, 300, 50);
+        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 - 80, 300, 50);
+        _optionsVibrate = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2, 300, 50);
+        _optionsBlood = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
         _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 240, 150, 50);
 
-        _gameName.x = _gameOptions.x = - _screenOffset;
+        _gameName.x = _gameOptions.x = -_screenOffset;
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
 
         _textCenterPoint = GetCenterScreen(_gameStart.width);
@@ -65,9 +70,10 @@ public class MainMenu : MonoBehaviour
 
         if (options)
         {
-            positionVec.x = Mathf.SmoothStep(positionVec.x, -Screen.width, Time.deltaTime*10);
-            transMatrix = Matrix4x4.TRS(positionVec, Quaternion.identity, Vector3.one); 
-        } else if (back)
+            positionVec.x = Mathf.SmoothStep(positionVec.x, -Screen.width, Time.deltaTime * 10);
+            transMatrix = Matrix4x4.TRS(positionVec, Quaternion.identity, Vector3.one);
+        }
+        else if (back)
         {
             positionVec.x = Mathf.SmoothStep(positionVec.x, 0, Time.deltaTime * 10);
             transMatrix = Matrix4x4.TRS(positionVec, Quaternion.identity, Vector3.one);
@@ -83,18 +89,26 @@ public class MainMenu : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();            
+            if (options)
+            {
+                options = false;
+                back = true;
+            }
+            else
+            {
+                Application.Quit();
+            }
         }
     }
 
     void OnGUI()
     {
         GUI.matrix = transMatrix;
-        
+
         //Main Menu Screen
-		GUI.Label(_gameName, "Blade Hunter", gameNameStyle);
+        GUI.Label(_gameName, "Blade Hunter", gameNameStyle);
         GUI.skin.button = gameButtonsStyle;
 
         if (GUI.Button(_gameStart, "Start"))
@@ -112,7 +126,7 @@ public class MainMenu : MonoBehaviour
         {
             Application.Quit();
         }
-        
+
         //Options Screen
 
         if (GUI.Button(_optionsSound, CheckSound()))
@@ -120,7 +134,7 @@ public class MainMenu : MonoBehaviour
             SwitchSound();
         }
 
-        if (GUI.Button(_optionsMusic, ChecMusic()))
+        if (GUI.Button(_optionsMusic, CheckMusic()))
         {
             SwitchMusic();
         }
@@ -130,6 +144,11 @@ public class MainMenu : MonoBehaviour
             SwitchVibrate();
         }
 
+        if (GUI.Button(_optionsBlood, CheckBlood()))
+        {
+            SwitchBlood();
+        }
+
         if (GUI.Button(_optionsBack, "Back"))
         {
             options = false;
@@ -137,7 +156,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private string ChecMusic()
+    private string CheckMusic()
     {
         if (PlayerPrefs.HasKey(MUSIC))
         {
@@ -230,6 +249,38 @@ public class MainMenu : MonoBehaviour
         else if (PlayerPrefs.GetString(VIBRATE) == OFF)
         {
             PlayerPrefs.SetString(VIBRATE, ON);
+        }
+    }
+
+    private string CheckBlood()
+    {
+        if (PlayerPrefs.HasKey(BLOOD))
+        {
+            if (PlayerPrefs.GetString(BLOOD) == OFF)
+            {
+                return BLOOD + " " + ON;
+            }
+            if (PlayerPrefs.GetString(BLOOD) == ON)
+            {
+                return BLOOD + " " + OFF;
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString(BLOOD, ON);
+        }
+        return BLOOD + " " + OFF;
+    }
+
+    void SwitchBlood()
+    {
+        if (PlayerPrefs.GetString(BLOOD) == ON)
+        {
+            PlayerPrefs.SetString(BLOOD, OFF);
+        }
+        else if (PlayerPrefs.GetString(BLOOD) == OFF)
+        {
+            PlayerPrefs.SetString(BLOOD, ON);
         }
     }
 
