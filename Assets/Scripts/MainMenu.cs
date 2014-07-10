@@ -43,14 +43,15 @@ public class MainMenu : MonoBehaviour
 
     void Awake()
     {
+        
         audioSource = GetComponent<AudioSource>();
         if (PlayerPrefs.GetString(MUSIC) == ON)
         {
-            audioSource.Play();
+            audioSource.mute = false;
         }
         else
         {
-            audioSource.Stop();
+            audioSource.mute = true;
         }
     }
 
