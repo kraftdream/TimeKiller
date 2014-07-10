@@ -41,9 +41,22 @@ public class MainMenu : MonoBehaviour
     private const String VIBRATE = "Vibrate";
     private const String BLOOD = "Blood";
 
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if (PlayerPrefs.GetString(MUSIC) == ON)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+        }
+    }
+
+    void Start()
+    {
+
         transMatrix = Matrix4x4.identity;
         positionVec = Vector3.zero;
 
