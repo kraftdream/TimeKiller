@@ -70,6 +70,7 @@ public class HeroControll : GameEntity
     private ScoreControll _scoreControll;
     private int _killsCount;
     private bool _isVibrateOn;
+    private Animator _shakeAnimator;
 
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
@@ -135,6 +136,7 @@ public class HeroControll : GameEntity
         _crySound.volume = 0.5f;
 
         _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
+        _shakeAnimator = _mainCamera.GetComponent<Animator>();
 
         _scoreControll = new ScoreControll();
 
@@ -229,7 +231,7 @@ public class HeroControll : GameEntity
             GameObjectAnimator.speed = 100;
             CanAttack = false;
             AttackSpeed = _defaultAttackSpeed;
-            _mainCamera.GetComponent<Animator>().SetBool("Shake", false);
+            _shakeAnimator.SetBool("Shake", false);
 
             _playerAttackSlash.SetActive(false);
         }
@@ -277,7 +279,7 @@ public class HeroControll : GameEntity
         if (!_collidedGameObject.audio.isPlaying && _collidedGameObject.activeInHierarchy && PlayerPrefs.GetString("Sound") != "Off")
             _collidedGameObject.audio.Play();
 
-        _mainCamera.GetComponent<Animator>().SetBool("Shake", true); 
+        _shakeAnimator.SetBool("Shake", true); 
 
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
         _comboText.Value = _comboText.Value + 1;
