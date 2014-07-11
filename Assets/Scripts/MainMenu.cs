@@ -14,8 +14,6 @@ public class MainMenu : MonoBehaviour
     private Rect _optionsVibrate;
     private Rect _optionsBlood;
 
-    private string _gameNameTxt = "Blade Hunter";
-
     private float _textCenterPoint;
 
     private const float _textSpeed = 2000.0f;
@@ -43,6 +41,12 @@ public class MainMenu : MonoBehaviour
     private const String VIBRATE = "Vibrate";
     private const String BLOOD = "Blood";
 
+    private const float WIDTH_SG = 1280;
+    private const float HEIGHT_SG = 720;
+
+    private float _koefX;
+    private float _koefY;
+
     void Awake()
     {
         
@@ -55,6 +59,9 @@ public class MainMenu : MonoBehaviour
         {
             audioSource.mute = true;
         }
+
+        _koefX = Screen.width / WIDTH_SG;
+        _koefY = Screen.height / HEIGHT_SG;
     }
 
     void Start()
@@ -63,34 +70,31 @@ public class MainMenu : MonoBehaviour
         transMatrix = Matrix4x4.identity;
         positionVec = Vector3.zero;
 
-        _gameName = new Rect(Screen.width / 2, Screen.height / 2 - 140, 150, 10);
-        _gameStart = new Rect(Screen.width / 2, Screen.height / 2, 150, 60);
-        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + 90, 150, 60);
-        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + 180, 150, 60);
+        _gameName = new Rect(Screen.width / 2, Screen.height / 2 - (140 * _koefY), (150 * _koefX), (10 * _koefY));
+        _gameStart = new Rect(Screen.width / 2, Screen.height / 2, (150 * _koefX), (60 * _koefY));
+        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + (90 * _koefY), (150 * _koefX), (60 * _koefY));
+        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + (180 * _koefY), (150 * _koefX), (60 * _koefY));
 
-        _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 - 160, 300, 50);
-        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 - 80, 300, 50);
-        _optionsVibrate = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2, 300, 50);
-        _optionsBlood = new Rect((Screen.width + (Screen.width / 2)) - 150, Screen.height / 2 + 80, 300, 50);
-        _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - 75, Screen.height / 2 + 240, 150, 50);
+        _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 - (160 * _koefY), (300 * _koefX), (50 * _koefY));
+        _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 - (80 * _koefY), (300 * _koefX), (50 * _koefY));
+        _optionsVibrate = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2, (300 * _koefX), (50 * _koefY));
+        _optionsBlood = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 + (80 * _koefY), (300 * _koefX), (50 * _koefY));
+        _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - (75 * _koefX), Screen.height / 2 + (240 * _koefY), (150 * _koefX), (50 * _koefY));
 
         _gameName.x = _gameOptions.x = -_screenOffset;
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
 
-        _textCenterPoint = GetCenterScreen(_gameStart.width);
+        _textCenterPoint = GetCenterScreen(_gameOptions.width);
 
-        CheckTextSize();
+        SetTextSize();
     }
 
-    void CheckTextSize()
+    void SetTextSize()
     {
-        Vector2 gameNameSize = gameNameStyle.CalcSize(new GUIContent(_gameNameTxt));
-        if (gameNameSize.x > Screen.width)
-        {
-            gameNameStyle.fontSize = 50;
-        } 
-
-        
+        float gameNameSize = gameNameStyle.fontSize *_koefX;
+        gameNameStyle.fontSize = (int) gameNameSize;
+        float optionsNameSize = gameButtonsStyle.fontSize * _koefX;
+        gameButtonsStyle.fontSize = (int) optionsNameSize;
     }
 
     void Update()
@@ -137,11 +141,7 @@ public class MainMenu : MonoBehaviour
         GUI.matrix = transMatrix;
 
         //Main Menu Screen
-        GUI.Label(_gameName, _gameNameTxt, gameNameStyle);
-
-//        Debug.Log(gameNameStyle.CalcSize(new GUIContent(_gameNameTxt)));
-
-        gameNameStyle.CalcSize(new GUIContent());
+        GUI.Label(_gameName, "Blade Hunter", gameNameStyle);
 
         GUI.skin.button = gameButtonsStyle;
 
