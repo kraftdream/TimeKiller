@@ -162,6 +162,7 @@ public class HeroControll : GameEntity
         {
             if (Health.Equals(0)) Time.timeScale = 1;
             Application.LoadLevel("MainMenu");
+            Time.timeScale = 1;
         }
     }
 
