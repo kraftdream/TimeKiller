@@ -160,6 +160,7 @@ public class HeroControll : GameEntity
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (Health.Equals(0)) Time.timeScale = 1;
             Application.LoadLevel("MainMenu");
         }
     }

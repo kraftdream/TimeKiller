@@ -14,6 +14,8 @@ public class MainMenu : MonoBehaviour
     private Rect _optionsVibrate;
     private Rect _optionsBlood;
 
+    private string _gameNameTxt = "Blade Hunter";
+
     private float _textCenterPoint;
 
     private const float _textSpeed = 2000.0f;
@@ -76,6 +78,19 @@ public class MainMenu : MonoBehaviour
         _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
 
         _textCenterPoint = GetCenterScreen(_gameStart.width);
+
+        CheckTextSize();
+    }
+
+    void CheckTextSize()
+    {
+        Vector2 gameNameSize = gameNameStyle.CalcSize(new GUIContent(_gameNameTxt));
+        if (gameNameSize.x > Screen.width)
+        {
+            gameNameStyle.fontSize = 50;
+        } 
+
+        
     }
 
     void Update()
@@ -122,7 +137,12 @@ public class MainMenu : MonoBehaviour
         GUI.matrix = transMatrix;
 
         //Main Menu Screen
-        GUI.Label(_gameName, "Blade Hunter", gameNameStyle);
+        GUI.Label(_gameName, _gameNameTxt, gameNameStyle);
+
+//        Debug.Log(gameNameStyle.CalcSize(new GUIContent(_gameNameTxt)));
+
+        gameNameStyle.CalcSize(new GUIContent());
+
         GUI.skin.button = gameButtonsStyle;
 
         if (GUI.Button(_gameStart, "Start"))
@@ -153,7 +173,7 @@ public class MainMenu : MonoBehaviour
             SwitchMusic();
         }
 
-        if (GUI.Button(_optionsVibrate, ChecVibrate()))
+        if (GUI.Button(_optionsVibrate, CheckVibrate()))
         {
             SwitchVibrate();
         }
@@ -234,7 +254,7 @@ public class MainMenu : MonoBehaviour
         return SOUND + " " + OFF;
     }
 
-    private string ChecVibrate()
+    private string CheckVibrate()
     {
         if (PlayerPrefs.HasKey(VIBRATE))
         {
