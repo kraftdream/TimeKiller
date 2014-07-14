@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,8 @@ public abstract class GameEntity : MonoBehaviour
     #region Input variables
 
     private const float _prepare_decrement = 0.01f;
+    private const int _blink_perion = 10;
+
     private bool _isBloodOn;
 
     [SerializeField]
@@ -33,6 +35,9 @@ public abstract class GameEntity : MonoBehaviour
 
     [SerializeField]
     private GameEntityState _state;
+
+    [SerializeField]
+    private float _blinkTime;
 
     [SerializeField]
     private float _prepareTime;
@@ -113,7 +118,21 @@ public abstract class GameEntity : MonoBehaviour
         get { return _prepareTime; }
         set { _prepareTime = value; }
     }
+
+    public float BlinkTime
+    {
+        get { return _blinkTime; }
+    }
+
     private bool _canAttack = true;
+    private float _blinkTimer = 0;
+    private float _blinkPeriod;
+    private bool _isBlink;
+
+    public bool IsBlink
+    {
+        get { return _isBlink; }
+    }
 
     public bool CanAttack
     {
@@ -154,6 +173,7 @@ public abstract class GameEntity : MonoBehaviour
         Health = DefaultHealth;
         _prepareDefault = _prepareTime;
         _currentDirection = Directions.Bottom;
+        _isBlink = false;
 
         SetBloodStatus();
     }
@@ -188,6 +208,9 @@ public abstract class GameEntity : MonoBehaviour
                 OnDeath();
                 break;
         }
+
+        if (_isBlink)
+            Blink();
     }
 
     GameEntityState GetCurrentState()
@@ -316,7 +339,6 @@ public abstract class GameEntity : MonoBehaviour
         objectAnimator.SetBool("Move", false);
         objectAnimator.SetBool("Prepare", false);
         objectAnimator.SetBool("Attack", false);
-        objectAnimator.SetBool("Blink", false);
     }
 
     public Vector2 GetMoveDirection(Vector2 startPoint, Vector2 endPoint)
@@ -375,5 +397,34 @@ public abstract class GameEntity : MonoBehaviour
         {
             _isBloodOn = true;
         }
+    }
+
+    public void StartBlink()
+    {
+        _isBlink = true;
+        _blinkTimer = 0;
+        _blinkPeriod = BlinkTime / _blink_perion;
+    }
+
+    void Blink()
+    {
+        _blinkTimer += Time.deltaTime;
+        Color color = renderer.material.color;
+
+        if (_blinkTimer < _blinkPeriod)
+            color.a -= 0.1f;
+        else
+        {
+            color.a = 1;
+			_blinkPeriod += BlinkTime / _blink_perion;
+        }
+
+        if (_blinkTimer > BlinkTime)
+        {
+            color.a = 1;
+            _isBlink = false;
+        }
+
+        renderer.material.color = color;
     }
 }

@@ -510,6 +510,14 @@ Prefab:
       propertyPath: _backgroundSound
       value: 
       objectReference: {fileID: 1334765499}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _defaultHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _blinkTime
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3113,7 +3121,6 @@ MonoBehaviour:
   - {fileID: 100000, guid: b051099d3c2955e4288eabdbcf276a79, type: 2}
   _player: {fileID: 2015788376}
   _distanceToPlayer: 5
-  _gameAIPercentage: 30
 --- !u!4 &1258020225
 Transform:
   m_ObjectHideFlags: 0
@@ -3532,6 +3539,7 @@ GameObject:
   - 114: {fileID: 1722200925}
   - 114: {fileID: 1722200928}
   - 114: {fileID: 1722200929}
+  - 114: {fileID: 1722200930}
   m_Layer: 8
   m_Name: GUI
   m_TagString: Untagged
@@ -3642,6 +3650,29 @@ MonoBehaviour:
   _marginLeft: 0
   _marginTop: 0
   _marginRight: .550000012
+  _marginBottom: 0
+--- !u!114 &1722200930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1722200924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textFont: {fileID: 12800000, guid: eeb9f6148a5b08a43965e9fabca539ae, type: 3}
+  _fontSize: 50
+  _defaultFontSize: 0
+  _textObjectName: Life
+  _screenPosition: 0
+  _value: -1
+  _valueText: Y Y Y
+  _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
+  _marginLeft: .300000012
+  _marginTop: 1
+  _marginRight: 0
   _marginBottom: 0
 --- !u!1001 &1771065969
 Prefab:
@@ -3766,7 +3797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 1
+  _defaultHealth: 3
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0
@@ -3774,6 +3805,7 @@ MonoBehaviour:
   _scorePoint: 0
   _attackDistance: 5
   _state: 0
+  _blinkTime: 2
   _prepareTime: 0
   _player: {fileID: 0}
   _deathBlood: {fileID: 799514645}

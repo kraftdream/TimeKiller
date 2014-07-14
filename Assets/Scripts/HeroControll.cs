@@ -45,6 +45,7 @@ public class HeroControll : GameEntity
 
     private My3DText _scoreText;
     private My3DText _comboText;
+    private My3DText _lifeText;
 
     private float _comboTime;
     private float _stopComboTime;
@@ -112,6 +113,8 @@ public class HeroControll : GameEntity
                 _scoreText = guiScripts;
             if (guiScripts.TextObjectName.Equals("Combo"))
                 _comboText = guiScripts;
+            if (guiScripts.TextObjectName.Equals("Life"))
+                _lifeText = guiScripts;
         }
 
         Vector3 targetWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
@@ -260,9 +263,9 @@ public class HeroControll : GameEntity
 			else if (State != GameEntityState.Attack && _collidedEnemyScript.State == GameEntityState.Attack)
             {
                 if (collisionObject.CompareTag("Enemy") && _collidedEnemyScript.renderer.bounds.Intersects(renderer.bounds))
-                    HeroDead();
+                    EnemyTochHero();
                 else if (_collidedEnemyScript.tag.Equals("ShootEnemy") && !_collidedEnemyScript.renderer.bounds.Intersects(renderer.bounds))
-                    HeroDead();
+                    EnemyTochHero();
                 else
                     _collidedEnemyScript.CollisionDetected = false;
             }
@@ -293,24 +296,33 @@ public class HeroControll : GameEntity
             _comboText.FontSize += 10;
     }
 
-    void HeroDead()
+    void EnemyTochHero()
     {
-        Health -= _collidedEnemyScript.Damage;
-        
-        _backgroundSound.pitch = 0.5f;
-        if (PlayerPrefs.GetString("Sound") != "Off")
+        if (!IsBlink)
+            Health -= _collidedEnemyScript.Damage;
+
+        if (Health <= 0)
         {
-            _crySound.Play();
-            _bloodSound.Play();
+            _backgroundSound.pitch = 0.5f;
+            if (PlayerPrefs.GetString("Sound") != "Off")
+            {
+                _crySound.Play();
+                _bloodSound.Play();
+            }
+            _scoreControll.SaveScore(_scoreText.Value);
+            StartCoroutine(DeathScreen());
+            RestartMenu();
+            HideJoystickAndGuiLayer();
+
+            base.OnDeath();
+
+            GameObjectAnimator.speed = 1;
         }
-        _scoreControll.SaveScore(_scoreText.Value);
-        StartCoroutine(DeathScreen());
-        RestartMenu();
-        HideJoystickAndGuiLayer();
-
-		base.OnDeath ();
-
-        GameObjectAnimator.speed = 1;
+        else if (!IsBlink)
+        {
+            StartBlink();
+            SetHeroLife(Health);
+        }
     }
 
     IEnumerator DeathScreen()
@@ -442,5 +454,14 @@ public class HeroControll : GameEntity
         {
             _attackToPosition = new Vector2(_attackToPosition.x, -_maxScreenHeight);
         }   
+    }
+
+    void SetHeroLife(float life)
+    {
+        _lifeText.ValueText = "";
+
+        for (int i = 0; i < life; i++)
+            _lifeText.ValueText += "Y ";
+        _lifeText.PlayAmination();
     }
 }
