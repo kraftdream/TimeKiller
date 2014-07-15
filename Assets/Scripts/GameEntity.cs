@@ -218,7 +218,7 @@ public abstract class GameEntity : MonoBehaviour
         float attackDistance = AttackDistance;
         float prepareTiming = PrepareTime;
 
-        if ((tag.Equals("Player") && !IsMoveJoystick && !CanAttack) || (Player != null && Player.Health <= 0))
+        if ((tag.Equals("Player") && !IsMoveJoystick && !CanAttack && Health > 0) || (Player != null && Player.Health <= 0 && Health > 0))
             return GameEntityState.Wait;
 
         if (Health <= 0)
@@ -251,6 +251,8 @@ public abstract class GameEntity : MonoBehaviour
     {
         GameObjectAnimator.speed = 1;
         SetDefaultAnimation(GameObjectAnimator);
+        _deathBlood.active = false;
+        _deathBlood.Clear();
     }
 
     protected virtual void OnMove()
@@ -263,7 +265,7 @@ public abstract class GameEntity : MonoBehaviour
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
 
-        if(_isBloodOn)
+        if (_isBloodOn)
             _deathBlood.active = true;
 
         if (!GameObjectAnimator.GetBool("Death"))
@@ -339,6 +341,7 @@ public abstract class GameEntity : MonoBehaviour
         objectAnimator.SetBool("Move", false);
         objectAnimator.SetBool("Prepare", false);
         objectAnimator.SetBool("Attack", false);
+        objectAnimator.SetBool("Death", false);
     }
 
     public Vector2 GetMoveDirection(Vector2 startPoint, Vector2 endPoint)
@@ -412,16 +415,24 @@ public abstract class GameEntity : MonoBehaviour
         Color color = renderer.material.color;
 
         if (_blinkTimer < _blinkPeriod)
+        {
             color.a -= 0.1f;
+            color.g = 0.3f;
+            color.b = 0.3f;
+        }
         else
         {
-            color.a = 1;
-			_blinkPeriod += BlinkTime / _blink_perion;
+            color.a = 1f;
+            color.g = 1f;
+            color.b = 1f;
+            _blinkPeriod += BlinkTime/_blink_perion;
         }
 
         if (_blinkTimer > BlinkTime)
         {
-            color.a = 1;
+            color.a = 1f;
+            color.g = 1f;
+            color.b = 1f;
             _isBlink = false;
         }
 

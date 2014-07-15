@@ -300,6 +300,7 @@ MonoBehaviour:
   _scorePoint: 15
   _attackDistance: 6
   _state: 0
+  _blinkTime: 0
   _prepareTime: 1
   _player: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   _deathBlood: {fileID: 19800000}

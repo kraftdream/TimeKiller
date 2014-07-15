@@ -519,6 +519,26 @@ Prefab:
       propertyPath: _blinkTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _hitAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ca2c3b2fe39cc7d488adbd6321105dc3, type: 3}
+    - target: {fileID: 21200000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _enemyCreator
+      value: 
+      objectReference: {fileID: 1258020223}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3594,6 +3614,7 @@ GameObject:
   - 114: {fileID: 1722200928}
   - 114: {fileID: 1722200929}
   - 114: {fileID: 1722200930}
+  - 114: {fileID: 1722200931}
   m_Layer: 8
   m_Name: GUI
   m_TagString: Untagged
@@ -3612,14 +3633,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
   _fontSize: 80
   _defaultFontSize: 0
   _textObjectName: Score
+  _isClickable: 0
   _screenPosition: 0
   _value: 0
   _valueText: 
   _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
+  _textColor: {r: 1, g: 1, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 0, w: 0}
   _marginLeft: 2
   _marginTop: .300000012
   _marginRight: 0
@@ -3647,14 +3674,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
   _fontSize: 70
   _defaultFontSize: 0
   _textObjectName: Combo
+  _isClickable: 0
   _screenPosition: 2
   _value: 0
   _valueText: 
   _guiAnimation: {fileID: 7400000, guid: 4086507e908dcb04fb30dc409257a7f2, type: 2}
+  _textColor: {r: 1, g: 1, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 0, w: 0}
   _marginLeft: 0
   _marginTop: .400000006
   _marginRight: 1
@@ -3670,14 +3703,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
   _fontSize: 50
   _defaultFontSize: 0
   _textObjectName: ScoreText
+  _isClickable: 0
   _screenPosition: 0
   _value: -1
   _valueText: 'score:'
   _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
+  _textColor: {r: 1, g: 1, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 0, w: 0}
   _marginLeft: .300000012
   _marginTop: .5
   _marginRight: 0
@@ -3693,14 +3732,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
   _fontSize: 50
   _defaultFontSize: 0
   _textObjectName: ComboText
+  _isClickable: 0
   _screenPosition: 2
   _value: -1
   _valueText: combo
   _guiAnimation: {fileID: 7400000, guid: 4086507e908dcb04fb30dc409257a7f2, type: 2}
+  _textColor: {r: 1, g: 1, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 0, w: 0}
   _marginLeft: 0
   _marginTop: 0
   _marginRight: .550000012
@@ -3716,15 +3761,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _textFont: {fileID: 12800000, guid: eeb9f6148a5b08a43965e9fabca539ae, type: 3}
   _fontSize: 50
   _defaultFontSize: 0
   _textObjectName: Life
+  _isClickable: 0
   _screenPosition: 0
   _value: -1
   _valueText: Y Y Y
   _guiAnimation: {fileID: 7400000, guid: 9adf2fbb914f3564da91965a49124d00, type: 2}
+  _textColor: {r: 1, g: 1, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 0, w: 0}
   _marginLeft: .300000012
+  _marginTop: 1
+  _marginRight: 0
+  _marginBottom: 0
+--- !u!114 &1722200931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1722200924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f001ede78695eed4e8d2d88681d08447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guiLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _textFont: {fileID: 12800000, guid: 8899e9dd161c50d45af610b2a6800a4d, type: 3}
+  _fontSize: 60
+  _defaultFontSize: 0
+  _textObjectName: Revive
+  _isClickable: 1
+  _screenPosition: 5
+  _value: -1
+  _valueText: 'BUY MORE HEALTH
+
+    +3  HEALTH'
+  _guiAnimation: {fileID: 7400000, guid: cad878789d8e497448009a8ddc28017c, type: 2}
+  _textColor: {r: .522058845, g: .98022306, b: 1, a: 1}
+  _rotateText: {x: 0, y: 0, z: 10, w: 60}
+  _marginLeft: -4
   _marginTop: 1
   _marginRight: 0
   _marginBottom: 0
@@ -3873,8 +3955,10 @@ MonoBehaviour:
   _playerAttackSlash: {fileID: 208660121}
   _attackAudioClip: {fileID: 8300000, guid: 8ba8bd01ea818ce4b98a7915570d97b3, type: 3}
   _bloodAudioClip: {fileID: 8300000, guid: 6d140a84e6580224597c577f46d36863, type: 3}
+  _hitAudioClip: {fileID: 8300000, guid: ca2c3b2fe39cc7d488adbd6321105dc3, type: 3}
   _cryAudioClip: {fileID: 8300000, guid: eaf9da192c3c4704c90b15dfbc29fcf9, type: 3}
   _backgroundSound: {fileID: 1334765499}
+  _enemyCreator: {fileID: 1258020223}
 --- !u!212 &2015788381
 SpriteRenderer:
   m_ObjectHideFlags: 0

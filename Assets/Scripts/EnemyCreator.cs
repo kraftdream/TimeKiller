@@ -36,6 +36,8 @@ public class EnemyCreator : MonoBehaviour
 
     private float _maxVisibleCount = 10f;
 
+    private bool _isCancel = false;
+
     public List<GameObject> EnemyList
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -72,14 +74,25 @@ public class EnemyCreator : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("CreateEnemy", Delay, Time); 
+        InvokeRepeating("CreateEnemy", Delay, Time);
+        _isCancel = false;
+    }
+
+    void Update()
+    {
+        if (_player.GetComponent<GameEntity>().Health <= 0 && !_isCancel)
+        {
+            _isCancel = true;
+            CancelInvoke("CreateEnemy");
+        }
+        if (_player.GetComponent<GameEntity>().Health > 0 && _isCancel)
+        {
+            Start();
+        }
     }
 
     private void CreateEnemy()
     {
-        if (_player.GetComponent<GameEntity>().Health <= 0)
-            CancelInvoke("CreateEnemy");
-
         if (EnemyList.Count(gameObj => gameObj.activeInHierarchy && gameObj.GetComponent<GameEntity>().State != GameEntityState.Death) < _maxVisibleCount)
             CreateEnemyByPriority();
     }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
@@ -38,14 +41,23 @@ public class HeroControll : GameEntity
     private AudioClip _bloodAudioClip;
 
     [SerializeField]
+    private AudioClip _hitAudioClip;
+
+    [SerializeField]
     private AudioClip _cryAudioClip;
 
     [SerializeField]
     private AudioSource _backgroundSound;
 
+    [SerializeField]
+    private GameObject _enemyCreator;
+
     private My3DText _scoreText;
     private My3DText _comboText;
     private My3DText _lifeText;
+    private My3DText _revivePlayerText;
+
+    private List<My3DText> _guiTexts;
 
     private float _comboTime;
     private float _stopComboTime;
@@ -75,6 +87,7 @@ public class HeroControll : GameEntity
 
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
+    private AudioSource _hitSound;
     private AudioSource _crySound;
 
     public float BorderLeftRightWitdh
@@ -106,15 +119,19 @@ public class HeroControll : GameEntity
 
         //combo will stop after 1 sec
         _stopComboTime = 1.0f;
+        _guiTexts = new List<My3DText>();
 
         foreach (My3DText guiScripts in _gui.GetComponents<My3DText>())
         {
+            _guiTexts.Add(guiScripts);
             if (guiScripts.TextObjectName.Equals("Score"))
                 _scoreText = guiScripts;
             if (guiScripts.TextObjectName.Equals("Combo"))
                 _comboText = guiScripts;
             if (guiScripts.TextObjectName.Equals("Life"))
                 _lifeText = guiScripts;
+            if (guiScripts.TextObjectName.Equals("Revive"))
+                _revivePlayerText = guiScripts;
         }
 
         Vector3 targetWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
@@ -123,7 +140,10 @@ public class HeroControll : GameEntity
         _maxScreenWidth = targetWidth.x - heroWidth;
         _maxScreenHeight = targetWidth.y - heroHeight;
 
-        _actionButton.OnBtnClick += new ActionButton.OnButtonClickListener(OnActionButtonClicked);
+        _revivePlayerText.OnTextClick += ReviveClick;
+        _revivePlayerText.IsVisible = false;
+
+        _actionButton.OnBtnClick += OnActionButtonClicked;
 
         _attackSound = gameObject.AddComponent<AudioSource>();
         _attackSound.clip = _attackAudioClip;
@@ -132,6 +152,9 @@ public class HeroControll : GameEntity
         _bloodSound = gameObject.AddComponent<AudioSource>();
         _bloodSound.clip = _bloodAudioClip;
         _bloodSound.pitch = 0.7f;
+
+        _hitSound = gameObject.AddComponent<AudioSource>();
+        _hitSound.clip = _hitAudioClip;
 
         _crySound = gameObject.AddComponent<AudioSource>();
         _crySound.clip = _cryAudioClip;
@@ -167,6 +190,9 @@ public class HeroControll : GameEntity
             Application.LoadLevel("MainMenu");
             Time.timeScale = 1;
         }
+
+        if (!State.Equals(GameEntityState.Attack))
+            _shakeAnimator.SetBool("Shake", IsBlink);
     }
 
     protected override void OnMove()
@@ -311,10 +337,8 @@ public class HeroControll : GameEntity
             }
             _scoreControll.SaveScore(_scoreText.Value);
             StartCoroutine(DeathScreen());
-            RestartMenu();
             HideJoystickAndGuiLayer();
-
-            base.OnDeath();
+            RestartMenu();
 
             GameObjectAnimator.speed = 1;
         }
@@ -322,6 +346,7 @@ public class HeroControll : GameEntity
         {
             StartBlink();
             SetHeroLife(Health);
+            _hitSound.Play();
         }
     }
 
@@ -340,6 +365,23 @@ public class HeroControll : GameEntity
         }
     }
 
+    void PlayerRevive()
+    {
+        RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
+
+        Time.timeScale = 1;
+        _backgroundSound.pitch = 1f;
+        _darkScreen.SetColor(COLOR_COMPONENT, new Color(1f, 1f, 1f, 0f));
+        ShowJoystickAndGuiLayer();
+        restartMenu.IsShowRestart = false;
+        _revivePlayerText.IsVisible = false;
+        Health = DefaultHealth;
+        StartBlink();
+        KillActiveMobs();
+        _shakeAnimator.SetBool("Shake", true);
+        SetHeroLife(DefaultHealth);
+    }
+
     void RestartMenu()
     {
         RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
@@ -348,11 +390,21 @@ public class HeroControll : GameEntity
         restartMenu.BestCombo = (int) _scoreControll.BestCombo;
 		restartMenu.GameScore = _scoreText.Value;
         restartMenu.GameBestScore = _scoreControll.GetBestScore();
+
+        _revivePlayerText.IsVisible = true;
+        _revivePlayerText.PlayAmination();
     }
 
     void HideJoystickAndGuiLayer()
     {
-        _guiCamera.enabled = false;
+        _guiTexts.ForEach(text => text.IsVisible = false);
+        _joystick.gameObject.transform.active = false;
+    }
+
+    void ShowJoystickAndGuiLayer()
+    {
+        _guiTexts.ForEach(text => text.IsVisible = true);
+        _joystick.gameObject.transform.active = true;
     }
 
     void DestroyBullet()
@@ -366,15 +418,6 @@ public class HeroControll : GameEntity
     protected override void OnBlink()
     {
 
-    }
-
-    void OnActionButtonClicked(object sender, EventArgs eventArgs)
-    {
-        if (State.Equals(GameEntityState.Move))
-        {
-            GameObjectAnimator.speed = 1;
-            CanAttack = true;
-        }
     }
 
     bool GetJoystickMove()
@@ -463,5 +506,30 @@ public class HeroControll : GameEntity
         for (int i = 0; i < life; i++)
             _lifeText.ValueText += "Y ";
         _lifeText.PlayAmination();
+    }
+
+    void KillActiveMobs()
+    {
+        foreach (var enemy in _enemyCreator.GetComponentsInChildren<GameEntity>())
+        {
+            if (!enemy.State.Equals(GameEntityState.Death) && enemy.active)
+            {
+                enemy.Health = 0;
+            }
+        }
+    }
+
+    void OnActionButtonClicked(object sender, EventArgs eventArgs)
+    {
+        if (State.Equals(GameEntityState.Move))
+        {
+            GameObjectAnimator.speed = 1;
+            CanAttack = true;
+        }
+    }
+
+    private void ReviveClick(object sender)
+    {
+        PlayerRevive();
     }
 }
