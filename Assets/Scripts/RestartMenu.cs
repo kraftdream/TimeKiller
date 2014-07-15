@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Runtime.InteropServices;
-using UnityEngine.SocialPlatforms;
 
 public class RestartMenu : MonoBehaviour
 {
@@ -15,10 +13,12 @@ public class RestartMenu : MonoBehaviour
     private Rect _gameCombo;
     private Rect _gameRestart;
     private Rect _gameMainMenu;
+    private Rect _gamePurchase;
 
     private const string MAIN_MENU = "MainMenu";
     private const string REPORT_SCORE = "Report Score";
     private const string RESTART = "Restart";
+    private const string PURCHASE_HEALTH = "Buy More Health";
 
     private float _textCenterPoint;
     private float _textWidth = 250.0f;
@@ -32,6 +32,14 @@ public class RestartMenu : MonoBehaviour
 
     private float _koefX;
     private float _koefY;
+
+    [SerializeField]
+    private PurchaseScript _purchase;
+    public PurchaseScript Purchase
+    {
+        get { return _purchase; }
+        set { _purchase = value; }
+    }
 
     public bool IsShowRestart
     {
@@ -79,6 +87,7 @@ public class RestartMenu : MonoBehaviour
         _gameMainMenu = new Rect((20 * _koefX), Screen.height - (70 * _koefY), GetTextWidth(MAIN_MENU), (50 * _koefY));
         _gameRestart = new Rect(Screen.width - (170 * _koefX), Screen.height - (70 * _koefY), GetTextWidth(RESTART), (50 * _koefY));
         _postResult = new Rect(Screen.width / 2 - (125 * _koefX), Screen.height - (70 * _koefX), GetTextWidth(REPORT_SCORE), (50 * _koefY));
+        _gamePurchase = new Rect(Screen.width / 2, Screen.height / 2 - (50 * _koefY), GetTextWidth(PURCHASE_HEALTH), (50 * _koefY));
         _gameOver = new Rect(_textCenterPoint, Screen.height / 2 - (180 * _koefY), _textWidth, (50 * _koefY));
         _gameKills = new Rect(_textCenterPoint / 2, Screen.height / 2 - (50 * _koefY), _textWidth, (50 * _koefY));
         _gameCombo = new Rect(_textCenterPoint / 2, Screen.height / 2 + (10 * _koefY), _textWidth, (50 * _koefY));
@@ -136,10 +145,16 @@ public class RestartMenu : MonoBehaviour
                     Application.LoadLevel("GameScene");
                 }
 
-                if(GUI.Button(_postResult, REPORT_SCORE))
+                if (GUI.Button(_postResult, REPORT_SCORE))
                 {
                     PostResults();
                 }
+
+                if (GUI.Button(_gamePurchase, PURCHASE_HEALTH))
+                {
+                    _purchase.BuyItem();                    
+                }
+
                 StopAllCoroutines();
             }
         }
