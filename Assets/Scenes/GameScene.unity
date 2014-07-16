@@ -512,7 +512,7 @@ Prefab:
       objectReference: {fileID: 1334765499}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _defaultHealth
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _blinkTime
@@ -542,6 +542,10 @@ Prefab:
       propertyPath: _purchase
       value: 
       objectReference: {fileID: 2026705840}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _reviveAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 143e2053b53c7594dab5a068b681474d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3935,7 +3939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 1
+  _defaultHealth: 3
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0
@@ -3959,6 +3963,7 @@ MonoBehaviour:
   _bloodAudioClip: {fileID: 8300000, guid: 6d140a84e6580224597c577f46d36863, type: 3}
   _hitAudioClip: {fileID: 8300000, guid: ca2c3b2fe39cc7d488adbd6321105dc3, type: 3}
   _cryAudioClip: {fileID: 8300000, guid: eaf9da192c3c4704c90b15dfbc29fcf9, type: 3}
+  _reviveAudioClip: {fileID: 8300000, guid: 143e2053b53c7594dab5a068b681474d, type: 3}
   _backgroundSound: {fileID: 1334765499}
   _enemyCreator: {fileID: 1258020223}
   _purchase: {fileID: 2026705840}
