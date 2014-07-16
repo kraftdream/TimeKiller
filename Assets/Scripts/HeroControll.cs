@@ -170,7 +170,7 @@ public class HeroControll : GameEntity
         _reviveSound = gameObject.AddComponent<AudioSource>();
         _reviveSound.clip = _reviveAudioClip;
         _reviveSound.pitch = 1.2f;
-        _reviveSound.volume = 1f;
+        _reviveSound.volume = 0.9f;
 
         _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
         _shakeAnimator = _mainCamera.GetComponent<Animator>();
@@ -357,7 +357,10 @@ public class HeroControll : GameEntity
         {
             StartBlink();
             SetHeroLife(Health);
-            _hitSound.Play();
+            if (PlayerPrefs.GetString("Sound") != "Off")
+            {
+                _hitSound.Play();
+            }
         }
     }
 
@@ -398,7 +401,11 @@ public class HeroControll : GameEntity
     public void PlayerRevive()
     {
         RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
-        _reviveSound.Play();
+        if (PlayerPrefs.GetString("Sound") != "Off")
+        {
+            _reviveSound.Play();
+        }
+
         _backgroundSound.pitch = 1f;
         ShowJoystickAndGuiLayer();
         StartCoroutine(ReviveScreen());
