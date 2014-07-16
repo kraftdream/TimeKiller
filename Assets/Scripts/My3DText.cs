@@ -222,11 +222,18 @@ public class My3DText: MyGUI
         {
             Vector2 touchVector = touchItem.position;
             touchVector.y = Screen.height - touchVector.y;
+            touchVector = Camera.main.ScreenToWorldPoint(touchVector);
+            
+            Rect tochArea = new Rect(TextObject.renderer.bounds.center.x - TextObject.renderer.bounds.size.x / 2,
+                TextObject.renderer.bounds.center.y + TextObject.renderer.bounds.size.y / 2,
+                TextObject.renderer.bounds.size.x, TextObject.renderer.bounds.size.y);
 
-            if (TextObject.renderer.bounds.Contains(touchVector))
+            if (tochArea.Contains(touchVector))
             {
                 if (touchItem.phase == TouchPhase.Began)
+                {
                     phaseBegan = true;
+                }
                 if (touchItem.phase == TouchPhase.Ended && phaseBegan)
                 {
                     phaseBegan = false;

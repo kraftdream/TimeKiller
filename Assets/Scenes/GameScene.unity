@@ -386,7 +386,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  _purchase: {fileID: 2026705840}
 --- !u!124 &341802883
 Behaviour:
   m_ObjectHideFlags: 0
@@ -513,7 +512,7 @@ Prefab:
       objectReference: {fileID: 1334765499}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _defaultHealth
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _blinkTime
@@ -539,6 +538,10 @@ Prefab:
       propertyPath: _enemyCreator
       value: 
       objectReference: {fileID: 1258020223}
+    - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
+      propertyPath: _purchase
+      value: 
+      objectReference: {fileID: 2026705840}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
   m_RootGameObject: {fileID: 2015788376}
@@ -3473,7 +3476,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  _purchase: {fileID: 0}
 --- !u!1 &1334765498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3800,7 +3802,7 @@ MonoBehaviour:
   _isClickable: 1
   _screenPosition: 5
   _value: -1
-  _valueText: 'BUY MORE HEALTH
+  _valueText: 'BUY  MORE  HEALTH
 
     +3  HEALTH'
   _guiAnimation: {fileID: 7400000, guid: cad878789d8e497448009a8ddc28017c, type: 2}
@@ -3933,7 +3935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 3
+  _defaultHealth: 1
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0
@@ -3959,6 +3961,7 @@ MonoBehaviour:
   _cryAudioClip: {fileID: 8300000, guid: eaf9da192c3c4704c90b15dfbc29fcf9, type: 3}
   _backgroundSound: {fileID: 1334765499}
   _enemyCreator: {fileID: 1258020223}
+  _purchase: {fileID: 2026705840}
 --- !u!212 &2015788381
 SpriteRenderer:
   m_ObjectHideFlags: 0

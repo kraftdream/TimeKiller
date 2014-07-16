@@ -72,7 +72,7 @@ public class PurchaseScript : MonoBehaviour
     }
     private void purchaseSucceededEvent(Purchase purchase)
     {
-        _player.Health = _player.DefaultHealth;
+        _player.GetComponent<HeroControll>().PlayerRevive();
         OpenIAB.consumeProduct(purchase);
     }
     private void purchaseFailedEvent(int errorCode, string errorMessage)

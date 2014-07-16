@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
@@ -47,10 +46,16 @@ public class HeroControll : GameEntity
     private AudioClip _cryAudioClip;
 
     [SerializeField]
+    private AudioClip _reviveAudioClip;
+
+    [SerializeField]
     private AudioSource _backgroundSound;
 
     [SerializeField]
     private GameObject _enemyCreator;
+
+    [SerializeField]
+    private PurchaseScript _purchase;
 
     private My3DText _scoreText;
     private My3DText _comboText;
@@ -89,6 +94,7 @@ public class HeroControll : GameEntity
     private AudioSource _bloodSound;
     private AudioSource _hitSound;
     private AudioSource _crySound;
+    private AudioSource _reviveSound;
 
     public float BorderLeftRightWitdh
     {
@@ -160,6 +166,11 @@ public class HeroControll : GameEntity
         _crySound.clip = _cryAudioClip;
         _crySound.pitch = 0.5f;
         _crySound.volume = 0.5f;
+
+        _reviveSound = gameObject.AddComponent<AudioSource>();
+        _reviveSound.clip = _reviveAudioClip;
+        _reviveSound.pitch = 1.2f;
+        _reviveSound.volume = 1f;
 
         _darkScreen = _mainCamera.GetComponentInChildren<Renderer>().material;
         _shakeAnimator = _mainCamera.GetComponent<Animator>();
@@ -365,14 +376,32 @@ public class HeroControll : GameEntity
         }
     }
 
-    void PlayerRevive()
+    IEnumerator ReviveScreen()
+    {
+        _darkScreen.color = new Color(1f, 1f, 1f, 0f);
+        Color color = _darkScreen.GetColor(COLOR_COMPONENT);
+
+        while (color.a <= 1f)
+        {
+            yield return new WaitForEndOfFrame();
+            color.a = color.a + 0.01f;
+            _darkScreen.SetColor(COLOR_COMPONENT, color);
+
+            if (Time.timeScale < 1f)
+                Time.timeScale += 0.001f;
+
+        }
+        _darkScreen.color = new Color(0f, 0f, 0f, 0f);
+        Time.timeScale = 1;
+    }
+
+    public void PlayerRevive()
     {
         RestartMenu restartMenu = _guiCamera.GetComponent<RestartMenu>();
-
-        Time.timeScale = 1;
+        _reviveSound.Play();
         _backgroundSound.pitch = 1f;
-        _darkScreen.SetColor(COLOR_COMPONENT, new Color(1f, 1f, 1f, 0f));
         ShowJoystickAndGuiLayer();
+        StartCoroutine(ReviveScreen());
         restartMenu.IsShowRestart = false;
         _revivePlayerText.IsVisible = false;
         Health = DefaultHealth;
@@ -530,6 +559,6 @@ public class HeroControll : GameEntity
 
     private void ReviveClick(object sender)
     {
-        PlayerRevive();
+        _purchase.BuyItem();
     }
 }
