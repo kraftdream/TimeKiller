@@ -152,7 +152,6 @@ public class MainMenu : MonoBehaviour
 
         if (GUI.Button(_gameOptions, "Options"))
         {
-            Mixpanel.SendEvent(AnalyticsEvents.SHOW_OPTIONS);
             options = true;
             back = false;
         }

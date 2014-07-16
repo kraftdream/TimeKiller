@@ -72,6 +72,8 @@ public class PurchaseScript : MonoBehaviour
              _player.GetComponent<HeroControll>().PlayerRevive();
             OpenIAB.consumeProduct(purchase);
         }
+
+        Mixpanel.SendEvent(AnalyticsEvents.PURCHASE_HEALTH);
     }
     private void purchaseFailedEvent(int errorCode, string errorMessage)
     {
