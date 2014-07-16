@@ -512,7 +512,7 @@ Prefab:
       objectReference: {fileID: 1334765499}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _defaultHealth
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d2f733a509f97cc42835108a4d90b0e5, type: 2}
       propertyPath: _blinkTime
@@ -671,6 +671,10 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 2015788379}
+    - target: {fileID: 100000, guid: 90e394b0ec6b04c40a2ae2ae5977cd91, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90e394b0ec6b04c40a2ae2ae5977cd91, type: 2}
   m_RootGameObject: {fileID: 2026705837}
@@ -3939,7 +3943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54cea604bcf7664b814d3f07d4bb790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 3
+  _defaultHealth: 1
   _moveSpeed: 5
   _attackSpeed: 12
   _armour: 0
