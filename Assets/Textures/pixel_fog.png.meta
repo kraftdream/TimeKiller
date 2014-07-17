@@ -1,6 +1,8 @@
 fileFormatVersion: 2
 guid: 13ac570b94fc5e34f8ffaa80df776442
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: pixel_fog
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

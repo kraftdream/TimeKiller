@@ -1,6 +1,40 @@
 fileFormatVersion: 2
 guid: 2a34691585628f84fa0d064bb100f859
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: spider_0
+    21300002: spider_1
+    21300004: spider_2
+    21300006: spider_3
+    21300008: spider_4
+    21300010: spider_5
+    21300012: spider_6
+    21300014: spider_7
+    21300016: spider_8
+    21300018: spider_9
+    21300020: spider_10
+    21300022: spider_11
+    21300024: spider_12
+    21300026: spider_13
+    21300028: spider_14
+    21300030: spider_15
+    21300032: spider_16
+    21300034: spider_17
+    21300036: spider_18
+    21300038: spider_19
+    21300040: spider_20
+    21300042: spider_21
+    21300044: spider_22
+    21300046: spider_23
+    21300048: spider_24
+    21300050: spider_25
+    21300052: spider_26
+    21300054: spider_27
+    21300056: spider_28
+    21300058: spider_29
+    21300060: spider_30
+    21300062: spider_31
+    21300064: spider_32
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

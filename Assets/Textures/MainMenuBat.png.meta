@@ -1,6 +1,13 @@
 fileFormatVersion: 2
 guid: 863762daed4aca44db2700e6c03bd688
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: MainMenuBat_0
+    21300002: MainMenuBat_1
+    21300004: MainMenuBat_2
+    21300006: MainMenuBat_3
+    21300008: MainMenuBat_4
+    21300010: MainMenuBat_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

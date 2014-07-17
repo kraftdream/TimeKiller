@@ -1,6 +1,40 @@
 fileFormatVersion: 2
 guid: bbba8581a98cd0440bb3c97b036f6f1d
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: caracter_0
+    21300002: caracter_1
+    21300004: caracter_2
+    21300006: caracter_3
+    21300008: caracter_4
+    21300010: caracter_5
+    21300012: caracter_6
+    21300014: caracter_7
+    21300016: caracter_8
+    21300018: caracter_9
+    21300020: caracter_10
+    21300022: caracter_11
+    21300024: caracter_12
+    21300026: caracter_13
+    21300028: caracter_14
+    21300030: caracter_15
+    21300032: caracter_16
+    21300034: caracter_17
+    21300036: caracter_18
+    21300038: caracter_19
+    21300040: caracter_20
+    21300042: caracter_21
+    21300044: caracter_22
+    21300046: caracter_23
+    21300048: caracter_24
+    21300050: caracter_25
+    21300052: caracter_26
+    21300054: caracter_27
+    21300056: caracter_28
+    21300058: caracter_29
+    21300060: caracter_30
+    21300062: caracter_31
+    21300064: caracter_32
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -1,6 +1,37 @@
 fileFormatVersion: 2
 guid: 403729e84a1d2d04aa60e9573cbe7bfb
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: vampire 1_0
+    21300002: vampire 1_1
+    21300004: vampire 1_2
+    21300006: vampire 1_3
+    21300008: vampire 1_4
+    21300010: vampire 1_5
+    21300012: vampire 1_6
+    21300014: vampire 1_7
+    21300016: vampire 1_8
+    21300018: vampire 1_9
+    21300020: vampire 1_10
+    21300022: vampire 1_11
+    21300024: vampire 1_12
+    21300026: vampire 1_13
+    21300028: vampire 1_14
+    21300030: vampire 1_15
+    21300032: vampire 1_16
+    21300034: vampire 1_17
+    21300036: vampire 1_18
+    21300038: vampire 1_19
+    21300040: vampire 1_20
+    21300042: vampire 1_21
+    21300044: vampire 1_22
+    21300046: vampire 1_23
+    21300048: vampire 1_24
+    21300050: vampire 1_25
+    21300052: vampire 1_26
+    21300054: vampire 1_27
+    21300056: vampire 1_28
+    21300058: vampire 1_29
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
