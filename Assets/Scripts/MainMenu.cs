@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
-	private Rect _testRect;
+	private Rect _testVar;
     private Rect _gameName;
     private Rect _gameStart;
     private Rect _gameOptions;
