@@ -156,20 +156,21 @@ public class MainMenu : MonoBehaviour
         {
             Application.LoadLevel("GameScene");
         }
-        if (!Social.localUser.authenticated)
-        {
-            if (GUI.Button(_gameAchievements, "Sign In"))
-            {
-                Social.localUser.Authenticate(OnLoginSuccess);
-            }
-        }
-        else
+        if (Social.localUser.authenticated)
         {
             if (GUI.Button(_gameAchievements, "Achievements"))
             {
                 Social.ShowAchievementsUI();
             }
         }
+        else
+        {
+            if (GUI.Button(_gameAchievements, "Sign In"))
+            {
+                Social.localUser.Authenticate(OnLoginSuccess);
+            }
+        }
+
         if (GUI.Button(_gameOptions, "Options"))
         {
             options = true;

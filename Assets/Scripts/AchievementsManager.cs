@@ -44,10 +44,7 @@ public class AchievementsManager : MonoBehaviour
         {
             PlayerPrefs.SetString(achievementName, UNLOCKED);
             AchievementUnlocked(achievement);
-            if (Social.localUser.authenticated)
-            {
-                Social.ReportProgress(KILLVAMPIRES_ID, 100.0, OnUnlockAC);
-            }
+            Social.ReportProgress(KILLVAMPIRES_ID, 100.0, OnUnlockAC);
         }
     }
 
