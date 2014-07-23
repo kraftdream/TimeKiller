@@ -124,6 +124,7 @@ public abstract class GameEntity : MonoBehaviour
         get { return _blinkTime; }
     }
 
+    protected bool callOnce;
     private bool _canAttack = true;
     private float _blinkTimer = 0;
     private float _blinkPeriod;
@@ -155,7 +156,6 @@ public abstract class GameEntity : MonoBehaviour
         get { return _bulletObject; }
         set { _bulletObject = value; }
     }
-
 
     public GameEntity Player
     {
@@ -260,7 +260,7 @@ public abstract class GameEntity : MonoBehaviour
 
     }
 
-    protected void OnDeath()
+    protected virtual void OnDeath()
     {
         if (GameObjectAnimator.speed > 50)
             GameObjectAnimator.speed = 1;
@@ -287,6 +287,7 @@ public abstract class GameEntity : MonoBehaviour
     {
         gameObject.SetActive(false);
         _deathBlood.active = false;
+        callOnce = false;
         SetDefaultAnimation(GameObjectAnimator);
         PrepareTime = _prepareDefault;
         Health = DefaultHealth;

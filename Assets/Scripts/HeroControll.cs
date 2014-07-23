@@ -90,6 +90,8 @@ public class HeroControll : GameEntity
     private bool _isVibrateOn;
     private Animator _shakeAnimator;
 
+    public int _bonusCombo = 1;
+
     private AudioSource _attackSound;
     private AudioSource _bloodSound;
     private AudioSource _hitSound;
@@ -106,6 +108,12 @@ public class HeroControll : GameEntity
     {
         get { return borderUpDownWitdh; }
         set { borderUpDownWitdh = value; }
+    }
+
+    public int BonusCombo
+    {
+        get { return _bonusCombo; }
+        set { _bonusCombo = value; }
     }
 
     #endregion
@@ -324,7 +332,7 @@ public class HeroControll : GameEntity
         _shakeAnimator.SetBool("Shake", true); 
 
         _scoreText.Value = _collidedEnemyScript.ScorePoint + _scoreText.Value + _comboText.Value;
-        _comboText.Value = _comboText.Value + 1;
+        _comboText.Value = (_comboText.Value + 1) * BonusCombo;
         _comboTime = Time.time;
         _scoreText.PlayAmination();
         _comboText.PlayAmination();
@@ -567,5 +575,9 @@ public class HeroControll : GameEntity
     private void ReviveClick(object sender)
     {
         _purchase.BuyItem();
+    }
+    public void RemoveBonuses()
+    {
+        _bonusCombo = 1;
     }
 }

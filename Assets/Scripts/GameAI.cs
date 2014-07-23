@@ -23,6 +23,16 @@ public class GameAI : GameEntity
         ChangeAnimationDirection(GameObjectAnimator, movePosition);
     }
 
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        if (!callOnce)
+        {
+            callOnce = true;
+            AchievementsManager.GetInstance().ReportAchievementProgress("KillVampires", 1);
+        }
+    }
+
     protected override void OnAttack()
     {
         MoveToWorldPoint(_attackToPosition.x, _attackToPosition.y, AttackSpeed);
