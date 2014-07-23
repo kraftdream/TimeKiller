@@ -3632,6 +3632,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ddf60d580ff9047a2eb65ae6054018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1564242854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1564242856}
+  - 114: {fileID: 1564242855}
+  m_Layer: 0
+  m_Name: AchievementsManager
+  m_TagString: AchievementsManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1564242855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1564242854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35871a8acc1a4849aa860165b8776ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 2015788379}
+--- !u!4 &1564242856
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1564242854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &1664330216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4021,6 +4061,7 @@ MonoBehaviour:
   _backgroundSound: {fileID: 1334765499}
   _enemyCreator: {fileID: 1258020223}
   _purchase: {fileID: 1283056857}
+  _bonusCombo: 1
 --- !u!212 &2015788381
 SpriteRenderer:
   m_ObjectHideFlags: 0

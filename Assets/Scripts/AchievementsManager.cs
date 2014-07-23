@@ -10,6 +10,9 @@ public class AchievementsManager : MonoBehaviour
     public HeroControll hero;
     private const String LOCKED = "Locked";
     private const String UNLOCKED = "Unlocked";
+
+    private const String KILLVAMPIRES_ID = "CgkIoML55u0ZEAIQAw";
+
     private Achievement[] achievements;
     public delegate void OnAchievementUnlocked (Achievement achievement);
     public event OnAchievementUnlocked AchievementUnlocked;
@@ -26,7 +29,7 @@ public class AchievementsManager : MonoBehaviour
         {
             instance = this;
         }
-        achievements = new []{ new KillVampires("KillVampires", 5, hero) };
+        achievements = new []{ new KillVampires("KillVampires", 10, hero) };
     }
 
     public static AchievementsManager GetInstance()
@@ -41,6 +44,10 @@ public class AchievementsManager : MonoBehaviour
         {
             PlayerPrefs.SetString(achievementName, UNLOCKED);
             AchievementUnlocked(achievement);
+            if (Social.localUser.authenticated)
+            {
+                Social.ReportProgress(KILLVAMPIRES_ID, 100.0, OnUnlockAC);
+            }
         }
     }
 
@@ -57,5 +64,10 @@ public class AchievementsManager : MonoBehaviour
             achivement.AddBonus();
             UnlockAchievement(achivement);
         }
+    }
+
+    public void OnUnlockAC(bool result)
+    {
+        Debug.Log("GPGUI: OnUnlockAC " + result);
     }
 }

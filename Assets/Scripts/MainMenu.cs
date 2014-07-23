@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
 
 public class MainMenu : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class MainMenu : MonoBehaviour
     private Rect _gameName;
     private Rect _gameStart;
     private Rect _gameOptions;
+    private Rect _gameAchievements;
+    private Rect _gameSignIn;
     private Rect _gameExit;
     private Rect _optionsBack;
     private Rect _optionsSound;
@@ -73,8 +76,10 @@ public class MainMenu : MonoBehaviour
 
         _gameName = new Rect(Screen.width / 2, Screen.height / 2 - (140 * _koefY), (150 * _koefX), (10 * _koefY));
         _gameStart = new Rect(Screen.width / 2, Screen.height / 2, (150 * _koefX), (60 * _koefY));
-        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + (90 * _koefY), (150 * _koefX), (60 * _koefY));
-        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + (180 * _koefY), (150 * _koefX), (60 * _koefY));
+        _gameOptions = new Rect(Screen.width / 2, Screen.height / 2 + (70 * _koefY), (150 * _koefX), (60 * _koefY));
+        _gameAchievements = new Rect(Screen.width / 2, Screen.height / 2 + (140 * _koefY), (150 * _koefX), (60 * _koefY));
+        _gameExit = new Rect(Screen.width / 2, Screen.height / 2 + (210 * _koefY), (150 * _koefX), (60 * _koefY));
+
 
         _optionsMusic = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 - (160 * _koefY), (300 * _koefX), (50 * _koefY));
         _optionsSound = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 - (80 * _koefY), (300 * _koefX), (50 * _koefY));
@@ -82,8 +87,8 @@ public class MainMenu : MonoBehaviour
         _optionsBlood = new Rect((Screen.width + (Screen.width / 2)) - (150 * _koefX), Screen.height / 2 + (80 * _koefY), (300 * _koefX), (50 * _koefY));
         _optionsBack = new Rect((Screen.width + (Screen.width / 2)) - (75 * _koefX), Screen.height / 2 + (240 * _koefY), (150 * _koefX), (50 * _koefY));
 
-        _gameName.x = _gameOptions.x = -_screenOffset;
-        _gameStart.x = _gameExit.x = Screen.width + _screenOffset;
+        _gameName.x = _gameOptions.x = _gameExit.x = _gameAchievements.x = -_screenOffset;
+        _gameStart.x = _gameAchievements.x = Screen.width + _screenOffset;
 
         _textCenterPoint = GetCenterScreen(_gameOptions.width);
 
@@ -150,7 +155,20 @@ public class MainMenu : MonoBehaviour
         {
             Application.LoadLevel("GameScene");
         }
-
+        if (!Social.localUser.authenticated)
+        {
+            if (GUI.Button(_gameAchievements, "Sign In"))
+            {
+                Social.localUser.Authenticate(OnLoginSuccess);
+            }
+        }
+        else
+        {
+            if (GUI.Button(_gameAchievements, "Achievements"))
+            {
+                Social.ShowAchievementsUI();
+            }
+        }
         if (GUI.Button(_gameOptions, "Options"))
         {
             options = true;
@@ -341,7 +359,14 @@ public class MainMenu : MonoBehaviour
 
         yield return new WaitForSeconds(_delayTime);
 
-        if (_textCenterPoint <= _gameExit.x)
+        if (_textCenterPoint <= _gameAchievements.x)
+        {
+            _gameAchievements.x = Mathf.MoveTowards(_gameAchievements.x, _textCenterPoint, Time.deltaTime * _textSpeed);
+        }
+
+        yield return new WaitForSeconds(_delayTime);
+
+        if (_textCenterPoint >= _gameExit.x)
         {
             _gameExit.x = Mathf.MoveTowards(_gameExit.x, _textCenterPoint, Time.deltaTime * _textSpeed);
         }
@@ -350,5 +375,21 @@ public class MainMenu : MonoBehaviour
     private float GetCenterScreen(float textWidth)
     {
         return Screen.width / 2 - (textWidth / 2);
+    }
+
+    void OnLoginSuccess(bool result)
+    {
+        Social.LoadAchievements(OnLoadAC);
+        Social.LoadAchievementDescriptions(OnLoadACDesc);
+    }
+
+    public void OnLoadAC(IAchievement[] achievements)
+    {
+        Debug.Log("GPGUI: Loaded Achievements: " + achievements.Length);
+    }
+
+    public void OnLoadACDesc(IAchievementDescription[] acDesc)
+    {
+        Debug.Log("GPGUI: Loaded Achievement Description: " + acDesc.Length);
     }
 }
