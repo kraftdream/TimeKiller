@@ -73,7 +73,7 @@ public class RestartMenu : MonoBehaviour
         SetTextSize();
 
         _textCenterPoint = GetCenterScreen(_textWidth);
-		Social.Active = new UnityEngine.SocialPlatforms.GPGSocial();
+		
 
         _gameMainMenu = new Rect((20 * _koefX), Screen.height - (70 * _koefY), GetTextWidth(MAIN_MENU), (50 * _koefY));
         _gameRestart = new Rect(Screen.width - (170 * _koefX), Screen.height - (70 * _koefY), GetTextWidth(RESTART), (50 * _koefY));
@@ -147,13 +147,7 @@ public class RestartMenu : MonoBehaviour
 
 	private void PostResults() 
 	{
-		Social.localUser.Authenticate(OnLoginSuccess);
-	}
-
-	void OnLoginSuccess(bool result)
-	{
-		if (result) 
-			Social.ReportScore(GameScore, _leaderBoardID, OnReportResult);
+        Social.ReportScore(GameScore, _leaderBoardID, OnReportResult);
 	}
 
     private void OnReportResult(bool result)

@@ -70,6 +70,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Social.Active = new UnityEngine.SocialPlatforms.GPGSocial();
 
         transMatrix = Matrix4x4.identity;
         positionVec = Vector3.zero;
